@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://c8u4ykrvpkt03"]
+
+[ext_resource type="Texture2D" uid="uid://7prd1xaq43fm" path="res://icon.svg" id="1_geawq"]
+
+[sub_resource type="GDScript" id="GDScript_ah1ad"]
+script/source = "extends Area2D
+
+var direction = Vector2(0, 0)
+var speed = 0
+
+func _ready():
+	pass # Replace with function body.
+
+
+func _process(delta):
+	pass
+
+
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7shs1"]
+radius = 28.1603
+
+[node name="Item" type="Area2D"]
+linear_damp = 0.2
+script = SubResource("GDScript_ah1ad")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_geawq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_7shs1")

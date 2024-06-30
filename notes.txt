@@ -1,0 +1,34 @@
+Outlining this game:
+- Theme?
+- Mechanic: throwing
+- Rougelike
+- Upgrade during run
+- Survive for as long as possible
+
+General problems:
+- screen size and scaling
+- art
+- getting satisfying good movement (cuphead, mario, helldivers2)
+- throwing collision with player
+
+Good chatgpt theme idea:
+Garden Gnome Gladiators:
+	Theme: Garden gnomes come to life and engage in playful combat.
+	Setting: Garden, backyard, flower beds.
+	Enemies: Rival gnomes, mischievous animals, garden pests.
+	Weapons: Tiny shovels, pebbles, garden hose, flower pots.
+
+Create a tileset and use wave function collapse to assemble the map
+Tiles have a black background and pixelart similar to dwarf fortress's ascii tileset
+
+How can we make characters that look good on that tileset?
+- Maybe use light/white outlines
+
+
+Art:
+- create a color palette
+- create a tile set
+- create a player sprite
+- create a item sprite
+- enemy sprite
+- projectile sprite

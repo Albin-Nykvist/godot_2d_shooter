@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://c2s4psj16kfug"]
+
+[ext_resource type="Script" path="res://Player.gd" id="1_n2dil"]
+[ext_resource type="Texture2D" uid="uid://7prd1xaq43fm" path="res://icon.svg" id="2_yiyef"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_otuex"]
+size = Vector2(128, 132)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tfo3i"]
+radius = 128.269
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_n2dil")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_yiyef")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(0.5, 0.5)
+shape = SubResource("RectangleShape2D_otuex")
+
+[node name="PickUpRange" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickUpRange"]
+shape = SubResource("CircleShape2D_tfo3i")
+
+[connection signal="area_entered" from="PickUpRange" to="." method="_on_pick_up_range_area_entered"]
+[connection signal="area_exited" from="PickUpRange" to="." method="_on_pick_up_range_area_exited"]

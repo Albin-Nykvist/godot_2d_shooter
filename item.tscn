@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://c8u4ykrvpkt03"]
+
+[ext_resource type="Texture2D" uid="uid://cemgx0a6g2nnj" path="res://assets/urn.png" id="1_rwd5p"]
+
+[sub_resource type="GDScript" id="GDScript_ah1ad"]
+script/source = "extends Area2D
+
+func _ready():
+	name = \"Item\"
+
+
+func _process(delta):
+	pass
+
+
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7shs1"]
+radius = 32.0156
+
+[node name="Item" type="Area2D"]
+linear_damp = 0.2
+script = SubResource("GDScript_ah1ad")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["Items"]]
+shape = SubResource("CircleShape2D_7shs1")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_rwd5p")

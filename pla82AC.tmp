@@ -1,0 +1,51 @@
+[gd_scene load_steps=8 format=3 uid="uid://c2s4psj16kfug"]
+
+[ext_resource type="Script" path="res://Player.gd" id="1_n2dil"]
+[ext_resource type="Texture2D" uid="uid://coqca8tfhlpjf" path="res://assets/flower.png" id="2_73xfg"]
+[ext_resource type="Texture2D" uid="uid://ca5k13bkvo7m3" path="res://assets/flower_walk.png" id="3_uq258"]
+[ext_resource type="Texture2D" uid="uid://dds0n0h4ntkuf" path="res://rock.png" id="4_nfa2o"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hyw7i"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_73xfg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_uq258")
+}],
+"loop": true,
+"name": &"default",
+"speed": 2.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uonrd"]
+size = Vector2(80, 128)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tfo3i"]
+radius = 41.0488
+
+[node name="Player" type="CharacterBody2D" groups=["players"]]
+z_index = 10
+script = ExtResource("1_n2dil")
+
+[node name="CharacterSprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_hyw7i")
+autoplay = "default"
+frame_progress = 0.192982
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(0.5, 0.5)
+shape = SubResource("RectangleShape2D_uonrd")
+
+[node name="PickUpRange" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickUpRange"]
+shape = SubResource("CircleShape2D_tfo3i")
+
+[node name="HeldItemSprite" type="Sprite2D" parent="."]
+position = Vector2(-31, -40)
+texture = ExtResource("4_nfa2o")
+
+[connection signal="area_entered" from="PickUpRange" to="." method="_on_pick_up_range_area_entered"]
+[connection signal="area_exited" from="PickUpRange" to="." method="_on_pick_up_range_area_exited"]
