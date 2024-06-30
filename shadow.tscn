@@ -5,7 +5,7 @@
 
 [node name="Shadow" type="Sprite2D"]
 modulate = Color(0, 0, 0, 0.25098)
-z_index = -9
+z_index = -1
 scale = Vector2(0.25, 0.1)
 texture = ExtResource("1_bux0f")
 script = ExtResource("2_oxjw0")

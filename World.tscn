@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://bwfl0rb2jag4s" path="res://white.png" id="5_ecgle"]
 
 [node name="World" type="Node2D"]
+y_sort_enabled = true
 script = ExtResource("1_53qy7")
 
 [node name="Player" parent="." instance=ExtResource("1_0xy26")]

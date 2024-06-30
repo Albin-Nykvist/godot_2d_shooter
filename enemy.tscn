@@ -19,12 +19,12 @@ animations = [{
 "speed": 2.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_l7b0q"]
-size = Vector2(38, 47)
+[sub_resource type="CircleShape2D" id="CircleShape2D_8bd8k"]
+radius = 15.5322
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_eokyj"]
-radius = 32.0
-height = 72.0
+radius = 21.0
+height = 52.0
 
 [node name="Enemy" type="CharacterBody2D" groups=["enemies"]]
 collision_layer = 4
@@ -38,8 +38,8 @@ autoplay = "default"
 [node name="Shadow" parent="CharacterSprite" instance=ExtResource("3_xyfbr")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-1, 3.5)
-shape = SubResource("RectangleShape2D_l7b0q")
+position = Vector2(0, 15)
+shape = SubResource("CircleShape2D_8bd8k")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 2

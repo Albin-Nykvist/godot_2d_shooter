@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cemgx0a6g2nnj" path="res://assets/urn.png" id="2_agr4h"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_oej32"]
-radius = 50.111
+radius = 42.0476
 
 [node name="Projectile" type="CharacterBody2D" groups=["projectiles"]]
 collision_layer = 2

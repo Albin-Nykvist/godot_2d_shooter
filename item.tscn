@@ -20,7 +20,6 @@ func _process(delta):
 radius = 32.0156
 
 [node name="Item" type="Area2D"]
-z_index = -2
 linear_damp = 0.2
 script = SubResource("GDScript_ah1ad")
 
