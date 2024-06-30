@@ -7,7 +7,7 @@ var projectile_scene = preload("res://projectile.tscn")
 @onready var item_sprite = $HeldItemSprite
 @onready var character_sprite = $CharacterSprite
 
-var speed = 200.0
+var speed = 300.0
 
 var reachable_items = []
 var held_item = null

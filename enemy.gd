@@ -1,7 +1,7 @@
 extends CharacterBody2D
 class_name Enemy
 
-@export var max_health = 30.0
+@export var max_health = 20.0
 @export var health = 0.0 # set in the ready function
 @export var speed = 50.0
 @export var damage = 10.0
@@ -9,19 +9,31 @@ class_name Enemy
 
 @export var attack_target: Node = null
 
+@onready var character_sprite = $CharacterSprite
+
 func _ready():
 	health = max_health
+	character_sprite.speed_scale = 1.0 + ((-2 + randi() % 5) * 0.1)
 
 func _physics_process(delta):
+	var margin = 20.0
+	
 	if attack_target:
-		if position.x < attack_target.position.x:
+		if position.x > attack_target.position.x - margin and  position.x < attack_target.position.x + margin:
+			direction.x = 0.0
+		elif position.x < attack_target.position.x - margin:
 			direction.x = 1.0
-		elif position.x > attack_target.position.x:
+			character_sprite.flip_h = true
+		elif position.x > attack_target.position.x + margin:
 			direction.x = -1.0
-		if position.y < attack_target.position.y:
+			character_sprite.flip_h = false
+		if position.y > attack_target.position.y - margin and  position.y < attack_target.position.y + margin:
+			direction.y = 0.0
+		elif position.y < attack_target.position.y - margin:
 			direction.y = 1.0
-		elif position.y > attack_target.position.y:
+		elif position.y > attack_target.position.y + margin:
 			direction.y = -1.0
+			
 		velocity = direction.normalized() * speed
 		move_and_collide(velocity * delta)
 

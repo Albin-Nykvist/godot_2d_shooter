@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://bthivjum4p6gg"]
+[gd_scene load_steps=5 format=3 uid="uid://bthivjum4p6gg"]
 
 [ext_resource type="PackedScene" uid="uid://c2s4psj16kfug" path="res://player.tscn" id="1_0xy26"]
 [ext_resource type="Script" path="res://World.gd" id="1_53qy7"]
+[ext_resource type="PackedScene" uid="uid://cvowsa5xd75eq" path="res://shadow.tscn" id="3_btib1"]
 [ext_resource type="Texture2D" uid="uid://bwfl0rb2jag4s" path="res://white.png" id="5_ecgle"]
 
 [node name="World" type="Node2D"]
@@ -10,9 +11,13 @@ script = ExtResource("1_53qy7")
 [node name="Player" parent="." instance=ExtResource("1_0xy26")]
 position = Vector2(892, 635)
 
+[node name="Shadow" parent="Player" instance=ExtResource("3_btib1")]
+position = Vector2(48, 30)
+scale = Vector2(0.76, 0.0899999)
+
 [node name="Background" type="Sprite2D" parent="."]
 modulate = Color(0.309804, 0.309804, 0.309804, 1)
-z_index = -11
+z_index = -10
 position = Vector2(2060.5, 1520)
 scale = Vector2(494.188, 346.5)
 texture = ExtResource("5_ecgle")

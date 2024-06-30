@@ -1,7 +1,23 @@
-[gd_scene load_steps=5 format=3 uid="uid://c3yov28lwjgvu"]
+[gd_scene load_steps=8 format=3 uid="uid://c3yov28lwjgvu"]
 
 [ext_resource type="Script" path="res://enemy.gd" id="1_nsaft"]
-[ext_resource type="Texture2D" uid="uid://cqpfqujnt2ycq" path="res://assets/shroom.png" id="2_cyfdj"]
+[ext_resource type="Texture2D" uid="uid://dnhnhdy3l364c" path="res://assets/wine64.png" id="1_w4qev"]
+[ext_resource type="Texture2D" uid="uid://d26y85oxvbx2e" path="res://assets/wine2.png" id="3_c8l7w"]
+[ext_resource type="PackedScene" uid="uid://cvowsa5xd75eq" path="res://shadow.tscn" id="3_xyfbr"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_a4rsm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_w4qev")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_c8l7w")
+}],
+"loop": true,
+"name": &"default",
+"speed": 2.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l7b0q"]
 size = Vector2(38, 47)
@@ -15,8 +31,11 @@ collision_layer = 4
 collision_mask = 5
 script = ExtResource("1_nsaft")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_cyfdj")
+[node name="CharacterSprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_a4rsm")
+autoplay = "default"
+
+[node name="Shadow" parent="CharacterSprite" instance=ExtResource("3_xyfbr")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1, 3.5)

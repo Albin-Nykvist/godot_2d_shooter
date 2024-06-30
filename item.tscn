@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://c8u4ykrvpkt03"]
+[gd_scene load_steps=5 format=3 uid="uid://c8u4ykrvpkt03"]
 
 [ext_resource type="Texture2D" uid="uid://cemgx0a6g2nnj" path="res://assets/urn.png" id="1_rwd5p"]
+[ext_resource type="PackedScene" uid="uid://cvowsa5xd75eq" path="res://shadow.tscn" id="2_s2x2g"]
 
 [sub_resource type="GDScript" id="GDScript_ah1ad"]
 script/source = "extends Area2D
@@ -19,6 +20,7 @@ func _process(delta):
 radius = 32.0156
 
 [node name="Item" type="Area2D"]
+z_index = -2
 linear_damp = 0.2
 script = SubResource("GDScript_ah1ad")
 
@@ -27,3 +29,5 @@ shape = SubResource("CircleShape2D_7shs1")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_rwd5p")
+
+[node name="Shadow" parent="Sprite2D" instance=ExtResource("2_s2x2g")]
