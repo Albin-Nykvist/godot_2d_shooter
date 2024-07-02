@@ -1,10 +1,12 @@
-[gd_scene load_steps=9 format=3 uid="uid://c2s4psj16kfug"]
+[gd_scene load_steps=11 format=3 uid="uid://ban4vdnehkkji"]
 
-[ext_resource type="Script" path="res://Player.gd" id="1_n2dil"]
+[ext_resource type="Script" path="res://scripts/Player.gd" id="1_n2dil"]
 [ext_resource type="Texture2D" uid="uid://coqca8tfhlpjf" path="res://assets/flower.png" id="2_73xfg"]
 [ext_resource type="Texture2D" uid="uid://ca5k13bkvo7m3" path="res://assets/flower_walk.png" id="3_uq258"]
 [ext_resource type="Texture2D" uid="uid://dds0n0h4ntkuf" path="res://assets/rock.png" id="4_nnxwo"]
-[ext_resource type="PackedScene" uid="uid://cvowsa5xd75eq" path="res://shadow.tscn" id="5_negvc"]
+[ext_resource type="PackedScene" uid="uid://cx72b5pmyf7wd" path="res://scenes/shadow.tscn" id="5_negvc"]
+[ext_resource type="Texture2D" uid="uid://6w6h7hco8qt7" path="res://assets/health_bar.png" id="6_vm5nh"]
+[ext_resource type="PackedScene" uid="uid://bvmn6yjlabvhj" path="res://scenes/pause_menu.tscn" id="7_pw78d"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_hyw7i"]
 animations = [{
@@ -27,6 +29,7 @@ radius = 38.0526
 radius = 41.0488
 
 [node name="Player" type="CharacterBody2D" groups=["players"]]
+motion_mode = 1
 script = ExtResource("1_n2dil")
 
 [node name="CharacterSprite" type="AnimatedSprite2D" parent="."]
@@ -52,6 +55,23 @@ shape = SubResource("CircleShape2D_tfo3i")
 [node name="HeldItemSprite" type="Sprite2D" parent="."]
 position = Vector2(-31, -40)
 texture = ExtResource("4_nnxwo")
+
+[node name="HealthBar" type="Sprite2D" parent="."]
+self_modulate = Color(0, 0, 0, 0.0901961)
+position = Vector2(0, 53)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_vm5nh")
+
+[node name="Health" type="Sprite2D" parent="HealthBar"]
+modulate = Color(0.788235, 0.278431, 0.278431, 1)
+position = Vector2(-32, -4)
+texture = ExtResource("6_vm5nh")
+centered = false
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position_smoothing_enabled = true
+
+[node name="PauseMenu" parent="." instance=ExtResource("7_pw78d")]
 
 [connection signal="area_entered" from="PickUpRange" to="." method="_on_pick_up_range_area_entered"]
 [connection signal="area_exited" from="PickUpRange" to="." method="_on_pick_up_range_area_exited"]

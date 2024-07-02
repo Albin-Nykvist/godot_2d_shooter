@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://c3w3etlrv8r1t"]
+
+[ext_resource type="Script" path="res://scripts/money_drop.gd" id="1_j1q2s"]
+[ext_resource type="Texture2D" uid="uid://c5ee4svkxia7o" path="res://assets/coin.png" id="1_vvsyg"]
+[ext_resource type="PackedScene" uid="uid://cx72b5pmyf7wd" path="res://scenes/shadow.tscn" id="2_wyxse"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_76amm"]
+radius = 20.0
+
+[node name="MoneyDrop" type="Area2D" groups=["coins"]]
+script = ExtResource("1_j1q2s")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_76amm")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_vvsyg")
+
+[node name="Shadow" parent="Sprite2D" instance=ExtResource("2_wyxse")]
+scale = Vector2(0.18, 0.1)

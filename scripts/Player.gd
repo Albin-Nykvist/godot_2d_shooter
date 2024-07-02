@@ -1,11 +1,13 @@
 extends CharacterBody2D
 class_name Player
 
-var item_scene = preload("res://item.tscn")
-var projectile_scene = preload("res://projectile.tscn")
+var item_scene = preload("res://scenes/item.tscn")
+var projectile_scene = preload("res://scenes/projectile.tscn")
 
 @onready var item_sprite = $HeldItemSprite
 @onready var character_sprite = $CharacterSprite
+
+var money = 0
 
 # Dashing
 var is_dashing = false
@@ -44,17 +46,6 @@ func _physics_process(delta):
 	else:
 		walk(delta)
 		handle_dash_cool_down(delta)
-	
-	var margin = 20.0
-	var screen_size = DisplayServer.screen_get_size()
-	if position.x < margin:
-		position.x = margin
-	elif position.x > screen_size.x - margin:
-		position.x = screen_size.x -  margin
-	if position.y < margin:
-		position.y = margin
-	elif position.y > screen_size.y - margin:
-		position.y = screen_size.y - margin
 
 func walk(delta: float):
 	var input_direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
@@ -90,10 +81,13 @@ func look_towards_direction(direction: Vector2):
 func _process(_delta):
 	if character_sprite.modulate != Color(1, 1, 1, 1):
 		recover_colors()
+	
+	item_sprite.look_at(get_global_mouse_position())
+	item_sprite.rotate(0.5 * PI) # Why
 
 func _input(event):
 	if event is InputEventMouseButton and event.is_pressed() and event.is_echo() == false: 
-		throw_item(event.position)
+		throw_item()
 	
 	if Input.is_action_just_pressed("drop"):
 		if held_item == null:
@@ -131,7 +125,7 @@ func pick_up_item():
 		item.get_parent().remove_child(item)
 		print("Item picked up: ", held_item.name)
 
-func throw_item(towards_position):
+func throw_item():
 	if held_item == null:
 		return
 	
@@ -141,14 +135,13 @@ func throw_item(towards_position):
 	item_sprite.hide()
 	
 	var throw = projectile_scene.instantiate()
-	get_parent().add_child(throw)
 	throw.position = self.position
 	throw.add_to_group("projectiles")
-	throw.direction = Vector2(towards_position.x - position.x, towards_position.y - position.y).normalized()
+	throw.direction = Vector2.UP.rotated(item_sprite.rotation)
+	throw.rotation = item_sprite.rotation
 	throw.speed = throw_force
-	
-	# if we are standing on an item, we should pick it up right after throwing
-	# solution with a lot of overhead: use a list of 'reachable' items
+	get_parent().add_child(throw)
+
 	if reachable_items.is_empty() == false:
 		pick_up_item()
 
@@ -162,7 +155,7 @@ func drop_item():
 	
 	var item = item_scene.instantiate()
 	get_parent().add_child(item)
-	item.position = self.position
+	item.position = self.position + Vector2(-10 + randi() % 21, -10)
 	item.add_to_group("items")
 	
 	has_dropped_item = true
@@ -172,6 +165,11 @@ func _on_pick_up_range_area_entered(area):
 		reachable_items.append(area)
 		if held_item == null:
 			pick_up_item()
+	elif area.is_in_group("coins"):
+		self.money += area.value
+		var money_label = get_parent().get_node("PlayerMoney")
+		money_label.text = str(self.money)
+		area.get_parent().remove_child(area)
 
 func _on_pick_up_range_area_exited(area):
 	if area.is_in_group("items"):
@@ -182,5 +180,8 @@ func recieve_damage(damage: int):
 	if health <= 0:
 		print("Player died")
 		get_parent().reset()
+	
+	var health_bar = get_node("HealthBar").get_child(0)
+	health_bar.scale.x = health / max_health
 	
 	character_sprite.modulate = Color(1, 0, 0, 1)

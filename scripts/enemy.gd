@@ -1,6 +1,8 @@
 extends CharacterBody2D
 class_name Enemy
 
+var coin_scene = preload("res://scenes/money_drop.tscn")
+
 @export var max_health = 100.0
 @export var health = 0.0 # set in the ready function
 @export var speed = 0.0
@@ -103,6 +105,9 @@ func recieve_damage(damage: int):
 	if is_dead: return
 	health -= damage
 	if health <= 0:
+		var coin = coin_scene.instantiate()
+		coin.position = self.position + Vector2(-10 + randi() % 21, -10)
+		get_parent().add_child(coin)
 		is_dead = true
 		character_sprite.pause()
 		shadow.hide()

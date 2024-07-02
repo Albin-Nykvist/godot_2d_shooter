@@ -1,15 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://qp2a6c8dx6on"]
+[gd_scene load_steps=3 format=3 uid="uid://0p3qe1ci7hot"]
 
-[ext_resource type="Script" path="res://start_menu.gd" id="1_nlscl"]
-[ext_resource type="Theme" uid="uid://b5mwspinoi8yn" path="res://themes/main_theme.tres" id="1_ppyxe"]
+[ext_resource type="Theme" uid="uid://b5mwspinoi8yn" path="res://assets/ui/themes/main_theme.tres" id="1_8c1k5"]
+[ext_resource type="Script" path="res://scripts/start_menu.gd" id="2_k8pdv"]
 
 [node name="StartMenu" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
-theme = ExtResource("1_ppyxe")
-script = ExtResource("1_nlscl")
+theme = ExtResource("1_8c1k5")
+script = ExtResource("2_k8pdv")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 0
