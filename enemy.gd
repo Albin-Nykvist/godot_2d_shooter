@@ -7,10 +7,15 @@ class_name Enemy
 @export var base_speed = 50.0
 @export var start_speed = 0.0
 @export var speed_recovery = 0.5
-@export var damage = 10.0
 @export var direction = Vector2(0, 0)
 
+
+@export var damage = 10.0
+const damage_rate = 0.5
+var damage_rate_counter = 0.0
+
 @export var attack_target: Node = null
+var reachable_target: Node = null # damage applied in ticks
 
 @onready var character_sprite = $CharacterSprite
 @onready var shadow = $CharacterSprite/Shadow
@@ -65,6 +70,12 @@ func _process(delta):
 		speed += speed_recovery
 		if speed > start_speed:
 			speed = start_speed
+	
+	if reachable_target and reachable_target.is_dashing == false:
+		damage_rate_counter -= delta
+		if damage_rate_counter <= 0.0:
+			reachable_target.recieve_damage(self.damage)
+			damage_rate_counter = damage_rate
 
 func _on_area_2d_body_entered(body):
 	if is_dead: return
@@ -76,10 +87,16 @@ func _on_area_2d_body_entered(body):
 		character_sprite.modulate = Color(100, 100, 100,1) # White flash
 		body.destroy()
 	elif body.is_in_group("players"):
-		print("player hit by me :)")
+		print("player in range")
+		reachable_target = body
+		damage_rate_counter = 0.0
 		#self.position = self.position - self.direction * 10.0
-		if not body.is_dashing:
-			body.recieve_damage(self.damage)
+		#if not body.is_dashing:
+			#body.recieve_damage(self.damage)
+
+func _on_area_2d_body_exited(body):
+	if body == reachable_target:
+		reachable_target = null
 
 
 func recieve_damage(damage: int):
@@ -94,3 +111,4 @@ func recieve_damage(damage: int):
 	speed = speed - (damage/2.0)
 	if speed < 0.0:
 		speed = 0.0
+

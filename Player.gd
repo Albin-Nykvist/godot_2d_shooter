@@ -87,7 +87,7 @@ func look_towards_direction(direction: Vector2):
 	elif direction.x < 0.0:
 		character_sprite.flip_h = false
 
-func _process(delta):
+func _process(_delta):
 	if character_sprite.modulate != Color(1, 1, 1, 1):
 		recover_colors()
 
@@ -102,7 +102,7 @@ func _input(event):
 			drop_item()
 
 
-func recover_colors():
+func recover_colors(): # should depend on delta?
 	var recovery_speed = 0.05
 	if character_sprite.modulate.r < 1.0:
 		character_sprite.modulate.r += recovery_speed

@@ -4,7 +4,7 @@ var item_scene = preload("res://item.tscn")
 var enemy_scene = preload("res://enemy.tscn")
 
 @onready var player = $Player
-@onready var camera = $Camera
+@onready var pause_menu = $PauseMenu
 
 var screen_size = DisplayServer.screen_get_size()
 var screen_middle = Vector2(screen_size.x - (screen_size.x/2), screen_size.y - (screen_size.y/2))
@@ -64,4 +64,4 @@ func spawn_item():
 	item.position = Vector2(screen_middle.x + (-400 + randi() % 800), screen_middle.y + (-300 + randi() % 600))
 
 func reset(): # you can do something like, resetscene, i believe
-	pass
+	get_tree().reload_current_scene()

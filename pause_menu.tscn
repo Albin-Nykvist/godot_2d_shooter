@@ -1,0 +1,64 @@
+[gd_scene load_steps=4 format=3 uid="uid://dcv2gem5b5knf"]
+
+[ext_resource type="Script" path="res://pause_menu.gd" id="1_nma6c"]
+[ext_resource type="Theme" uid="uid://b5mwspinoi8yn" path="res://themes/main_theme.tres" id="1_tt56c"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_urap2"]
+bg_color = Color(0, 0, 0, 0.403922)
+
+[node name="PauseMenu" type="Control"]
+process_mode = 3
+visible = false
+z_index = 20
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_tt56c")
+script = ExtResource("1_nma6c")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_right = 2371.0
+offset_bottom = 1554.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_urap2")
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+layout_mode = 0
+offset_right = 294.0
+offset_bottom = 292.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_bottom = 20
+
+[node name="Resume" type="Button" parent="Panel/MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+text = "Resume"
+
+[node name="MarginContainer2" type="MarginContainer" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 20
+
+[node name="Options" type="Button" parent="Panel/MarginContainer/VBoxContainer/MarginContainer2"]
+layout_mode = 2
+text = "Options"
+
+[node name="MarginContainer3" type="MarginContainer" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 20
+
+[node name="QuitToMenu" type="Button" parent="Panel/MarginContainer/VBoxContainer/MarginContainer3"]
+layout_mode = 2
+text = "Quit to Menu
+"
+
+[connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/MarginContainer/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/MarginContainer2/Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/MarginContainer3/QuitToMenu" to="." method="_on_quit_to_menu_pressed"]
