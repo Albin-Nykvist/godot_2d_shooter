@@ -5,51 +5,80 @@
 
 [node name="StartMenu" type="Control"]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
 theme = ExtResource("1_8c1k5")
 script = ExtResource("2_k8pdv")
 
 [node name="Panel" type="Panel" parent="."]
-layout_mode = 0
-offset_right = 2742.0
-offset_bottom = 1713.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1371.0
+offset_top = -856.5
+offset_right = 1371.0
+offset_bottom = 856.5
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Panel"]
-layout_mode = 0
-offset_right = 382.0
-offset_bottom = 345.0
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -191.0
+offset_top = -172.5
+offset_right = 191.0
+offset_bottom = 172.5
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_constants/margin_left = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="Panel/MarginContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_bottom = 20
 
-[node name="Play" type="Button" parent="Panel/MarginContainer/VBoxContainer/MarginContainer"]
+[node name="Play" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
 text = "Play"
 
-[node name="MarginContainer2" type="MarginContainer" parent="Panel/MarginContainer/VBoxContainer"]
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_bottom = 20
 
-[node name="Options" type="Button" parent="Panel/MarginContainer/VBoxContainer/MarginContainer2"]
+[node name="Options" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer2"]
 layout_mode = 2
 text = "Options"
 
-[node name="MarginContainer3" type="MarginContainer" parent="Panel/MarginContainer/VBoxContainer"]
+[node name="MarginContainer3" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_bottom = 20
 
-[node name="Quit" type="Button" parent="Panel/MarginContainer/VBoxContainer/MarginContainer3"]
+[node name="Quit" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer3"]
 layout_mode = 2
 text = "Quit"
 
-[connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/MarginContainer/Play" to="." method="_on_play_pressed"]
-[connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/MarginContainer2/Options" to="." method="_on_options_pressed"]
-[connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/MarginContainer3/Quit" to="." method="_on_quit_pressed"]
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(20, 20)
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/MarginContainer/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/MarginContainer2/Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/MarginContainer3/Quit" to="." method="_on_quit_pressed"]

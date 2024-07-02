@@ -4,6 +4,8 @@ class_name Player
 var item_scene = preload("res://scenes/item.tscn")
 var projectile_scene = preload("res://scenes/projectile.tscn")
 
+
+@onready var hud = $HUD
 @onready var item_sprite = $HeldItemSprite
 @onready var character_sprite = $CharacterSprite
 
