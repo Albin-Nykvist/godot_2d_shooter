@@ -4,19 +4,19 @@ class_name Enemy
 var coin_scene = preload("res://scenes/money_drop.tscn")
 
 @export var max_health = 100.0
-@export var health = 0.0 # set in the ready function
-@export var speed = 0.0
+var health = 0.0 # set in the ready function
+var speed = 0.0
 @export var base_speed = 50.0
-@export var start_speed = 0.0
+var start_speed = 0.0
 @export var speed_recovery = 0.5
-@export var direction = Vector2(0, 0)
+var direction = Vector2(0, 0)
 
 
 @export var damage = 10.0
 const damage_rate = 0.8
 var damage_rate_counter = 0.0
 
-@export var attack_target: Node = null
+var attack_target: Node = null
 var reachable_target: Node = null # damage applied in ticks
 
 @onready var character_sprite = $CharacterSprite

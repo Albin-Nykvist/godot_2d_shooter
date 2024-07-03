@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://ban4vdnehkkji"]
+[gd_scene load_steps=12 format=3 uid="uid://ban4vdnehkkji"]
 
 [ext_resource type="Script" path="res://scripts/Player.gd" id="1_n2dil"]
 [ext_resource type="Texture2D" uid="uid://coqca8tfhlpjf" path="res://assets/flower.png" id="2_73xfg"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cx72b5pmyf7wd" path="res://scenes/shadow.tscn" id="5_negvc"]
 [ext_resource type="Texture2D" uid="uid://6w6h7hco8qt7" path="res://assets/health_bar.png" id="6_vm5nh"]
 [ext_resource type="PackedScene" uid="uid://bvmn6yjlabvhj" path="res://scenes/pause_menu.tscn" id="7_pw78d"]
+[ext_resource type="Script" path="res://scenes/PlayerCamera.gd" id="7_xppg5"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_hyw7i"]
 animations = [{
@@ -77,10 +78,35 @@ scale = Vector2(1, 0.5)
 texture = ExtResource("6_vm5nh")
 centered = false
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="PlayerCamera" type="Camera2D" parent="."]
 position_smoothing_enabled = true
+script = ExtResource("7_xppg5")
 
 [node name="PauseMenu" parent="." instance=ExtResource("7_pw78d")]
+
+[node name="HeadsUpDisplay" type="CanvasLayer" parent="."]
+
+[node name="TopBar" type="MarginContainer" parent="HeadsUpDisplay"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+
+[node name="Time" type="Label" parent="HeadsUpDisplay/TopBar"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+text = "00:00
+"
+
+[node name="Coins" type="Label" parent="HeadsUpDisplay/TopBar"]
+layout_mode = 2
+size_flags_vertical = 0
+text = "0"
 
 [connection signal="area_entered" from="PickUpRange" to="." method="_on_pick_up_range_area_entered"]
 [connection signal="area_exited" from="PickUpRange" to="." method="_on_pick_up_range_area_exited"]

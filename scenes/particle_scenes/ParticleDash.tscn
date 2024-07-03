@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://cavh6s7f50f6h"]
+
+[node name="ParticleDash" type="CPUParticles2D"]
+y_sort_enabled = true
+position = Vector2(-1, 0)
+emitting = false
+amount = 80
+lifetime = 0.25
+one_shot = true
+explosiveness = 0.1
+lifetime_randomness = 1.0
+emission_shape = 1
+emission_sphere_radius = 28.0
+spread = 180.0
+gravity = Vector2(0, 0)
+damping_min = 35.354
+damping_max = 35.354
+scale_amount_min = 4.0
+scale_amount_max = 8.0

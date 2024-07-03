@@ -7,17 +7,25 @@ var projectile_scene = preload("res://scenes/projectile.tscn")
 var cursor_point = preload("res://assets/cursor_point.png")
 var cursor_circle = preload("res://assets/cursor_circle.png")
 
-@onready var hud = $HUD
+var dash_particles = preload("res://scenes/particle_scenes/ParticleDash.tscn")
+
+@onready var camera = $PlayerCamera
 @onready var item_sprite = $HeldItemSprite
 @onready var character_sprite = $CharacterSprite
 @onready var health_bar = $Bar/Health
 @onready var dash_bar = $Bar/Dash
+@onready var time_label = $HeadsUpDisplay/TopBar/Time
+@onready var coin_label = $HeadsUpDisplay/TopBar/Coins
+
+# time
+var time = 0.0
 
 # animate items sprite
 const item_sprite_base_speed = 1.0
 var item_sprite_speed = 1.0
 
-var money = 0
+# money
+var coins = 0
 
 # Dashing
 var is_dashing = false
@@ -89,6 +97,11 @@ func handle_dash_cool_down(delta: float):
 		is_dashing = true
 		dash_direction = self.direction
 		dash_duration_counter = dash_duration
+		
+		var particles = dash_particles.instantiate()
+		particles.emitting = true
+		particles.z_index = -1
+		add_child(particles)
 
 func look_towards_direction(direction: Vector2):
 	if direction.x > 0.0:
@@ -97,6 +110,9 @@ func look_towards_direction(direction: Vector2):
 		character_sprite.flip_h = false
 
 func _process(delta):
+	time += delta
+	time_label.text = "%02d:%02d" % [time/60, fmod(time, 60)]
+	
 	if character_sprite.modulate != Color(1, 1, 1, 1):
 		recover_colors()
 	
@@ -179,7 +195,9 @@ func throw_item():
 	throw.direction = Vector2.UP.rotated(throw.rotation)
 	throw.speed = throw_force
 	get_parent().add_child(throw)
-
+	
+	camera.shake_screen(0.05, 10.0)
+	
 	if reachable_items.is_empty() == false:
 		pick_up_item()
 
@@ -204,9 +222,8 @@ func _on_pick_up_range_area_entered(area):
 		if held_item == null:
 			pick_up_item()
 	elif area.is_in_group("coins"):
-		self.money += area.value
-		var money_label = get_parent().get_node("PlayerMoney")
-		money_label.text = str(self.money)
+		self.coins += area.value
+		coin_label.text = str(self.coins)
 		area.get_parent().remove_child(area)
 
 func _on_pick_up_range_area_exited(area):
@@ -218,6 +235,8 @@ func recieve_damage(damage: int):
 	if health <= 0:
 		print("Player died")
 		get_parent().reset()
+	
+	camera.shake_screen(0.2, 18.0)
 	
 	health_bar.scale.x = health / max_health
 	
