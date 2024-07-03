@@ -10,6 +10,8 @@ var cursor_circle = preload("res://assets/cursor_circle.png")
 @onready var hud = $HUD
 @onready var item_sprite = $HeldItemSprite
 @onready var character_sprite = $CharacterSprite
+@onready var health_bar = $Bar/Health
+@onready var dash_bar = $Bar/Dash
 
 # animate items sprite
 const item_sprite_base_speed = 1.0
@@ -19,15 +21,16 @@ var money = 0
 
 # Dashing
 var is_dashing = false
-const dash_duration = 0.15
+const dash_duration = 0.10
 var dash_duration_counter = 0.0
-const dash_speed = 1200.0
-const dash_cool_down = 0.5
+const dash_speed = 1400.0
+const dash_cool_down = 0.8
 var dash_cool_down_counter = 0.0
-var dash_direction = Vector2(0, 0)
+var dash_direction = Vector2.ZERO
 
 # Moving
 var speed = 250.0
+var direction = Vector2.ZERO
 
 # Inventory
 var reachable_items = []
@@ -56,8 +59,12 @@ func _physics_process(delta):
 		walk(delta)
 		handle_dash_cool_down(delta)
 
+
 func walk(delta: float):
 	var input_direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+	if input_direction != Vector2.ZERO:
+		self.direction = input_direction
+	
 	velocity = input_direction * self.speed
 	move_and_collide(velocity * delta)
 	look_towards_direction(input_direction)
@@ -73,13 +80,15 @@ func dash(delta: float):
 		dash_cool_down_counter = dash_cool_down
 
 func handle_dash_cool_down(delta: float):
-	dash_cool_down_counter -= delta
-	if dash_cool_down_counter <= 0.0:
-		var input_direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
-		if Input.is_action_pressed("dash") and input_direction != Vector2(0, 0):
-			is_dashing = true
-			dash_direction = input_direction
-			dash_duration_counter = dash_duration
+	if dash_cool_down_counter > 0.0:
+		dash_cool_down_counter -= delta
+		if dash_cool_down_counter < 0.0:
+			dash_cool_down_counter = 0.0
+		dash_bar.scale.x = 1.0 - (dash_cool_down_counter / dash_cool_down)
+	if dash_cool_down_counter <= 0.0 and Input.is_action_pressed("dash"): # and Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down") != Vector2.ZERO:
+		is_dashing = true
+		dash_direction = self.direction
+		dash_duration_counter = dash_duration
 
 func look_towards_direction(direction: Vector2):
 	if direction.x > 0.0:
@@ -210,7 +219,6 @@ func recieve_damage(damage: int):
 		print("Player died")
 		get_parent().reset()
 	
-	var health_bar = get_node("HealthBar").get_child(0)
 	health_bar.scale.x = health / max_health
 	
 	character_sprite.modulate = Color(1, 0, 0, 1)

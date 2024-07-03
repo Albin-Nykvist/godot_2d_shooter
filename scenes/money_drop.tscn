@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://cx72b5pmyf7wd" path="res://scenes/shadow.tscn" id="2_wyxse"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_76amm"]
-radius = 20.0
+radius = 45.0444
 
 [node name="MoneyDrop" type="Area2D" groups=["coins"]]
 script = ExtResource("1_j1q2s")

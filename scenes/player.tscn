@@ -22,8 +22,9 @@ animations = [{
 "speed": 2.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_imgaw"]
-radius = 38.0526
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6f6d5"]
+radius = 14.0
+height = 48.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tfo3i"]
 radius = 41.0488
@@ -43,9 +44,9 @@ position = Vector2(-1, 0)
 scale = Vector2(0.27, 0.0899999)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 16)
+position = Vector2(0, 15)
 scale = Vector2(0.5, 0.5)
-shape = SubResource("CircleShape2D_imgaw")
+shape = SubResource("CapsuleShape2D_6f6d5")
 
 [node name="PickUpRange" type="Area2D" parent="."]
 
@@ -56,15 +57,23 @@ shape = SubResource("CircleShape2D_tfo3i")
 position = Vector2(0, -42)
 texture = ExtResource("5_eyfey")
 
-[node name="HealthBar" type="Sprite2D" parent="."]
+[node name="Bar" type="Sprite2D" parent="."]
 self_modulate = Color(0, 0, 0, 0.0901961)
 position = Vector2(0, 53)
-scale = Vector2(0.5, 0.5)
+scale = Vector2(0.5, 1)
 texture = ExtResource("6_vm5nh")
 
-[node name="Health" type="Sprite2D" parent="HealthBar"]
+[node name="Health" type="Sprite2D" parent="Bar"]
 modulate = Color(0.788235, 0.278431, 0.278431, 1)
 position = Vector2(-32, -4)
+scale = Vector2(1, 0.5)
+texture = ExtResource("6_vm5nh")
+centered = false
+
+[node name="Dash" type="Sprite2D" parent="Bar"]
+self_modulate = Color(0.79, 0.79, 0.79, 1)
+position = Vector2(-32, 0)
+scale = Vector2(1, 0.5)
 texture = ExtResource("6_vm5nh")
 centered = false
 

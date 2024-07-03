@@ -13,7 +13,7 @@ var coin_scene = preload("res://scenes/money_drop.tscn")
 
 
 @export var damage = 10.0
-const damage_rate = 0.5
+const damage_rate = 0.8
 var damage_rate_counter = 0.0
 
 @export var attack_target: Node = null
@@ -91,10 +91,7 @@ func _on_area_2d_body_entered(body):
 	elif body.is_in_group("players"):
 		print("player in range")
 		reachable_target = body
-		damage_rate_counter = 0.0
-		#self.position = self.position - self.direction * 10.0
-		#if not body.is_dashing:
-			#body.recieve_damage(self.damage)
+		damage_rate_counter = 0.1
 
 func _on_area_2d_body_exited(body):
 	if body == reachable_target:
@@ -113,7 +110,7 @@ func recieve_damage(damage: int):
 		shadow.hide()
 		#queue_free() # die
 	
-	speed = speed - (damage/2.0)
+	speed = speed - (damage * 0.8)
 	if speed < 0.0:
 		speed = 0.0
 
