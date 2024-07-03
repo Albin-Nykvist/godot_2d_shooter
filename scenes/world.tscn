@@ -30,7 +30,7 @@ position = Vector2(892, 635)
 modulate = Color(0.309804, 0.309804, 0.309804, 1)
 z_index = -11
 position = Vector2(2060.5, 1520)
-scale = Vector2(494.188, 346.5)
+scale = Vector2(1000, 1000)
 texture = ExtResource("3_xwlud")
 
 [node name="GameTimer" type="Timer" parent="."]

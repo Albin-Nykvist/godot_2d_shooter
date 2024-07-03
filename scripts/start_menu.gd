@@ -1,17 +1,9 @@
 extends Control
-#
-#@onready var container = $Panel/MarginContainer
-#
-#var screen_size = DisplayServer.screen_get_size()
-#var screen_middle = Vector2(screen_size.x - (screen_size.x/2), screen_size.y - (screen_size.y/2))
-#
-## Called when the node enters the scene tree for the first time.
-#func _ready():
-	#container.position = screen_middle - Vector2(container.size.x/2, container.size.y/2)
-#
-## Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-	#pass
+var arrow_cursor = load("res://assets/cursor_arrow.png")
+
+func _ready():
+	DisplayServer.cursor_set_custom_image(arrow_cursor)
+
 
 func _on_play_pressed():
 	get_tree().change_scene_to_file("res://scenes/world.tscn")

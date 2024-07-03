@@ -16,7 +16,7 @@ const MAX_ITEMS = 20
 
 var enemy_wave_rate = 20.0 # Once every x seconds
 var enemy_wave_rate_counter = 0.0
-var enemy_wave_size = 5
+var enemy_wave_size = 7
 const MAX_ENEMIES = 50
 
 func _ready():
@@ -54,25 +54,13 @@ func spawn_enemy():
 	enemy.add_to_group("enemies")
 	enemy.attack_target = player
 	var r = 0 + randi() % 4
-	var screen_edge_offset = 200
+	var screen_edge_offset = 150
 	
 	# Lets have the enemies spawn on a circle around the player
 	# we need: desired distance to player, random angle, converting the angle and distance to a vector
-	var distance_to_player = player.position.x + (screen_size.x/2) + screen_edge_offset
-	var point = Vector2.UP.rotated(randf() * 2 * PI)
-	enemy.position = distance_to_player * point.normalized()
-	print("New Enemy: ", enemy.position, ", player: ", player.position)
-	
-	
-	
-	#if r == 0:
-		#enemy.position = Vector2(-screen_edge_offset, randi() % screen_size.y)
-	#elif r == 1:
-		#enemy.position = Vector2(screen_size.x + screen_edge_offset, randi() % screen_size.y)
-	#elif r == 2:
-		#enemy.position = Vector2(randi() % screen_size.x, -screen_edge_offset)
-	#elif r == 3:
-		#enemy.position = Vector2(randi() % screen_size.x, screen_size.y + screen_edge_offset)
+	var distance_to_player = (screen_size.x/2) + screen_edge_offset
+	var random_unit_vector = Vector2.UP.rotated(randf() * 2 * PI)
+	enemy.position = player.position + random_unit_vector.normalized() * distance_to_player 
 
 func spawn_item():
 	var item = item_scene.instantiate()

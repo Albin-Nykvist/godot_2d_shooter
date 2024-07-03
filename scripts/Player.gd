@@ -4,10 +4,16 @@ class_name Player
 var item_scene = preload("res://scenes/item.tscn")
 var projectile_scene = preload("res://scenes/projectile.tscn")
 
+var cursor_point = preload("res://assets/cursor_point.png")
+var cursor_circle = preload("res://assets/cursor_circle.png")
 
 @onready var hud = $HUD
 @onready var item_sprite = $HeldItemSprite
 @onready var character_sprite = $CharacterSprite
+
+# animate items sprite
+const item_sprite_base_speed = 1.0
+var item_sprite_speed = 1.0
 
 var money = 0
 
@@ -16,7 +22,7 @@ var is_dashing = false
 const dash_duration = 0.15
 var dash_duration_counter = 0.0
 const dash_speed = 1200.0
-const dash_cool_down = 0.4
+const dash_cool_down = 0.5
 var dash_cool_down_counter = 0.0
 var dash_direction = Vector2(0, 0)
 
@@ -39,6 +45,7 @@ var health = 0.0 # set in ready
 
 
 func _ready():
+	set_cursor()
 	health = max_health
 	item_sprite.hide()
 
@@ -80,12 +87,31 @@ func look_towards_direction(direction: Vector2):
 	elif direction.x < 0.0:
 		character_sprite.flip_h = false
 
-func _process(_delta):
+func _process(delta):
 	if character_sprite.modulate != Color(1, 1, 1, 1):
 		recover_colors()
 	
-	item_sprite.look_at(get_global_mouse_position())
-	item_sprite.rotate(0.5 * PI) # Why
+	var max_offset = 35.0
+	if item_sprite.position.x < -max_offset:
+		item_sprite_speed = item_sprite_base_speed
+		item_sprite.z_index = 1
+	elif item_sprite.position.x > max_offset:
+		item_sprite_speed = -item_sprite_base_speed
+		item_sprite.z_index = -1
+	#item_sprite_speed *= 1.003
+	var speed_modifier = 0.5
+	item_sprite.position.x += item_sprite_speed * (1.0 + speed_modifier - (speed_modifier * abs(item_sprite.position.x / max_offset)))
+	
+	var base_scale = Vector2(1.0, 1.0)
+	var scale_modifier = 0.08
+	# Make sure the scales at max offset are the same in both 
+	if item_sprite.z_index == 1:
+		item_sprite.scale = base_scale * (1.0 + scale_modifier - (scale_modifier * abs(item_sprite.position.x / max_offset)))
+	else:
+		item_sprite.scale = base_scale * (1.0 - scale_modifier + (scale_modifier * abs(item_sprite.position.x / max_offset)))
+	
+	set_cursor()
+
 
 func _input(event):
 	if event is InputEventMouseButton and event.is_pressed() and event.is_echo() == false: 
@@ -137,10 +163,11 @@ func throw_item():
 	item_sprite.hide()
 	
 	var throw = projectile_scene.instantiate()
-	throw.position = self.position
+	throw.position = self.position + item_sprite.position
 	throw.add_to_group("projectiles")
-	throw.direction = Vector2.UP.rotated(item_sprite.rotation)
-	throw.rotation = item_sprite.rotation
+	throw.look_at(get_global_mouse_position())
+	throw.rotate(0.5 * PI) # Why this quarter rotation is necessary is beond me
+	throw.direction = Vector2.UP.rotated(throw.rotation)
 	throw.speed = throw_force
 	get_parent().add_child(throw)
 
@@ -187,3 +214,9 @@ func recieve_damage(damage: int):
 	health_bar.scale.x = health / max_health
 	
 	character_sprite.modulate = Color(1, 0, 0, 1)
+
+func set_cursor():
+	if held_item:
+		DisplayServer.cursor_set_custom_image(cursor_circle)
+	else:
+		DisplayServer.cursor_set_custom_image(cursor_point)
