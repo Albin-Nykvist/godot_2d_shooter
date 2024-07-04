@@ -1,13 +1,14 @@
-[gd_scene load_steps=12 format=3 uid="uid://ban4vdnehkkji"]
+[gd_scene load_steps=14 format=3 uid="uid://ban4vdnehkkji"]
 
-[ext_resource type="Script" path="res://scripts/Player.gd" id="1_n2dil"]
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_n2dil"]
 [ext_resource type="Texture2D" uid="uid://coqca8tfhlpjf" path="res://assets/flower.png" id="2_73xfg"]
 [ext_resource type="Texture2D" uid="uid://ca5k13bkvo7m3" path="res://assets/flower_walk.png" id="3_uq258"]
 [ext_resource type="Texture2D" uid="uid://cemgx0a6g2nnj" path="res://assets/urn.png" id="5_eyfey"]
 [ext_resource type="PackedScene" uid="uid://cx72b5pmyf7wd" path="res://scenes/shadow.tscn" id="5_negvc"]
 [ext_resource type="Texture2D" uid="uid://6w6h7hco8qt7" path="res://assets/health_bar.png" id="6_vm5nh"]
 [ext_resource type="PackedScene" uid="uid://bvmn6yjlabvhj" path="res://scenes/pause_menu.tscn" id="7_pw78d"]
-[ext_resource type="Script" path="res://scenes/PlayerCamera.gd" id="7_xppg5"]
+[ext_resource type="Script" path="res://scripts/PlayerCamera.gd" id="7_xppg5"]
+[ext_resource type="FontFile" uid="uid://wpf8eya4oe7f" path="res://assets/I-pixel-u.ttf" id="9_17slt"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_hyw7i"]
 animations = [{
@@ -29,6 +30,11 @@ height = 48.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tfo3i"]
 radius = 39.0128
+
+[sub_resource type="Theme" id="Theme_mpbnr"]
+default_font = ExtResource("9_17slt")
+Label/font_sizes/font_size = 25
+Label/fonts/font = ExtResource("9_17slt")
 
 [node name="Player" type="CharacterBody2D" groups=["players"]]
 y_sort_enabled = true
@@ -96,12 +102,13 @@ script = ExtResource("7_xppg5")
 [node name="TopBar" type="MarginContainer" parent="HeadsUpDisplay"]
 anchors_preset = 10
 anchor_right = 1.0
-offset_bottom = 23.0
+offset_bottom = 29.0
 grow_horizontal = 2
 size_flags_horizontal = 4
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 10
+theme = SubResource("Theme_mpbnr")
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 20
 
 [node name="Time" type="Label" parent="HeadsUpDisplay/TopBar"]
 layout_mode = 2
