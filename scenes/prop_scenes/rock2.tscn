@@ -1,7 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://cjs2h6ws10f6h"]
+[gd_scene load_steps=6 format=3 uid="uid://bc8krmbhd8xyp"]
 
-[ext_resource type="Texture2D" uid="uid://0m5raieg3uw2" path="res://assets/red_rock_128.png" id="1_m3oy5"]
-[ext_resource type="Texture2D" uid="uid://dg7uc0xijxl1o" path="res://assets/circle.png" id="2_u7nwy"]
+[ext_resource type="Texture2D" uid="uid://3f40he8402as" path="res://assets/red_rock2_128.png" id="1_4ktu0"]
+[ext_resource type="Texture2D" uid="uid://dg7uc0xijxl1o" path="res://assets/circle.png" id="2_hs0dv"]
 
 [sub_resource type="GDScript" id="GDScript_qy5tm"]
 script/source = "extends StaticBody2D
@@ -13,7 +13,7 @@ func _on_area_2d_body_entered(body):
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_onc4m"]
-size = Vector2(87, 46)
+size = Vector2(87, 47)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_05hkx"]
 radius = 15.0
@@ -23,17 +23,17 @@ collision_mask = 0
 script = SubResource("GDScript_qy5tm")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_m3oy5")
+texture = ExtResource("1_4ktu0")
 
 [node name="Shadow" type="Sprite2D" parent="Sprite2D"]
 modulate = Color(0, 0, 0, 0.25098)
 z_index = -1
-position = Vector2(0, 47)
-scale = Vector2(0.65, 0.35)
-texture = ExtResource("2_u7nwy")
+position = Vector2(-2, 52)
+scale = Vector2(0.65, 0.25)
+texture = ExtResource("2_hs0dv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0.5, 30)
+position = Vector2(-4, 36.5)
 shape = SubResource("RectangleShape2D_onc4m")
 
 [node name="Area2D" type="Area2D" parent="."]
@@ -41,7 +41,7 @@ collision_layer = 3
 collision_mask = 7
 
 [node name="ProjectileCollider" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(0, 30)
+position = Vector2(-4, 37)
 shape = SubResource("CircleShape2D_05hkx")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

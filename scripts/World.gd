@@ -3,6 +3,7 @@ extends Node2D
 var item_scene = preload("res://scenes/item.tscn")
 var enemy_scene = preload("res://scenes/enemy.tscn")
 var prop_scene = preload("res://scenes/prop_scenes/rock1.tscn")
+var prop2_scene = preload("res://scenes/prop_scenes/rock2.tscn")
 
 @onready var player = $Player
 @onready var background_sprite = $Background
@@ -15,7 +16,7 @@ var item_spawn_rate_counter = 0.0
 var item_spawn_amount = 3
 const MAX_ITEMS = 20
 
-var enemy_wave_rate = 2.0 # Once every x seconds
+var enemy_wave_rate = 8.0 # Once every x seconds
 var enemy_wave_rate_counter = 0.0
 var enemy_wave_size = 7
 const MAX_ENEMIES = 50
@@ -28,19 +29,41 @@ func _ready():
 		spawn_item()
 	
 	# spawn some props
-	for i in range(0, 40):
+	var prop_area = Vector2i(8000, 8000)
+	var prop_area_position = -prop_area + (prop_area/2)
+	var section_size = Vector2i(400, 400)
+	var x: int = 0
+	var y: int = 0
+	var margin = 100
+	for i in (prop_area.x/section_size.x) * (prop_area.y/section_size.y):
+		var section_position = Vector2(prop_area_position.x + (x * (section_size.x + margin)), prop_area_position.y + (y * (section_size.y + margin)))
 		var prop = prop_scene.instantiate()
-		prop.position = Vector2(-1000 + randi() % 2000, -1000 + randi() % 2000)
+		if randi() % 2 == 0:
+			prop = prop2_scene.instantiate()
+		prop.position = Vector2(section_position.x + randi() % section_size.x, section_position.y + randi() % section_size.y)
 		add_child(prop)
+		x += 1
+		if x > prop_area.x/section_size.x:
+			x = 0
+			y += 1
 
 func _process(delta):
 	item_spawn_rate_counter += delta
+	
+	var item_near_player = false
+	for item in get_tree().get_nodes_in_group("items"):
+		if item.position.distance_to(player.position) < 800:
+			item_near_player = true
+	
+	if item_near_player == false:
+		spawn_item()
+	
 	var num_items = get_tree().get_nodes_in_group("items").size()
 	if item_spawn_rate_counter > item_spawn_rate and num_items < MAX_ITEMS:
 		item_spawn_rate_counter = 0
 		spawn_items()
-	elif num_items <= 0:
-		spawn_item()
+	#elif num_items <= 0:
+		#spawn_item()
 	
 	enemy_wave_rate_counter += delta
 	var num_enemies = get_tree().get_nodes_in_group("enemies").size()
@@ -60,14 +83,16 @@ func spawn_enemy():
 	enemy.add_to_group("enemies")
 	enemy.attack_target = player
 	var r = 0 + randi() % 4
-	var screen_edge_offset = 150
-	var distance_to_player = (screen_size.x/2) + screen_edge_offset
+	#var screen_edge_offset = 150
+	#var distance_to_player = (screen_size.x/2) + screen_edge_offset
+	var distance_to_player = 1500
 	var random_unit_vector = Vector2.UP.rotated(randf() * 2 * PI)
 	enemy.position = player.position + random_unit_vector.normalized() * distance_to_player 
 
 func spawn_item():
 	var item = item_scene.instantiate()
 	add_child(item)
+	item.set_to_falling()
 	item.add_to_group("items")
 	var distance_to_player = 100 + randi() % 500
 	var random_unit_vector = Vector2.UP.rotated(randf() * 2 * PI)

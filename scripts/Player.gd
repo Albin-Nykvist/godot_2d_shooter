@@ -148,13 +148,18 @@ func _process(delta):
 	if character_sprite.modulate != Color(1, 1, 1, 1):
 		recover_colors()
 	
+	rotate_held_item()
+	
+	set_cursor()
+
+func rotate_held_item():
 	var max_offset = 35.0
 	if item_sprite.position.x < -max_offset:
 		item_sprite_speed = item_sprite_base_speed
 		item_sprite.z_index = 1
 	elif item_sprite.position.x > max_offset:
 		item_sprite_speed = -item_sprite_base_speed
-		item_sprite.z_index = -1
+		item_sprite.z_index = 0
 	#item_sprite_speed *= 1.003
 	var speed_modifier = 0.5
 	item_sprite.position.x += item_sprite_speed * (1.0 + speed_modifier - (speed_modifier * abs(item_sprite.position.x / max_offset)))
@@ -167,8 +172,6 @@ func _process(delta):
 	else:
 		item_sprite.scale = base_scale * (1.0 - scale_modifier + (scale_modifier * abs(item_sprite.position.x / max_offset)))
 	
-	set_cursor()
-
 
 func _input(event):
 	if event is InputEventMouseButton and event.is_pressed() and event.is_echo() == false: 
