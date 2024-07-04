@@ -2,9 +2,10 @@ extends Node2D
 
 var item_scene = preload("res://scenes/item.tscn")
 var enemy_scene = preload("res://scenes/enemy.tscn")
+var prop_scene = preload("res://scenes/prop_scenes/rock1.tscn")
 
 @onready var player = $Player
-@onready var pause_menu = $PauseMenu
+@onready var background_sprite = $Background
 
 var screen_size = DisplayServer.screen_get_size()
 var screen_middle = Vector2(screen_size.x - (screen_size.x/2), screen_size.y - (screen_size.y/2))
@@ -25,6 +26,12 @@ func _ready():
 	for i in range(0, 5):
 		spawn_enemy()
 		spawn_item()
+	
+	# spawn some props
+	for i in range(0, 40):
+		var prop = prop_scene.instantiate()
+		prop.position = Vector2(-1000 + randi() % 2000, -1000 + randi() % 2000)
+		add_child(prop)
 
 func _process(delta):
 	item_spawn_rate_counter += delta
@@ -41,7 +48,6 @@ func _process(delta):
 		enemy_wave_rate_counter = 0
 		spawn_enemy_wave()
 	
-	$TimeRemaining.text = str(round($GameTimer.time_left))
 
 func spawn_enemy_wave():
 	#enemy_wave_size += enemy_wave_size * 0.5
@@ -55,9 +61,6 @@ func spawn_enemy():
 	enemy.attack_target = player
 	var r = 0 + randi() % 4
 	var screen_edge_offset = 150
-	
-	# Lets have the enemies spawn on a circle around the player
-	# we need: desired distance to player, random angle, converting the angle and distance to a vector
 	var distance_to_player = (screen_size.x/2) + screen_edge_offset
 	var random_unit_vector = Vector2.UP.rotated(randf() * 2 * PI)
 	enemy.position = player.position + random_unit_vector.normalized() * distance_to_player 
@@ -66,16 +69,15 @@ func spawn_item():
 	var item = item_scene.instantiate()
 	add_child(item)
 	item.add_to_group("items")
-	item.position = player.position - Vector2(-(screen_size.x/2) + randi() % screen_size.x, -(screen_size.y/2) + randi() % screen_size.y)
+	var distance_to_player = 100 + randi() % 500
+	var random_unit_vector = Vector2.UP.rotated(randf() * 2 * PI)
+	item.position = player.position + random_unit_vector.normalized() * distance_to_player 
+
 
 func spawn_items():
 	#item_spawn_amount += item_spawn_amount * 0.5
 	for i in range(0, item_spawn_amount):
 		spawn_item()
 
-func reset(): # you can do something like, resetscene, i believe
+func reset():
 	get_tree().reload_current_scene()
-
-
-func _on_game_timer_timeout():
-	pass

@@ -1,6 +1,5 @@
 extends Sprite2D
-
-# The parent should be a collision shape (don't ask be why it had to be this way)
+class_name Shadow
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

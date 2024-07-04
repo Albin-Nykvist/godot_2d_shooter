@@ -1,0 +1,41 @@
+[gd_scene load_steps=4 format=3 uid="uid://cjs2h6ws10f6h"]
+
+[ext_resource type="Texture2D" uid="uid://0m5raieg3uw2" path="res://assets/red_rock_128.png" id="1_m3oy5"]
+[ext_resource type="Texture2D" uid="uid://dg7uc0xijxl1o" path="res://assets/circle.png" id="2_u7nwy"]
+
+[sub_resource type="GDScript" id="GDScript_qy5tm"]
+script/source = "extends StaticBody2D
+
+func _on_area_2d_body_entered(body):
+	print(\"body entered: \", body)
+	if body.is_in_group(\"projectiles\"):
+		body.destroy()
+"
+
+[node name="Object" type="StaticBody2D"]
+collision_mask = 0
+script = SubResource("GDScript_qy5tm")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_m3oy5")
+
+[node name="Shadow" type="Sprite2D" parent="Sprite2D"]
+modulate = Color(0, 0, 0, 0.25098)
+z_index = -1
+position = Vector2(0, 47)
+scale = Vector2(0.65, 0.35)
+texture = ExtResource("2_u7nwy")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-14, 62, 24, 62, 44, 51, 48, 28, 23, 6, -20, 4, -50, 21, -47, 38)
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 3
+collision_mask = 7
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+position = Vector2(0, 3)
+scale = Vector2(0.9, 0.9)
+polygon = PackedVector2Array(-14, 62, 24, 62, 44, 51, 48, 28, 23, 6, -20, 4, -50, 21, -47, 38)
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

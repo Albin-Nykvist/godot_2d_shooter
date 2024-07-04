@@ -97,6 +97,7 @@ func handle_dash_cool_down(delta: float):
 		is_dashing = true
 		dash_direction = self.direction
 		dash_duration_counter = dash_duration
+		camera.shake_screen(0.1, 4.0)
 		
 		var particles = dash_particles.instantiate()
 		particles.emitting = true
@@ -244,6 +245,6 @@ func recieve_damage(damage: int):
 
 func set_cursor():
 	if held_item:
-		DisplayServer.cursor_set_custom_image(cursor_circle)
+		DisplayServer.cursor_set_custom_image(cursor_circle, 0, Vector2(32, 32))
 	else:
 		DisplayServer.cursor_set_custom_image(cursor_point)

@@ -16,6 +16,7 @@ func _physics_process(delta):
 	if time > life_time:
 		queue_free()
 	
+	var before_position = self.position
 	move_and_collide(velocity * delta)
 
 func destroy():
