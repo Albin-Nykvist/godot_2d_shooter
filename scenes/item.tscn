@@ -30,7 +30,7 @@ func fall_from_sky(delta: float):
 	sprite.position.y += fall_speed * delta
 	shadow.position.y -= fall_speed * delta
 	fall_speed *= fall_acceleration
-		
+	
 	if sprite.position.y > initial_sprite_position:
 		set_to_grounded()
 

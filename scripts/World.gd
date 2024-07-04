@@ -19,7 +19,7 @@ const MAX_ITEMS = 20
 var enemy_wave_rate = 8.0 # Once every x seconds
 var enemy_wave_rate_counter = 0.0
 var enemy_wave_size = 7
-const MAX_ENEMIES = 50
+const MAX_ENEMIES = 300
 
 func _ready():
 	player.position = screen_middle
@@ -62,8 +62,6 @@ func _process(delta):
 	if item_spawn_rate_counter > item_spawn_rate and num_items < MAX_ITEMS:
 		item_spawn_rate_counter = 0
 		spawn_items()
-	#elif num_items <= 0:
-		#spawn_item()
 	
 	enemy_wave_rate_counter += delta
 	var num_enemies = get_tree().get_nodes_in_group("enemies").size()

@@ -8,6 +8,7 @@ var cursor_point = preload("res://assets/cursor_point.png")
 var cursor_circle = preload("res://assets/cursor_circle.png")
 
 var dash_particles = preload("res://scenes/particle_scenes/ParticleDash.tscn")
+var pick_up_particles = preload("res://scenes/particle_scenes/ParticlePickUp.tscn")
 
 @onready var camera = $PlayerCamera
 @onready var item_sprite = $HeldItemSprite
@@ -38,7 +39,7 @@ var dash_cool_down_counter = 0.0
 var dash_direction = Vector2.ZERO
 
 # Moving
-var speed = 250.0
+var speed = 300.0
 var direction = Vector2.ZERO
 
 # Inventory
@@ -211,6 +212,9 @@ func pick_up_item():
 		item_sprite.texture = item.get_node("Sprite2D").texture
 		item_sprite.show()
 		item.get_parent().remove_child(item)
+		var particles = pick_up_particles.instantiate()
+		particles.emitting = true
+		item_sprite.add_child(particles)
 		print("Item picked up: ", held_item.name)
 
 func throw_item():
@@ -223,13 +227,15 @@ func throw_item():
 	item_sprite.hide()
 	
 	var throw = projectile_scene.instantiate()
-	throw.position = self.position + item_sprite.position
+	throw.position = self.position #+ item_sprite.position
 	throw.add_to_group("projectiles")
 	throw.look_at(get_global_mouse_position())
 	throw.rotate(0.5 * PI) # Why this quarter rotation is necessary is beond me
 	throw.direction = Vector2.UP.rotated(throw.rotation)
 	throw.speed = throw_force
+	throw.position += throw.direction * 50
 	get_parent().add_child(throw)
+
 	
 	camera.shake_screen(0.05, 10.0)
 	

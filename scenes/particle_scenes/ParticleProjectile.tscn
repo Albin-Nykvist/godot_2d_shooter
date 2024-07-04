@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=3 uid="uid://bdqsd7ijf6wxw"]
+
+[sub_resource type="Curve" id="Curve_8bpwj"]
+_data = [Vector2(0.477528, 1), 0.0, 0.0, 0, 0, Vector2(0.488764, 0.516483), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="Particle" type="CPUParticles2D"]
+y_sort_enabled = true
+position = Vector2(-1, 0)
+amount = 1
+lifetime = 0.1
+lifetime_randomness = 0.8
+emission_shape = 1
+emission_sphere_radius = 10.0
+direction = Vector2(0, 1)
+spread = 0.0
+gravity = Vector2(0, 0)
+damping_min = 35.354
+damping_max = 35.354
+scale_amount_min = 8.0
+scale_amount_max = 12.0
+scale_amount_curve = SubResource("Curve_8bpwj")
