@@ -15,7 +15,7 @@ var item_spawn_rate_counter = 0.0
 var item_spawn_amount = 3
 const MAX_ITEMS = 20
 
-var enemy_wave_rate = 20.0 # Once every x seconds
+var enemy_wave_rate = 2.0 # Once every x seconds
 var enemy_wave_rate_counter = 0.0
 var enemy_wave_size = 7
 const MAX_ENEMIES = 50

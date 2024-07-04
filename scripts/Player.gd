@@ -16,6 +16,7 @@ var dash_particles = preload("res://scenes/particle_scenes/ParticleDash.tscn")
 @onready var dash_bar = $Bar/Dash
 @onready var time_label = $HeadsUpDisplay/TopBar/Time
 @onready var coin_label = $HeadsUpDisplay/TopBar/Coins
+@onready var collider = $CollisionShape2D
 
 # time
 var time = 0.0
@@ -66,7 +67,38 @@ func _physics_process(delta):
 	else:
 		walk(delta)
 		handle_dash_cool_down(delta)
+	
+	var velocity_before_collision = velocity
+	var collision = move_and_collide(velocity * delta)
+	move_around_collision(collision, velocity_before_collision, delta)
 
+func move_around_collision(collision: KinematicCollision2D, velocity_before_collision: Vector2, delta: float):
+	if collision == null:
+		return
+	
+	var foregin_collider = collision.get_collider()
+	var my_collider_position = self.position - self.collider.position
+	
+	var rotation = 0.5 * PI
+	if abs(velocity_before_collision.x) > abs(velocity_before_collision.y):
+		velocity_before_collision.y = 0.0
+		if velocity_before_collision.x > 0.0:
+			if my_collider_position.y < foregin_collider.position.y:
+				rotation = -rotation
+		else:
+			if my_collider_position.y > foregin_collider.position.y:
+				rotation = -rotation
+	else:
+		velocity_before_collision.x = 0.0 # might not be necessary
+		if velocity_before_collision.y > 0.0:
+			if my_collider_position.x > foregin_collider.position.x:
+				rotation = -rotation
+		else:
+			if my_collider_position.x < foregin_collider.position.x:
+				rotation = -rotation
+	
+	velocity = velocity_before_collision.rotated(rotation)
+	move_and_collide(velocity * delta)
 
 func walk(delta: float):
 	var input_direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
@@ -74,12 +106,11 @@ func walk(delta: float):
 		self.direction = input_direction
 	
 	velocity = input_direction * self.speed
-	move_and_collide(velocity * delta)
 	look_towards_direction(input_direction)
 
 func dash(delta: float):
 	velocity = dash_direction * (self.dash_speed + self.speed)
-	move_and_collide(velocity * delta)
+
 	look_towards_direction(dash_direction)
 	
 	dash_duration_counter -= delta
@@ -247,4 +278,4 @@ func set_cursor():
 	if held_item:
 		DisplayServer.cursor_set_custom_image(cursor_circle, 0, Vector2(32, 32))
 	else:
-		DisplayServer.cursor_set_custom_image(cursor_point)
+		DisplayServer.cursor_set_custom_image(cursor_point, 0, Vector2(32, 32))

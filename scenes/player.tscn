@@ -32,6 +32,7 @@ radius = 41.0488
 
 [node name="Player" type="CharacterBody2D" groups=["players"]]
 motion_mode = 1
+wall_min_slide_angle = 3.14159
 script = ExtResource("1_n2dil")
 
 [node name="CharacterSprite" type="AnimatedSprite2D" parent="."]

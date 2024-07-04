@@ -21,6 +21,7 @@ var reachable_target: Node = null # damage applied in ticks
 
 @onready var character_sprite = $CharacterSprite
 @onready var shadow = $CharacterSprite/Shadow
+@onready var collider = $CollisionShape2D
 
 var is_dead = false
 var death_duration = 0.3
@@ -42,7 +43,37 @@ func _physics_process(delta):
 		elif direction.x < 0:
 			character_sprite.flip_h = false
 		velocity = direction.normalized() * speed
-		move_and_collide(velocity * delta)
+		var velocity_before_collision = velocity
+		var collision = move_and_collide(velocity * delta)
+		move_around_collision(collision, velocity_before_collision, delta)
+
+func move_around_collision(collision: KinematicCollision2D, velocity_before_collision: Vector2, delta: float):
+	if collision == null:
+		return
+	
+	var foregin_collider = collision.get_collider()
+	var my_collider_position = self.position - self.collider.position
+	
+	var rotation = 0.5 * PI
+	if abs(velocity_before_collision.x) > abs(velocity_before_collision.y):
+		velocity_before_collision.y = 0.0
+		if velocity_before_collision.x > 0.0:
+			if my_collider_position.y < foregin_collider.position.y:
+				rotation = -rotation
+		else:
+			if my_collider_position.y > foregin_collider.position.y:
+				rotation = -rotation
+	else:
+		velocity_before_collision.x = 0.0 # might not be necessary
+		if velocity_before_collision.y > 0.0:
+			if my_collider_position.x > foregin_collider.position.x:
+				rotation = -rotation
+		else:
+			if my_collider_position.x < foregin_collider.position.x:
+				rotation = -rotation
+	
+	velocity = velocity_before_collision.rotated(rotation)
+	move_and_collide(velocity * delta)
 
 func _process(delta):
 	if character_sprite.modulate.r > 1.0:
