@@ -3,7 +3,7 @@ class_name Item
 
 var landing_particles = preload("res://scenes/particle_scenes/ParticleGroundHit.tscn")
 
-var projectile_scene = preload("res://scenes/projectile.tscn")
+@export var projectile_scene = preload("res://scenes/projectile_scenes/projectile.tscn")
 
 @onready var sprite = $Sprite2D
 @onready var shadow = $Sprite2D/Shadow
@@ -19,10 +19,14 @@ var initial_sprite_position: float
 var initial_shadow_position: float
 
 func _process(delta):
+	base_process(delta)
+
+func base_process(delta: float):
 	if is_falling:
 		fall_from_sky(delta)
 
 func throw(player: Node):
+	player.is_throwing = true
 	var projectile = projectile_scene.instantiate()
 	projectile.position = player.position #+ item_sprite.position
 	projectile.add_to_group("projectiles")
@@ -33,6 +37,8 @@ func throw(player: Node):
 	projectile.position += projectile.direction * 50 # nice initial offset
 	player.get_parent().add_child(projectile)
 	player.camera.shake_screen(0.05, 10.0)
+	player.remove_held_item()
+	player.is_throwing = false
 
 func fall_from_sky(delta: float):
 	sprite.position.y += fall_speed * delta

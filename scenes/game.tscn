@@ -26,7 +26,6 @@ max_spawn_distance_to_player = 700.0
 spawn_node = NodePath("..")
 spawn_group = "items"
 wave_rate = 8.0
-wave_size = 3
 
 [node name="VineSpawner" parent="." node_paths=PackedStringArray("player", "spawn_node") instance=ExtResource("5_e1jsg")]
 entity_scene = ExtResource("7_gtmdu")
@@ -62,6 +61,7 @@ min_spawn_distance_to_player = 100.0
 max_spawn_distance_to_player = 700.0
 spawn_node = NodePath("..")
 spawn_group = "items"
-wave_size = 3
+wave_rate = 8.0
+wave_size = 2
 spawn_wave_on_ready = false
 max_number_of_entities = 50

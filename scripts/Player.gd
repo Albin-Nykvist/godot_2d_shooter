@@ -2,7 +2,7 @@ extends CharacterBody2D
 class_name Player
 
 var item_scene = preload("res://scenes/item_scenes/urn.tscn")
-var projectile_scene = preload("res://scenes/projectile.tscn")
+#var projectile_scene = preload("res://scenes/projectile_scenes/projectile.tscn")
 
 var cursor_point = preload("res://assets/cursor/cursor_point.png")
 var cursor_circle = preload("res://assets/cursor/cursor_circle.png")
@@ -47,8 +47,9 @@ var reachable_items = []
 var held_item: Node = null
 var has_dropped_item = false
 
-# Throw force
+# Throwing
 var throw_force = 1200.0
+var is_throwing = false
 
 # Health
 var max_health = 100.0
@@ -214,49 +215,39 @@ func pick_up_item():
 		item_sprite.texture = item.get_node("Sprite2D").texture
 		item_sprite.show()
 		item.get_parent().remove_child(item)
+		add_child(item)
+		item.hide()
 		var particles = pick_up_particles.instantiate()
 		particles.emitting = true
 		item_sprite.add_child(particles)
 
 func throw_item():
-	if held_item == null:
+	if held_item == null or is_throwing:
 		return
 	
-	# Spawn a projectile
-	item_sprite.hide()
-	
 	held_item.throw(self)
-	
-	held_item = null # let item do this? You may then have multiple projectiles
-	#var throw = projectile_scene.instantiate()
-	#throw.position = self.position #+ item_sprite.position
-	#throw.add_to_group("projectiles")
-	#throw.look_at(get_global_mouse_position())
-	#throw.rotate(0.5 * PI) # Why this quarter rotation is necessary is beond me
-	#throw.direction = Vector2.UP.rotated(throw.rotation)
-	#throw.speed = throw_force
-	#throw.position += throw.direction * 50
-	#get_parent().add_child(throw)
-	#
-	#camera.shake_screen(0.05, 10.0)
 	
 	if reachable_items.is_empty() == false:
 		pick_up_item()
 
-func drop_item():
-	if held_item == null:
+func drop_item(): # exploit: if you drop after fireing one sock, you still drop a sock item
+	if held_item == null or is_throwing:
 		return
 	
-	print("Dropping")
-	held_item = null
-	item_sprite.hide()
-	
-	var item = item_scene.instantiate()
+	var item = held_item.duplicate()
+	item.show()
 	get_parent().add_child(item)
 	item.position = self.position + Vector2(-10 + randi() % 21, -10)
 	item.add_to_group("items")
 	
+	remove_held_item()
+	
 	has_dropped_item = true
+
+func remove_held_item():
+	remove_child(held_item)
+	held_item = null
+	item_sprite.hide()
 
 func _on_pick_up_range_area_entered(area):
 	if area.is_in_group("items"):

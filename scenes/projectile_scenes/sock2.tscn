@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://dt7ycaoxc1p6e"]
+
+[ext_resource type="Script" path="res://scripts/projectiles/sock_proj.gd" id="1_x8cfb"]
+[ext_resource type="Texture2D" uid="uid://cywfdeq2plo34" path="res://assets/projectile_sprites/pink_sock_proj.png" id="2_8brhe"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kcdqb"]
+radius = 18.0
+height = 80.0
+
+[node name="Projectile" type="CharacterBody2D" groups=["projectiles"]]
+collision_layer = 2
+collision_mask = 2
+motion_mode = 1
+script = ExtResource("1_x8cfb")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_8brhe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_kcdqb")
