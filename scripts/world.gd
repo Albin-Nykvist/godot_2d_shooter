@@ -15,6 +15,7 @@ func _ready():
 	var angle_increment = (2.0 * PI) / num_scenes 
 	for i in num_scenes:
 		var scene = map_edge_scene.instantiate()
+		scene.add_to_group("map_edge")
 		scene.position = Vector2.UP.rotated(angle) * edge_radius
 		scene.rotate(angle)
 		add_child(scene)
@@ -42,6 +43,8 @@ func _ready():
 		if x > prop_area.x/section_size.x:
 			x = 0
 			y += 1
+		
+		# Could not make the map edge remove props, but this is the same
 		if prop.position.distance_to(self.position) > edge_radius:
 			remove_child(prop)
 

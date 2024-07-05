@@ -1,7 +1,7 @@
 extends CharacterBody2D
 class_name Player
 
-var item_scene = preload("res://scenes/item.tscn")
+var item_scene = preload("res://scenes/item_scenes/urn.tscn")
 var projectile_scene = preload("res://scenes/projectile.tscn")
 
 var cursor_point = preload("res://assets/cursor/cursor_point.png")
@@ -44,7 +44,7 @@ var direction = Vector2.ZERO
 
 # Inventory
 var reachable_items = []
-var held_item = null
+var held_item: Node = null
 var has_dropped_item = false
 
 # Throw force
@@ -74,10 +74,12 @@ func _physics_process(delta):
 	move_around_collision(collision, velocity_before_collision, delta)
 
 func move_around_collision(collision: KinematicCollision2D, velocity_before_collision: Vector2, delta: float):
-	if collision == null:
-		return
+	if collision == null: return
 	
 	var foregin_collider = collision.get_collider()
+	if collider.is_in_group("map_edge"): 
+		print("map_edge")
+		return
 	var my_collider_position = self.position - self.collider.position
 	
 	var rotation = 0.5 * PI
@@ -221,21 +223,22 @@ func throw_item():
 		return
 	
 	# Spawn a projectile
-	held_item = null
 	item_sprite.hide()
 	
-	var throw = projectile_scene.instantiate()
-	throw.position = self.position #+ item_sprite.position
-	throw.add_to_group("projectiles")
-	throw.look_at(get_global_mouse_position())
-	throw.rotate(0.5 * PI) # Why this quarter rotation is necessary is beond me
-	throw.direction = Vector2.UP.rotated(throw.rotation)
-	throw.speed = throw_force
-	throw.position += throw.direction * 50
-	get_parent().add_child(throw)
-
+	held_item.throw(self)
 	
-	camera.shake_screen(0.05, 10.0)
+	held_item = null # let item do this? You may then have multiple projectiles
+	#var throw = projectile_scene.instantiate()
+	#throw.position = self.position #+ item_sprite.position
+	#throw.add_to_group("projectiles")
+	#throw.look_at(get_global_mouse_position())
+	#throw.rotate(0.5 * PI) # Why this quarter rotation is necessary is beond me
+	#throw.direction = Vector2.UP.rotated(throw.rotation)
+	#throw.speed = throw_force
+	#throw.position += throw.direction * 50
+	#get_parent().add_child(throw)
+	#
+	#camera.shake_screen(0.05, 10.0)
 	
 	if reachable_items.is_empty() == false:
 		pick_up_item()

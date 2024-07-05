@@ -3,6 +3,8 @@ class_name Item
 
 var landing_particles = preload("res://scenes/particle_scenes/ParticleGroundHit.tscn")
 
+var projectile_scene = preload("res://scenes/projectile.tscn")
+
 @onready var sprite = $Sprite2D
 @onready var shadow = $Sprite2D/Shadow
 @onready var collider = $CollisionShape2D
@@ -19,6 +21,18 @@ var initial_shadow_position: float
 func _process(delta):
 	if is_falling:
 		fall_from_sky(delta)
+
+func throw(player: Node):
+	var projectile = projectile_scene.instantiate()
+	projectile.position = player.position #+ item_sprite.position
+	projectile.add_to_group("projectiles")
+	projectile.look_at(player.get_global_mouse_position())
+	projectile.rotate(0.5 * PI) # Why this quarter rotation is necessary is beond me
+	projectile.direction = Vector2.UP.rotated(projectile.rotation)
+	projectile.speed = player.throw_force
+	projectile.position += projectile.direction * 50 # nice initial offset
+	player.get_parent().add_child(projectile)
+	player.camera.shake_screen(0.05, 10.0)
 
 func fall_from_sky(delta: float):
 	sprite.position.y += fall_speed * delta

@@ -6,9 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://cemgx0a6g2nnj" path="res://assets/item_sprites/urn.png" id="5_duwbx"]
 [ext_resource type="PackedScene" uid="uid://cx72b5pmyf7wd" path="res://scenes/shadow.tscn" id="5_negvc"]
 [ext_resource type="Texture2D" uid="uid://6w6h7hco8qt7" path="res://assets/health_bar.png" id="6_vm5nh"]
-[ext_resource type="Script" path="res://scripts/PlayerCamera.gd" id="7_xppg5"]
+[ext_resource type="Script" path="res://scripts/playerCamera.gd" id="7_xppg5"]
 [ext_resource type="PackedScene" uid="uid://bvmn6yjlabvhj" path="res://scenes/menu_scenes/pause_menu.tscn" id="8_ny718"]
-[ext_resource type="FontFile" uid="uid://wpf8eya4oe7f" path="res://assets/I-pixel-u.ttf" id="9_17slt"]
+[ext_resource type="FontFile" uid="uid://wpf8eya4oe7f" path="res://assets/ui/fonts/I-pixel-u.ttf" id="9_17slt"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_hyw7i"]
 animations = [{

@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://svab6uqyfuk4"]
+
+[ext_resource type="Script" path="res://scripts/items/urn.gd" id="1_nm5tt"]
+[ext_resource type="Texture2D" uid="uid://cemgx0a6g2nnj" path="res://assets/item_sprites/urn.png" id="2_sch0u"]
+[ext_resource type="PackedScene" uid="uid://cx72b5pmyf7wd" path="res://scenes/shadow.tscn" id="3_oagum"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7shs1"]
+radius = 37.0
+
+[node name="Item" type="Area2D" groups=["items"]]
+y_sort_enabled = true
+linear_damp = 0.2
+script = ExtResource("1_nm5tt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_7shs1")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_sch0u")
+
+[node name="Shadow" parent="Sprite2D" instance=ExtResource("3_oagum")]
+z_as_relative = false
