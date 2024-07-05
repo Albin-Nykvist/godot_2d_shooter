@@ -20,6 +20,9 @@ class_name Spawner
 ## The group to which spawned entities are added
 @export var spawn_group: String
 
+## Entities spawned by this spawner
+var spawner_group: String = self.name
+
 ## Once every x seconds
 @export var wave_rate: float = 5.0 
 var wave_rate_counter: float = 0.0
@@ -33,6 +36,10 @@ var wave_rate_counter: float = 0.0
 
 @export var max_number_of_entities: int = 100
 
+func _ready():
+	if spawn_wave_on_ready == false:
+		wave_rate_counter = wave_rate
+
 func _process(delta):
 	wave_rate_counter -= delta
 	if wave_rate_counter < 0.0:
@@ -40,7 +47,7 @@ func _process(delta):
 		wave_rate_counter = wave_rate
 
 func spawn_wave():
-	var num_entities = get_tree().get_nodes_in_group(spawn_group).size()
+	var num_entities = get_tree().get_nodes_in_group(spawner_group).size()
 	if num_entities + wave_size >= max_number_of_entities:
 		return
 	

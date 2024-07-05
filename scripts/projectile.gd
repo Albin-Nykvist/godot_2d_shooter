@@ -8,7 +8,7 @@ var direction = Vector2(0, 0)
 var speed = 0.0
 var life_time = 5.0 # minimum life time (seconds)
 var time = 0
-var damage = 50.0
+var damage = 80.0
 
 func _physics_process(delta):
 	velocity = direction * speed

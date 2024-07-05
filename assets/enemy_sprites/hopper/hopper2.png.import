@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cmnfq8f5nc0if"
-path="res://.godot/imported/cursor_circle.png-56690ed4430b637761ea9c1f4df852c3.ctex"
+uid="uid://dadtch02amhel"
+path="res://.godot/imported/hopper2.png-a0753189b77a9d0cec863edcef35c9ce.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/cursor_circle.png"
-dest_files=["res://.godot/imported/cursor_circle.png-56690ed4430b637761ea9c1f4df852c3.ctex"]
+source_file="res://assets/enemy_sprites/hopper/hopper2.png"
+dest_files=["res://.godot/imported/hopper2.png-a0753189b77a9d0cec863edcef35c9ce.ctex"]
 
 [params]
 

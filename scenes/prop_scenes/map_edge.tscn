@@ -1,0 +1,55 @@
+[gd_scene load_steps=5 format=3 uid="uid://bbep1t3eptqjq"]
+
+[ext_resource type="Texture2D" uid="uid://bwfl0rb2jag4s" path="res://assets/white.png" id="1_o6tu8"]
+
+[sub_resource type="GDScript" id="GDScript_qy5tm"]
+script/source = "extends StaticBody2D
+
+func _on_area_2d_body_entered(body):
+	if body.is_in_group(\"projectiles\"):
+		body.destroy()
+	if body.is_in_group(\"props\"):
+		body.get_parent().remove_child(body)
+	if body.is_in_group(\"enemies\"):
+		body.get_parent().remove_child(body)
+
+
+
+func _on_area_2d_area_entered(area):
+		if area.is_in_group(\"items\"):
+			area.get_parent().remove_child(area)
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_onc4m"]
+size = Vector2(79.95, 79.9)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dvbiv"]
+
+[node name="MapEdge" type="StaticBody2D"]
+z_index = -1
+collision_layer = 16
+collision_mask = 0
+script = SubResource("GDScript_qy5tm")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+self_modulate = Color(0, 0, 0, 1)
+position = Vector2(0, -800)
+scale = Vector2(100, 100)
+texture = ExtResource("1_o6tu8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -800)
+scale = Vector2(20, 20)
+shape = SubResource("RectangleShape2D_onc4m")
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(0, -800)
+collision_layer = 0
+collision_mask = 15
+
+[node name="ProjectileCollider" type="CollisionShape2D" parent="Area2D"]
+scale = Vector2(79, 79)
+shape = SubResource("RectangleShape2D_dvbiv")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

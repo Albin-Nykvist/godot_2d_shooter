@@ -1,5 +1,5 @@
 extends Control
-var arrow_cursor = load("res://assets/cursor_arrow.png")
+var arrow_cursor = load("res://assets/cursor/cursor_arrow.png")
 
 func _ready():
 	DisplayServer.cursor_set_custom_image(arrow_cursor)

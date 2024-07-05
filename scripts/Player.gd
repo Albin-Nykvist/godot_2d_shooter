@@ -4,8 +4,8 @@ class_name Player
 var item_scene = preload("res://scenes/item.tscn")
 var projectile_scene = preload("res://scenes/projectile.tscn")
 
-var cursor_point = preload("res://assets/cursor_point.png")
-var cursor_circle = preload("res://assets/cursor_circle.png")
+var cursor_point = preload("res://assets/cursor/cursor_point.png")
+var cursor_circle = preload("res://assets/cursor/cursor_circle.png")
 
 var dash_particles = preload("res://scenes/particle_scenes/ParticleDash.tscn")
 var pick_up_particles = preload("res://scenes/particle_scenes/ParticlePickUp.tscn")
@@ -215,14 +215,12 @@ func pick_up_item():
 		var particles = pick_up_particles.instantiate()
 		particles.emitting = true
 		item_sprite.add_child(particles)
-		print("Item picked up: ", held_item.name)
 
 func throw_item():
 	if held_item == null:
 		return
 	
 	# Spawn a projectile
-	print("Throwing")
 	held_item = null
 	item_sprite.hide()
 	

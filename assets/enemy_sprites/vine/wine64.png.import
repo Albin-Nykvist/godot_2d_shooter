@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://coqca8tfhlpjf"
-path="res://.godot/imported/flower.png-adf16de7dc1952b5a86f3f8d5979f883.ctex"
+uid="uid://dnhnhdy3l364c"
+path="res://.godot/imported/wine64.png-b8221dec4018b011d177ffd32c38d960.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/flower.png"
-dest_files=["res://.godot/imported/flower.png-adf16de7dc1952b5a86f3f8d5979f883.ctex"]
+source_file="res://assets/enemy_sprites/vine/wine64.png"
+dest_files=["res://.godot/imported/wine64.png-b8221dec4018b011d177ffd32c38d960.ctex"]
 
 [params]
 

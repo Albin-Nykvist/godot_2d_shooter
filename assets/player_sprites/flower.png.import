@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dyj66xc4sutgc"
-path="res://.godot/imported/cursor_point.png-03a3c4fafc18a9586f2b5f3654906a4c.ctex"
+uid="uid://coqca8tfhlpjf"
+path="res://.godot/imported/flower.png-8ea8b7a464841edac9d4c120de079a32.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/cursor_point.png"
-dest_files=["res://.godot/imported/cursor_point.png-03a3c4fafc18a9586f2b5f3654906a4c.ctex"]
+source_file="res://assets/player_sprites/flower.png"
+dest_files=["res://.godot/imported/flower.png-8ea8b7a464841edac9d4c120de079a32.ctex"]
 
 [params]
 

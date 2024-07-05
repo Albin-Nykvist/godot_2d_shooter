@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dds0n0h4ntkuf"
-path="res://.godot/imported/rock.png-287df246b05da9994798407cdfe616b7.ctex"
+uid="uid://dyj66xc4sutgc"
+path="res://.godot/imported/cursor_point.png-453226ab7bc5c7d0494a190a5ef7a988.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/rock.png"
-dest_files=["res://.godot/imported/rock.png-287df246b05da9994798407cdfe616b7.ctex"]
+source_file="res://assets/cursor/cursor_point.png"
+dest_files=["res://.godot/imported/cursor_point.png-453226ab7bc5c7d0494a190a5ef7a988.ctex"]
 
 [params]
 

@@ -1,18 +1,18 @@
-[gd_scene load_steps=8 format=3 uid="uid://bkr83b3g5tfae"]
+[gd_scene load_steps=8 format=3 uid="uid://c1xqrf7ahgg8k"]
 
-[ext_resource type="Script" path="res://scripts/enemy.gd" id="1_oef76"]
-[ext_resource type="Texture2D" uid="uid://dnhnhdy3l364c" path="res://assets/wine64.png" id="2_v5w4s"]
-[ext_resource type="Texture2D" uid="uid://d26y85oxvbx2e" path="res://assets/wine2.png" id="3_b7bxu"]
-[ext_resource type="PackedScene" uid="uid://cx72b5pmyf7wd" path="res://scenes/shadow.tscn" id="4_t50bt"]
+[ext_resource type="Script" path="res://scripts/enemies/hopper.gd" id="1_j3qtd"]
+[ext_resource type="Texture2D" uid="uid://bqjtpr874cx7n" path="res://assets/enemy_sprites/hopper/hopper.png" id="2_tccfc"]
+[ext_resource type="Texture2D" uid="uid://dadtch02amhel" path="res://assets/enemy_sprites/hopper/hopper2.png" id="3_kwnhk"]
+[ext_resource type="PackedScene" uid="uid://cx72b5pmyf7wd" path="res://scenes/shadow.tscn" id="4_q0aab"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_a4rsm"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_v5w4s")
+"texture": ExtResource("2_tccfc")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_b7bxu")
+"texture": ExtResource("3_kwnhk")
 }],
 "loop": true,
 "name": &"default",
@@ -23,20 +23,20 @@ animations = [{
 radius = 15.5322
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_eokyj"]
-radius = 21.0
+radius = 26.0
 height = 52.0
 
 [node name="Enemy" type="CharacterBody2D" groups=["enemies"]]
 collision_layer = 4
 collision_mask = 5
 motion_mode = 1
-script = ExtResource("1_oef76")
+script = ExtResource("1_j3qtd")
 
 [node name="CharacterSprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_a4rsm")
 autoplay = "default"
 
-[node name="Shadow" parent="CharacterSprite" instance=ExtResource("4_t50bt")]
+[node name="Shadow" parent="CharacterSprite" instance=ExtResource("4_q0aab")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 15)
@@ -47,7 +47,7 @@ collision_layer = 2
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(-1, 6)
+position = Vector2(2, 7)
 shape = SubResource("CapsuleShape2D_eokyj")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

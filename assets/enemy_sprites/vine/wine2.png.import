@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cuclh0nodgnjl"
-path="res://.godot/imported/cursor_arrow.png-855df837e4e245cd7be4f823cfc0bb52.ctex"
+uid="uid://d26y85oxvbx2e"
+path="res://.godot/imported/wine2.png-8227cc4cfd425e64d35b1eea91bb45b4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/cursor_arrow.png"
-dest_files=["res://.godot/imported/cursor_arrow.png-855df837e4e245cd7be4f823cfc0bb52.ctex"]
+source_file="res://assets/enemy_sprites/vine/wine2.png"
+dest_files=["res://.godot/imported/wine2.png-8227cc4cfd425e64d35b1eea91bb45b4.ctex"]
 
 [params]
 

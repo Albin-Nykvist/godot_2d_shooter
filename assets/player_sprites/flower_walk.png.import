@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dnhnhdy3l364c"
-path="res://.godot/imported/wine64.png-1cacee0a496db57b1bd4a8dc81ede96b.ctex"
+uid="uid://ca5k13bkvo7m3"
+path="res://.godot/imported/flower_walk.png-453250b94f9c13ec743c5a5cf72ba31f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/wine64.png"
-dest_files=["res://.godot/imported/wine64.png-1cacee0a496db57b1bd4a8dc81ede96b.ctex"]
+source_file="res://assets/player_sprites/flower_walk.png"
+dest_files=["res://.godot/imported/flower_walk.png-453250b94f9c13ec743c5a5cf72ba31f.ctex"]
 
 [params]
 

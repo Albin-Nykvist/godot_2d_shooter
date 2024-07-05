@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://3f40he8402as"
-path="res://.godot/imported/red_rock2_128.png-ba8c50acf5198a5ca0acb579fc6cebad.ctex"
+uid="uid://bqjtpr874cx7n"
+path="res://.godot/imported/hopper.png-9ccd9a7e9de6e2315c09465667cd952a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/red_rock2_128.png"
-dest_files=["res://.godot/imported/red_rock2_128.png-ba8c50acf5198a5ca0acb579fc6cebad.ctex"]
+source_file="res://assets/enemy_sprites/hopper/hopper.png"
+dest_files=["res://.godot/imported/hopper.png-9ccd9a7e9de6e2315c09465667cd952a.ctex"]
 
 [params]
 
