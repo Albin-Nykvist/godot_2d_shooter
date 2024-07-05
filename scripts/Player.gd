@@ -265,7 +265,7 @@ func _on_pick_up_range_area_entered(area):
 	elif area.is_in_group("coins"):
 		self.coins += area.value
 		coin_label.text = str(self.coins)
-		area.get_parent().remove_child(area)
+		area.destroy()
 
 func _on_pick_up_range_area_exited(area):
 	if area.is_in_group("items"):

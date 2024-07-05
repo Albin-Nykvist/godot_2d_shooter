@@ -19,6 +19,8 @@ size = Vector2(87, 46)
 radius = 15.0
 
 [node name="Rock" type="StaticBody2D"]
+z_as_relative = false
+y_sort_enabled = true
 collision_mask = 0
 script = SubResource("GDScript_qy5tm")
 

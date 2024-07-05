@@ -58,6 +58,7 @@ func set_to_falling():
 radius = 37.0
 
 [node name="Item" type="Area2D"]
+y_sort_enabled = true
 linear_damp = 0.2
 script = SubResource("GDScript_ah1ad")
 
