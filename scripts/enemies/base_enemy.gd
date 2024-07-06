@@ -16,7 +16,14 @@ var health = 0.0 # set in the ready function
 var speed = 0.0
 var start_speed = 0.0
 
-## How fast (acceleration) the entity recovers speed after being staggered (speed reduced)
+## Knockback
+var is_knocked_back = false
+var knockback_direction = Vector2.ZERO
+var knockback_speed = 0.0
+const knockback_duration = 0.1
+var knockback_duration_counter = 0.0
+
+## How fast the enemy recovers speed (time from 0 speed to base speed)
 @export var speed_recovery = 0.5
 
 var direction = Vector2(0, 0)
@@ -63,7 +70,16 @@ func base_body_entered(body):
 	if is_dead: return
 	if body.is_in_group("projectiles"):
 		recieve_damage(body.damage)
-		self.position = self.position + body.direction.normalized() * 20.0 # knockback
+		speed *= body.stagger
+		
+		# Knockback
+		is_knocked_back = true
+		knockback_speed = body.knockback
+		knockback_direction = body.direction.normalized()
+		knockback_duration_counter = knockback_duration
+		# Apply an instant knockback
+		self.position += knockback_direction * (knockback_speed * 0.1)
+		
 		character_sprite.modulate = Color(100, 100, 100,1) # White flash
 		body.destroy()
 	elif body.is_in_group("players"):
@@ -81,7 +97,13 @@ func base_process(delta: float):
 		handle_death(delta)
 	
 	if speed < start_speed:
-		recover_speed()
+		recover_speed(delta)
+	
+	if is_knocked_back:
+		if knockback_duration_counter > 0.0:
+			knockback_duration_counter -= delta
+		else:
+			is_knocked_back = false
 	
 	if reachable_target and reachable_target.is_dashing == false:
 		damage_rate_counter -= delta
@@ -99,10 +121,15 @@ func base_ready():
 	speed = start_speed
 
 func base_physics_process(delta: float):
+	# Knockback even if dead, because it looks cool
+	if is_knocked_back:
+		velocity = knockback_direction * knockback_speed
+		move_and_collide(velocity * delta)
+	
 	if is_dead: return
+
 	if attack_target: # and randi() % 100 < 1: makes enemies appear dumb (good?)
 		move_towards_target(delta)
-
 
 
 
@@ -178,8 +205,10 @@ func deal_damage(target: Node):
 	reachable_target.recieve_damage(self.damage)
 	damage_rate_counter = damage_rate
 
-func recover_speed():
-	speed += speed_recovery
+func recover_speed(delta: float):
+	# this should really be done before and after moving
+	# but this approximation is fine
+	speed += (start_speed / speed_recovery) * delta
 	if speed > start_speed:
 		speed = start_speed
 
@@ -193,9 +222,5 @@ func recieve_damage(damage: int):
 		is_dead = true
 		character_sprite.pause()
 		shadow.hide()
-		#queue_free() # die
-	
-	speed = speed - (damage * 0.8)
-	if speed < 0.0:
-		speed = 0.0
+
 

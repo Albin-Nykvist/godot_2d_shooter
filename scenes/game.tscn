@@ -50,7 +50,6 @@ spawn_group = "enemies"
 wave_rate = 45.0
 wave_size = 12
 wave_size_growth = 1
-spawn_wave_on_ready = false
 max_number_of_entities = 50
 
 [node name="SockSpawner" parent="." node_paths=PackedStringArray("player", "spawn_node") instance=ExtResource("5_e1jsg")]

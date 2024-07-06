@@ -4,11 +4,18 @@ class_name Projectile
 @onready var particle_poof = preload("res://scenes/particle_scenes/ParticlePoof.tscn")
 @onready var particle_flight = preload("res://scenes/particle_scenes/ParticleProjectile.tscn")
 
+# General movement
 var direction = Vector2(0, 0)
 var speed = 0.0
+
+# Lifetime
 var life_time = 5.0 # minimum life time (seconds)
 var time = 0
+
+# Damage stats
 var damage = 80.0
+var stagger = 0.0 # speed multiplier on hit
+var knockback = 250.0 # per second
 
 func _ready():
 	base_ready()
