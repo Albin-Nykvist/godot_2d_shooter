@@ -222,7 +222,10 @@ func pick_up_item():
 		item_sprite.texture = item.get_node("Sprite2D").texture
 		item_sprite.show()
 		item.get_parent().remove_child(item)
+		item.monitorable = false # map edge removes items, so we have to make this one not monitorable
+		item.monitoring = false
 		add_child(item)
+		item.position = Vector2.ZERO
 		item.hide()
 		var particles = pick_up_particles.instantiate()
 		particles.emitting = true
