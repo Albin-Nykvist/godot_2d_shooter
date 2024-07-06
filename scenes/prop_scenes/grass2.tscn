@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://djikd7goi3nrw"]
+
+[ext_resource type="Texture2D" uid="uid://nsk51m1f4d3" path="res://assets/prop_sprites/grass2_no_border.png" id="1_62heb"]
+[ext_resource type="Texture2D" uid="uid://dg7uc0xijxl1o" path="res://assets/circle.png" id="2_002i2"]
+
+[node name="Grass" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -17)
+texture = ExtResource("1_62heb")
+
+[node name="Shadow" type="Sprite2D" parent="Sprite2D"]
+modulate = Color(0, 0, 0, 0.25098)
+z_index = -1
+position = Vector2(-0.5, 46)
+scale = Vector2(0.565, 0.21)
+texture = ExtResource("2_002i2")

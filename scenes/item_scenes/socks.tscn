@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://coghydqguv0xg"]
 
-[ext_resource type="Script" path="res://scripts/items/socks.gd" id="1_q4pk2"]
+[ext_resource type="Script" path="res://scripts/items/socks_item.gd" id="1_hy1ao"]
 [ext_resource type="Texture2D" uid="uid://ck6k36102hqq1" path="res://assets/item_sprites/socks.png" id="2_7ldj6"]
 [ext_resource type="PackedScene" uid="uid://cx72b5pmyf7wd" path="res://scenes/shadow.tscn" id="3_uw3wg"]
 
@@ -10,7 +10,7 @@ radius = 37.0
 [node name="Item" type="Area2D" groups=["items"]]
 y_sort_enabled = true
 linear_damp = 0.2
-script = ExtResource("1_q4pk2")
+script = ExtResource("1_hy1ao")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_7shs1")

@@ -69,7 +69,7 @@ func _physics_process(delta):
 	if is_dashing:
 		dash(delta)
 	else:
-		walk(delta)
+		walk()
 		handle_dash_cool_down(delta)
 	
 	var velocity_before_collision = velocity
@@ -105,7 +105,7 @@ func move_around_collision(collision: KinematicCollision2D, velocity_before_coll
 	velocity = velocity_before_collision.rotated(rotation)
 	move_and_collide(velocity * delta)
 
-func walk(delta: float):
+func walk():
 	var input_direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	if input_direction != Vector2.ZERO:
 		self.direction = input_direction
@@ -246,6 +246,8 @@ func drop_item(): # exploit: if you drop after fireing one sock, you still drop 
 	get_parent().add_child(item)
 	item.position = self.position + Vector2(-10 + randi() % 21, -10)
 	item.add_to_group("items")
+	item.monitorable = true 
+	item.monitoring = true
 	
 	has_dropped_item = true
 	remove_held_item()
@@ -275,8 +277,7 @@ func _on_pick_up_range_area_exited(area):
 func recieve_damage(damage: int):
 	health -= damage
 	if health <= 0:
-		print("Player died")
-		#get_parent().reset()
+		get_parent().reset()
 	
 	camera.shake_screen(0.2, 18.0)
 	

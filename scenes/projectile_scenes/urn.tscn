@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://c6a77ybmf47b0"]
 
-[ext_resource type="Script" path="res://scripts/projectiles/base_projectile.gd" id="1_apg42"]
+[ext_resource type="Script" path="res://scripts/projectiles/urn_proj.gd" id="1_igv2n"]
 [ext_resource type="Texture2D" uid="uid://cemgx0a6g2nnj" path="res://assets/item_sprites/urn.png" id="2_mnlre"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_oej32"]
@@ -10,7 +10,7 @@ radius = 40.0
 collision_layer = 2
 collision_mask = 2
 motion_mode = 1
-script = ExtResource("1_apg42")
+script = ExtResource("1_igv2n")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_mnlre")

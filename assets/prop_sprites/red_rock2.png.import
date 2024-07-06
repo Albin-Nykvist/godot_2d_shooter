@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://3f40he8402as"
-path="res://.godot/imported/red_rock2_128.png-af2532af41346d4646189b7486a7e0d4.ctex"
+uid="uid://clgaj5gnrgma1"
+path="res://.godot/imported/red_rock2.png-9faecd6d1169055e6f5dbd4866ca83f1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/prop_sprites/red_rock2_128.png"
-dest_files=["res://.godot/imported/red_rock2_128.png-af2532af41346d4646189b7486a7e0d4.ctex"]
+source_file="res://assets/prop_sprites/red_rock2.png"
+dest_files=["res://.godot/imported/red_rock2.png-9faecd6d1169055e6f5dbd4866ca83f1.ctex"]
 
 [params]
 

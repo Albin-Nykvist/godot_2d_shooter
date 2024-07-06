@@ -14,7 +14,7 @@ func _ready():
 	# Also, but more understandably center the container (there is probably a better way to do this)
 	container.position = screen_middle - Vector2(container.size.x/2, container.size.y/2)
 
-func _input(event):
+func _input(_event):
 	if Input.is_action_just_pressed("pause"):
 		toggle()
 
