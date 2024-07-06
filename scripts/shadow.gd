@@ -11,7 +11,3 @@ func _ready():
 	elif character is AnimatedSprite2D:
 		var texture_size = character.sprite_frames.get_frame_texture("default", 0).get_size()
 		position.y = texture_size.y/2
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass

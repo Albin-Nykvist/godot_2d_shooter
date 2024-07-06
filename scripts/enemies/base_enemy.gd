@@ -47,11 +47,25 @@ var is_dead = false
 var death_duration = 0.3
 var death_duration_counter = 0.0
 
+# Performance / frame skip
+var base_physics_process_delay = 0.015 # approx 66 fps
+var base_physics_process_delay_counter = 0.0
+var base_physics_process_delta_sum = 0.0
+# The performance goal is 400 basic enemies 
+
+
 func _ready():
 	base_ready()
 
 func _physics_process(delta):
-	base_physics_process(delta)
+	if base_physics_process_delay_counter > 0.0:
+		base_physics_process_delay_counter -= delta
+		base_physics_process_delta_sum += delta
+	else:
+		base_physics_process(base_physics_process_delta_sum)
+		base_physics_process_delta_sum = 0.0
+		base_physics_process_delay_counter = base_physics_process_delay
+	#base_physics_process(delta)
 
 func _on_area_2d_body_entered(body):
 	base_body_entered(body)
@@ -93,6 +107,9 @@ func base_body_exited(body):
 func base_process(delta: float):
 	reset_color()
 	
+	if is_dead == false:
+		direct_towards_target()
+	
 	if is_dead:
 		handle_death(delta)
 	
@@ -129,18 +146,20 @@ func base_physics_process(delta: float):
 	if is_dead: return
 
 	if attack_target: # and randi() % 100 < 1: makes enemies appear dumb (good?)
-		move_towards_target(delta)
+		move(delta)
 
 
 
 
-func move_towards_target(delta: float):
-	direction = attack_target.position - position
-	flip_sprite(direction.x)
-	velocity = direction.normalized() * speed
+func move(delta: float):
+	velocity = direction.normalized() * speed # optimize further by moving as much as possible to _process
 	var velocity_before_collision = velocity
 	var collision = move_and_collide(velocity * delta)
 	move_around_collision(collision, velocity_before_collision, delta)
+
+func direct_towards_target():
+	direction = attack_target.position - position
+	flip_sprite(direction.x)
 
 # Flips sprite depending on if direction is positive or negative
 func flip_sprite(direction: float):

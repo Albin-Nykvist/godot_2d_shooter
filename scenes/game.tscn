@@ -25,7 +25,9 @@ min_spawn_distance_to_player = 100.0
 max_spawn_distance_to_player = 700.0
 spawn_node = NodePath("..")
 spawn_group = "items"
+spawner_group = "item_spawner"
 wave_rate = 8.0
+wave_size = 2
 
 [node name="VineSpawner" parent="." node_paths=PackedStringArray("player", "spawn_node") instance=ExtResource("5_e1jsg")]
 entity_scene = ExtResource("7_gtmdu")
@@ -35,9 +37,11 @@ min_spawn_distance_to_player = 1200.0
 max_spawn_distance_to_player = 1200.0
 spawn_node = NodePath("..")
 spawn_group = "enemies"
+spawner_group = "vine"
 wave_rate = 20.0
 wave_size = 9
 wave_size_growth = 1
+max_number_of_entities = 200
 
 [node name="HopperSpawner" parent="." node_paths=PackedStringArray("player", "spawn_node") instance=ExtResource("5_e1jsg")]
 entity_scene = ExtResource("7_bxqbb")
@@ -47,10 +51,12 @@ min_spawn_distance_to_player = 1200.0
 max_spawn_distance_to_player = 1200.0
 spawn_node = NodePath("..")
 spawn_group = "enemies"
+spawner_group = "hopper"
 wave_rate = 45.0
 wave_size = 12
 wave_size_growth = 1
-max_number_of_entities = 50
+spawn_wave_on_ready = false
+max_number_of_entities = 200
 
 [node name="SockSpawner" parent="." node_paths=PackedStringArray("player", "spawn_node") instance=ExtResource("5_e1jsg")]
 entity_scene = ExtResource("8_dldyl")
@@ -60,6 +66,5 @@ min_spawn_distance_to_player = 100.0
 max_spawn_distance_to_player = 700.0
 spawn_node = NodePath("..")
 spawn_group = "items"
+spawner_group = "item_spawner"
 wave_rate = 8.0
-wave_size = 5
-max_number_of_entities = 50

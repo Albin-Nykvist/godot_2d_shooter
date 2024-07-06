@@ -81,7 +81,6 @@ func move_around_collision(collision: KinematicCollision2D, velocity_before_coll
 	
 	var foregin_collider = collision.get_collider()
 	if collider.is_in_group("map_edge"): 
-		print("map_edge")
 		return
 	var my_collider_position = self.position - self.collider.position
 	
@@ -277,7 +276,7 @@ func recieve_damage(damage: int):
 	health -= damage
 	if health <= 0:
 		print("Player died")
-		get_parent().reset()
+		#get_parent().reset()
 	
 	camera.shake_screen(0.2, 18.0)
 	
