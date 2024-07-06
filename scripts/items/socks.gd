@@ -1,6 +1,7 @@
 extends Item
 
-var second_shot_delay = 0.2
+#var second_shot_delay = 0.17
+var second_shot_delay = 0.12
 var delay_counter = 0.0
 
 var player: Node = null
@@ -18,18 +19,18 @@ func _process(delta):
 		delay_counter -= delta
 		if delay_counter <= 0.0:
 			throw_projectile(self.player, second_projectile_scene)
-			player.remove_held_item()
 			player.is_throwing = false
+			player.remove_held_item()
 
 func throw(player: Node):
 	player.is_throwing = true
 	if has_thown: return
-	has_thown = true
 	self.player = player
 	throw_projectile(player, projectile_scene)
 	delay_counter = second_shot_delay
 
 func throw_projectile(player: Node, scene):
+	has_thown = true
 	var projectile = scene.instantiate()
 	projectile.position = player.position #+ item_sprite.position
 	projectile.add_to_group("projectiles")

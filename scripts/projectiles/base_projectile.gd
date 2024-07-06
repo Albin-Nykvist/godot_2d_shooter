@@ -10,6 +10,15 @@ var life_time = 5.0 # minimum life time (seconds)
 var time = 0
 var damage = 80.0
 
+func _ready():
+	base_ready()
+
+func base_ready():
+	var particles = particle_flight.instantiate()
+	particles.position += Vector2(0, 40)
+	add_child(particles)
+	particles.emitting = true
+
 func _physics_process(delta):
 	velocity = direction * speed
 
@@ -18,11 +27,6 @@ func _physics_process(delta):
 		queue_free()
 	
 	move_and_collide(velocity * delta)
-	
-	var particles = particle_flight.instantiate()
-	particles.position += Vector2(0, 40)
-	add_child(particles)
-	particles.emitting = true
 
 func destroy():
 	var particles = particle_poof.instantiate()

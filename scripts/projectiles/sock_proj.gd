@@ -1,4 +1,5 @@
 extends Projectile
 
 func _ready():
-	damage = 35.0
+	damage = 40.0
+	base_ready()

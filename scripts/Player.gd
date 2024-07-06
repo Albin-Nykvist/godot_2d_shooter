@@ -50,6 +50,8 @@ var has_dropped_item = false
 # Throwing
 var throw_force = 1200.0
 var is_throwing = false
+var max_throw_time = 1.0 # makes sure we don't get stuck in the is_throwing state
+var throw_time_counter = 0.0
 
 # Health
 var max_health = 100.0
@@ -155,6 +157,11 @@ func _process(delta):
 	rotate_held_item()
 	
 	set_cursor()
+	
+	if throw_time_counter > 0 and is_throwing:
+		throw_time_counter -= delta
+	else:
+		is_throwing = false
 
 func rotate_held_item():
 	var max_offset = 35.0
@@ -225,10 +232,8 @@ func throw_item():
 	if held_item == null or is_throwing:
 		return
 	
+	throw_time_counter = max_throw_time
 	held_item.throw(self)
-	
-	if reachable_items.is_empty() == false:
-		pick_up_item()
 
 func drop_item(): # exploit: if you drop after fireing one sock, you still drop a sock item
 	if held_item == null or is_throwing:
@@ -240,14 +245,16 @@ func drop_item(): # exploit: if you drop after fireing one sock, you still drop 
 	item.position = self.position + Vector2(-10 + randi() % 21, -10)
 	item.add_to_group("items")
 	
-	remove_held_item()
-	
 	has_dropped_item = true
+	remove_held_item()
 
 func remove_held_item():
 	remove_child(held_item)
 	held_item = null
 	item_sprite.hide()
+	
+	if reachable_items.is_empty() == false:
+		pick_up_item()
 
 func _on_pick_up_range_area_entered(area):
 	if area.is_in_group("items"):

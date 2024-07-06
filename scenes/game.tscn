@@ -62,6 +62,5 @@ max_spawn_distance_to_player = 700.0
 spawn_node = NodePath("..")
 spawn_group = "items"
 wave_rate = 8.0
-wave_size = 2
-spawn_wave_on_ready = false
+wave_size = 5
 max_number_of_entities = 50
