@@ -1,13 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://djikd7goi3nrw"]
+[gd_scene load_steps=3 format=3 uid="uid://bgkrg77qed3rk"]
 
-[ext_resource type="Texture2D" uid="uid://nsk51m1f4d3" path="res://assets/prop_sprites/grass2_no_border.png" id="1_62heb"]
 [ext_resource type="Texture2D" uid="uid://dg7uc0xijxl1o" path="res://assets/circle.png" id="2_002i2"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_wngdd"]
+load_path = "res://.godot/imported/grass2_no_border.png-a82d92f961dca02d47fb74c1829e53a5.ctex"
 
 [node name="Grass" type="Node2D"]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -17)
-texture = ExtResource("1_62heb")
+texture = SubResource("CompressedTexture2D_wngdd")
 
 [node name="Shadow" type="Sprite2D" parent="Sprite2D"]
 modulate = Color(0, 0, 0, 0.25098)

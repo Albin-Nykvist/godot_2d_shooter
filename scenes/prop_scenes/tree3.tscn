@@ -1,0 +1,43 @@
+[gd_scene load_steps=6 format=3 uid="uid://ch53obc7oajqr"]
+
+[ext_resource type="Script" path="res://scripts/static_prop.gd" id="1_30btg"]
+[ext_resource type="Texture2D" uid="uid://cdmuvfrsdtkxh" path="res://assets/prop_sprites/tree7.png" id="2_w7yf7"]
+[ext_resource type="Texture2D" uid="uid://dg7uc0xijxl1o" path="res://assets/circle.png" id="3_gkah4"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_05hkx"]
+radius = 5.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_onc4m"]
+size = Vector2(17, 13)
+
+[node name="Tree" type="StaticBody2D"]
+z_as_relative = false
+collision_mask = 0
+script = ExtResource("1_30btg")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(5, 5)
+texture = ExtResource("2_w7yf7")
+offset = Vector2(-5, -55)
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(0, -22)
+collision_layer = 3
+collision_mask = 7
+
+[node name="ProjectileCollider" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 38)
+shape = SubResource("CircleShape2D_05hkx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, 15.5)
+shape = SubResource("RectangleShape2D_onc4m")
+
+[node name="Shadow" type="Sprite2D" parent="."]
+modulate = Color(0, 0, 0, 0.25098)
+z_index = -1
+position = Vector2(1.90735e-06, 21.5)
+scale = Vector2(0.4, 0.116)
+texture = ExtResource("3_gkah4")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

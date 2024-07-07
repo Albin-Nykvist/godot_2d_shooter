@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://13ni5x08whjd"]
+
+[ext_resource type="Texture2D" uid="uid://duwwotmqmwqft" path="res://assets/background_noise/grass_noise.png" id="1_j4nf3"]
+
+[node name="Noise" type="Sprite2D"]
+self_modulate = Color(0.5, 0.5, 0.5, 0.101961)
+texture = ExtResource("1_j4nf3")

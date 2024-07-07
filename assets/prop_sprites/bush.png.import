@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://nsk51m1f4d3"
-path="res://.godot/imported/grass2_no_border.png-a82d92f961dca02d47fb74c1829e53a5.ctex"
+uid="uid://crrbnpv2cd0p1"
+path="res://.godot/imported/bush.png-1284e2441641da0419d3900aef77e71d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/prop_sprites/grass2_no_border.png"
-dest_files=["res://.godot/imported/grass2_no_border.png-a82d92f961dca02d47fb74c1829e53a5.ctex"]
+source_file="res://assets/prop_sprites/bush.png"
+dest_files=["res://.godot/imported/bush.png-1284e2441641da0419d3900aef77e71d.ctex"]
 
 [params]
 

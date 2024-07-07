@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://clitgslpij8h5"]
+[gd_scene load_steps=10 format=3 uid="uid://clitgslpij8h5"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_ld2ed"]
 [ext_resource type="PackedScene" uid="uid://ban4vdnehkkji" path="res://scenes/player.tscn" id="2_l2eg0"]
 [ext_resource type="PackedScene" uid="uid://bx22cg8abbed3" path="res://scenes/world.tscn" id="3_26hw7"]
+[ext_resource type="PackedScene" uid="uid://ce8hgh2k0c6kx" path="res://scenes/particle_scenes/ParticleLeaves.tscn" id="3_eu7vq"]
 [ext_resource type="PackedScene" uid="uid://w6vqguk4o656" path="res://scenes/spawner.tscn" id="5_e1jsg"]
 [ext_resource type="PackedScene" uid="uid://c1xqrf7ahgg8k" path="res://scenes/enemy_scenes/hopper.tscn" id="7_bxqbb"]
 [ext_resource type="PackedScene" uid="uid://bkr83b3g5tfae" path="res://scenes/enemy_scenes/vine.tscn" id="7_gtmdu"]
@@ -14,6 +15,23 @@ y_sort_enabled = true
 script = ExtResource("1_ld2ed")
 
 [node name="Player" parent="." instance=ExtResource("2_l2eg0")]
+
+[node name="ParticleLeaves" parent="Player" instance=ExtResource("3_eu7vq")]
+position = Vector2(0, -600)
+emission_rect_extents = Vector2(1800, 1)
+initial_velocity_min = 20.0
+initial_velocity_max = 60.0
+damping_max = 10.0
+color = Color(0.956863, 1, 0.501961, 0.32549)
+
+[node name="ParticleLeaves2" parent="Player" instance=ExtResource("3_eu7vq")]
+position = Vector2(0, 600)
+rotation = 3.14159
+emission_rect_extents = Vector2(1800, 1)
+initial_velocity_min = 20.0
+initial_velocity_max = 60.0
+damping_max = 10.0
+color = Color(0.956863, 1, 0.501961, 0.32549)
 
 [node name="World" parent="." instance=ExtResource("3_26hw7")]
 

@@ -1,43 +1,43 @@
-[gd_scene load_steps=6 format=3 uid="uid://bjjkhea1l6262"]
+[gd_scene load_steps=6 format=3 uid="uid://dt3g2nslp16xn"]
 
-[ext_resource type="Script" path="res://scripts/static_prop.gd" id="1_wy3xl"]
-[ext_resource type="Texture2D" uid="uid://birb6ybb47b5t" path="res://assets/prop_sprites/tree2.png" id="2_fwuqn"]
-[ext_resource type="Texture2D" uid="uid://dg7uc0xijxl1o" path="res://assets/circle.png" id="3_678dm"]
+[ext_resource type="Script" path="res://scripts/static_prop.gd" id="1_r0btv"]
+[ext_resource type="Texture2D" uid="uid://brxo17xo1w16g" path="res://assets/prop_sprites/bush2.png" id="2_6ek4y"]
+[ext_resource type="Texture2D" uid="uid://dg7uc0xijxl1o" path="res://assets/circle.png" id="3_ckkgv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_onc4m"]
-size = Vector2(37, 42.5)
+size = Vector2(71, 30)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_05hkx"]
+radius = 19.0
 
-[node name="Tree" type="StaticBody2D"]
+[node name="Bush" type="StaticBody2D"]
 z_as_relative = false
+y_sort_enabled = true
 collision_mask = 0
-script = ExtResource("1_wy3xl")
+script = ExtResource("1_r0btv")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, 6)
-texture = ExtResource("2_fwuqn")
-centered = false
-offset = Vector2(-80, -200)
+position = Vector2(0, -46)
+texture = ExtResource("2_6ek4y")
+offset = Vector2(0, -60)
 
 [node name="Shadow" type="Sprite2D" parent="Sprite2D"]
 modulate = Color(0, 0, 0, 0.25098)
 z_index = -1
-position = Vector2(-1, 17)
-scale = Vector2(0.65, 0.295)
-texture = ExtResource("3_678dm")
+position = Vector2(-8.82149e-06, 23.5)
+scale = Vector2(0.7, 0.215)
+texture = ExtResource("3_ckkgv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-0.5, 7.75)
+position = Vector2(1.5, -36)
 shape = SubResource("RectangleShape2D_onc4m")
 
 [node name="Area2D" type="Area2D" parent="."]
-position = Vector2(0, -22)
 collision_layer = 3
 collision_mask = 7
 
 [node name="ProjectileCollider" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(0, 28)
+position = Vector2(0, -48)
 shape = SubResource("CircleShape2D_05hkx")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

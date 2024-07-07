@@ -50,7 +50,6 @@ func _process(delta):
 func spawn_wave():
 	var current_wave_size = wave_size
 	var num_entities = spawn_node.get_child_count()
-	print(num_entities)
 	if num_entities + wave_size >= max_number_of_entities:
 		current_wave_size = max_number_of_entities - num_entities 
 	
