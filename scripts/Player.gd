@@ -290,3 +290,4 @@ func set_cursor():
 		DisplayServer.cursor_set_custom_image(cursor_circle, 0, Vector2(32, 32))
 	else:
 		DisplayServer.cursor_set_custom_image(cursor_point, 0, Vector2(32, 32))
+

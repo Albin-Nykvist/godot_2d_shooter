@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://ban4vdnehkkji"]
+[gd_scene load_steps=15 format=3 uid="uid://ban4vdnehkkji"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_n2dil"]
 [ext_resource type="Texture2D" uid="uid://coqca8tfhlpjf" path="res://assets/player_sprites/flower.png" id="2_vlq60"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://scripts/playerCamera.gd" id="7_xppg5"]
 [ext_resource type="PackedScene" uid="uid://bvmn6yjlabvhj" path="res://scenes/menu_scenes/pause_menu.tscn" id="8_ny718"]
 [ext_resource type="FontFile" uid="uid://wpf8eya4oe7f" path="res://assets/ui/fonts/I-pixel-u.ttf" id="9_17slt"]
+[ext_resource type="PackedScene" uid="uid://bkt70kchywygg" path="res://scenes/menu_scenes/upgrade_menu.tscn" id="10_ahauy"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_hyw7i"]
 animations = [{
@@ -123,5 +124,11 @@ layout_mode = 2
 size_flags_vertical = 0
 text = "0"
 
+[node name="UpgradeMenu" parent="." instance=ExtResource("10_ahauy")]
+
+[node name="UpgradeTimer" type="Timer" parent="UpgradeMenu"]
+wait_time = 30.0
+
 [connection signal="area_entered" from="PickUpRange" to="." method="_on_pick_up_range_area_entered"]
 [connection signal="area_exited" from="PickUpRange" to="." method="_on_pick_up_range_area_exited"]
+[connection signal="timeout" from="UpgradeMenu/UpgradeTimer" to="UpgradeMenu" method="_on_upgrade_timer_timeout"]

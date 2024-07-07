@@ -1,0 +1,77 @@
+[gd_scene load_steps=6 format=3 uid="uid://ej4xg68g2e0p"]
+
+[ext_resource type="Theme" uid="uid://b5mwspinoi8yn" path="res://assets/ui/themes/main_theme.tres" id="1_2dku4"]
+[ext_resource type="Script" path="res://scripts/menus/upgrade_card.gd" id="1_d382r"]
+[ext_resource type="Texture2D" uid="uid://c5ee4svkxia7o" path="res://assets/coin.png" id="2_vd17r"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_478ny"]
+bg_color = Color(0.478431, 0.262745, 0.262745, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0bvl3"]
+content_margin_left = 10.0
+content_margin_top = 5.0
+content_margin_right = 10.0
+content_margin_bottom = 5.0
+bg_color = Color(0, 0, 0, 0.32549)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="UpgradeCard" type="MarginContainer"]
+script = ExtResource("1_d382r")
+title = "SPEED NOW"
+description = "Whatever"
+
+[node name="Panel" type="Panel" parent="."]
+z_index = -1
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_478ny")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_2dku4")
+theme_override_font_sizes/font_size = 28
+text = "SPEED"
+horizontal_alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_vertical = 3
+text = "Increase speed by 10%"
+fit_content = true
+scroll_active = false
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Button" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_constants/outline_size = 0
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_0bvl3")
+text = "50
+"
+icon = ExtResource("2_vd17r")
+alignment = 2

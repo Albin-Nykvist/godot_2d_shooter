@@ -14,6 +14,9 @@ var props = [
 	preload("res://scenes/prop_scenes/rock2.tscn"),
 	preload("res://scenes/prop_scenes/bush2.tscn"),
 	preload("res://scenes/prop_scenes/bush.tscn"),
+	preload("res://scenes/prop_scenes/tree3.tscn"),
+	preload("res://scenes/prop_scenes/tree3.tscn"),
+	preload("res://scenes/prop_scenes/tree3.tscn"),
 ]
 
 # Called when the node enters the scene tree for the first time.
