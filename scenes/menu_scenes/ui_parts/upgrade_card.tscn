@@ -1,11 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://ej4xg68g2e0p"]
+[gd_scene load_steps=7 format=3 uid="uid://ej4xg68g2e0p"]
 
 [ext_resource type="Theme" uid="uid://b5mwspinoi8yn" path="res://assets/ui/themes/main_theme.tres" id="1_2dku4"]
 [ext_resource type="Script" path="res://scripts/menus/upgrade_card.gd" id="1_d382r"]
 [ext_resource type="Texture2D" uid="uid://c5ee4svkxia7o" path="res://assets/coin.png" id="2_vd17r"]
+[ext_resource type="FontFile" uid="uid://wpf8eya4oe7f" path="res://assets/ui/fonts/I-pixel-u.ttf" id="3_hyipt"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_478ny"]
-bg_color = Color(0.478431, 0.262745, 0.262745, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6drpk"]
+bg_color = Color(0.160784, 0.160784, 0.160784, 1)
 border_width_left = 5
 border_width_top = 5
 border_width_right = 5
@@ -30,7 +31,7 @@ description = "Whatever"
 [node name="Panel" type="Panel" parent="."]
 z_index = -1
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_478ny")
+theme_override_styles/panel = SubResource("StyleBoxFlat_6drpk")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
@@ -69,6 +70,7 @@ theme_override_constants/margin_bottom = 20
 layout_mode = 2
 size_flags_vertical = 8
 theme_override_constants/outline_size = 0
+theme_override_fonts/font = ExtResource("3_hyipt")
 theme_override_font_sizes/font_size = 25
 theme_override_styles/normal = SubResource("StyleBoxFlat_0bvl3")
 text = "50

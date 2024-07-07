@@ -10,17 +10,45 @@ var previous_cursor = load("res://assets/cursor/cursor_point.png")
 
 var upgrade_card_scene = preload("res://scenes/menu_scenes/ui_parts/upgrade_card.tscn")
 
+var colors = [
+	Color("#533747"),
+	Color("#183A37"),
+	Color("#A9714B"),
+	Color("#88AB75"), 
+	Color("#2D93AD"),
+]
+
 var upgrades = [
 	{
 		title = "SPEED",
 		description = "Increase speed by 10%",
-		price = 10
+		price = 10,
+		color = colors[4]
 	},
 	{
 		title = "DAMAGE",
 		description = "Increase damage by 10%",
-		price = 20
-	}
+		price = 20,
+		color = colors[2]
+	},
+		{
+		title = "DASH",
+		description = "Increase dash speed by 20%",
+		price = 22,
+		color = colors[1]
+	},
+	{
+		title = "DROP RATE",
+		description = "Items drop in 5% faster",
+		price = 19,
+		color = colors[0]
+	},
+	{
+		title = "KNOCKBACK",
+		description = "Increase knockback by 5%",
+		price = 41,
+		color = colors[3]
+	},
 ]
 
 func _ready():
@@ -58,6 +86,7 @@ func add_cards():
 		upgrade_card.title = upgrade.title
 		upgrade_card.description = upgrade.description
 		upgrade_card.price = upgrade.price
+		upgrade_card.color = upgrade.color
 		card_container.add_child(upgrade_card)
 
 func remove_cards():
