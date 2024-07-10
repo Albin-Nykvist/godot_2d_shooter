@@ -10,6 +10,25 @@ var previous_cursor = load("res://assets/cursor/cursor_point.png")
 
 var upgrade_card_scene = preload("res://scenes/menu_scenes/ui_parts/upgrade_card.tscn")
 
+# Mechanics based upgrades can be nodes that we attach to the player
+# They then listen for signals emitted by the player or something else
+# For example: 
+# 1. player emitts start_dashing
+# 2. upgrade recieves signal
+# 3. upgrade spawns fire for dash_duration
+
+# Static upgrades simply change variables of the player
+# This means we need to keep track of the players starting values (if we want non-exponential growth)
+# We propably want to always use the starting values to increment or decrement with upgrades
+# If we don't then the upgrades will be based on the current value, which makes the upgrade very inconsistent
+# For example: 
+#	- damage up 10% when we have 100 damage gives 110 damage
+#	- damage up 10% when we have 200 damage gives 220 damage (twice as much increased)
+
+@export var player: Node = null
+
+var start_dash_test = preload("res://scenes/upgrade_node_scenes/start_dash_test.tscn")
+
 var colors = [
 	Color("#533747"),
 	Color("#183A37"),
@@ -23,31 +42,41 @@ var upgrades = [
 		title = "SPEED",
 		description = "Increase speed by 10%",
 		price = 10,
-		color = colors[4]
+		color = colors[4],
+		id = 0,
+		upgrade_scene = start_dash_test,
 	},
 	{
 		title = "DAMAGE",
 		description = "Increase damage by 10%",
 		price = 20,
-		color = colors[2]
+		color = colors[2],
+		id = 1,
+		upgrade_scene = start_dash_test,
 	},
 		{
 		title = "DASH",
 		description = "Increase dash speed by 20%",
 		price = 22,
-		color = colors[1]
+		color = colors[1],
+		id = 2,
+		upgrade_scene = start_dash_test,
 	},
 	{
 		title = "DROP RATE",
 		description = "Items drop in 5% faster",
 		price = 19,
-		color = colors[0]
+		color = colors[0],
+		id = 3,
+		upgrade_scene = start_dash_test,
 	},
 	{
 		title = "KNOCKBACK",
 		description = "Increase knockback by 5%",
 		price = 41,
-		color = colors[3]
+		color = colors[3],
+		id = 4,
+		upgrade_scene = start_dash_test,
 	},
 ]
 
@@ -88,8 +117,14 @@ func add_cards():
 		upgrade_card.price = upgrade.price
 		upgrade_card.color = upgrade.color
 		card_container.add_child(upgrade_card)
+		upgrade_card.player = player
+		upgrade_card.upgrade_scene = upgrade.upgrade_scene
+		print(upgrade_card.upgrade_scene)
 
 func remove_cards():
 	for n in card_container.get_children():
 		card_container.remove_child(n)
 		n.queue_free()
+
+func _on_upgrade_card_pressed(upgrade_id):
+	print("upgrade ", upgrade_id)

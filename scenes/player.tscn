@@ -124,7 +124,8 @@ layout_mode = 2
 size_flags_vertical = 0
 text = "0"
 
-[node name="UpgradeMenu" parent="." instance=ExtResource("10_ahauy")]
+[node name="UpgradeMenu" parent="." node_paths=PackedStringArray("player") instance=ExtResource("10_ahauy")]
+player = NodePath("..")
 
 [node name="UpgradeTimer" type="Timer" parent="UpgradeMenu"]
 wait_time = 30.0

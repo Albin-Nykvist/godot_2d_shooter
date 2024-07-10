@@ -58,6 +58,7 @@ var max_health = 100.0
 var health = 0.0 # set in ready
 
 
+signal start_dash
 
 
 func _ready():
@@ -129,7 +130,8 @@ func handle_dash_cool_down(delta: float):
 		if dash_cool_down_counter < 0.0:
 			dash_cool_down_counter = 0.0
 		dash_bar.scale.x = 1.0 - (dash_cool_down_counter / dash_cool_down)
-	if dash_cool_down_counter <= 0.0 and Input.is_action_pressed("dash"): # and Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down") != Vector2.ZERO:
+	if dash_cool_down_counter <= 0.0 and Input.is_action_pressed("dash"):
+		start_dash.emit()
 		is_dashing = true
 		dash_direction = self.direction
 		dash_duration_counter = dash_duration

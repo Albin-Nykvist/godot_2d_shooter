@@ -54,7 +54,7 @@ func _ready():
 		prop.position = Vector2(section_position.x + randi() % section_size.x, section_position.y + randi() % section_size.y)
 		add_child(prop)
 		
-		for j in 3:
+		for j in 4:
 			var noise = self.noise.instantiate()
 			noise.z_index = -1
 			noise.texture = noise_textures[randi() % noise_textures.size()]

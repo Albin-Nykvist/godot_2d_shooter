@@ -77,3 +77,5 @@ text = "50
 "
 icon = ExtResource("2_vd17r")
 alignment = 2
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/MarginContainer/Button" to="." method="_on_button_pressed"]
