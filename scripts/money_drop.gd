@@ -1,6 +1,6 @@
 extends Area2D
 
-var particleDestroy = preload("res://scenes/particle_scenes/ParticleCoin.tscn")
+var particleDestroy = preload("res://scenes/vfx_scenes/ParticleCoin.tscn")
 
 @export var value = 1
 

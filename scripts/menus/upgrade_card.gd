@@ -34,6 +34,15 @@ func update():
 
 
 func _on_button_pressed():
+	var cost = int(button.text)
+	
+	if cost > player.coins:
+		player.camera.shake_screen(0.2, 10.0)
+		return
+	
+	player.coins -= cost
+	player.update_coin_ui()
+	
 	var upgrade = upgrade_scene.instantiate()
 	upgrade.player = player
 	player.add_child(upgrade)

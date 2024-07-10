@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://c2b04tb5urukc"]
+
+[ext_resource type="Script" path="res://scripts/items/coffee_item.gd" id="1_25mee"]
+[ext_resource type="Texture2D" uid="uid://csdgh3w0mq3g6" path="res://assets/item_sprites/coffee.png" id="1_jxr4j"]
+[ext_resource type="PackedScene" uid="uid://cx72b5pmyf7wd" path="res://scenes/shadow.tscn" id="2_ldiqe"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7shs1"]
+radius = 37.0
+
+[node name="Item" type="Area2D" groups=["items"]]
+y_sort_enabled = true
+linear_damp = 0.2
+script = ExtResource("1_25mee")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_7shs1")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_jxr4j")
+
+[node name="Shadow" parent="Sprite2D" instance=ExtResource("2_ldiqe")]
+z_as_relative = false
+position = Vector2(-3, 27)

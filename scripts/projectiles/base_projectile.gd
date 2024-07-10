@@ -1,8 +1,8 @@
 extends CharacterBody2D
 class_name Projectile
 
-@onready var particle_poof = preload("res://scenes/particle_scenes/ParticlePoof.tscn")
-@onready var particle_flight = preload("res://scenes/particle_scenes/ParticleProjectile.tscn")
+@onready var particle_poof = preload("res://scenes/vfx_scenes/ParticlePoof.tscn")
+@onready var particle_flight = preload("res://scenes/vfx_scenes/ParticleProjectile.tscn")
 
 # General movement
 var direction = Vector2(0, 0)

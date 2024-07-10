@@ -7,8 +7,8 @@ var item_scene = preload("res://scenes/item_scenes/urn.tscn")
 var cursor_point = preload("res://assets/cursor/cursor_point.png")
 var cursor_circle = preload("res://assets/cursor/cursor_circle.png")
 
-var dash_particles = preload("res://scenes/particle_scenes/ParticleDash.tscn")
-var pick_up_particles = preload("res://scenes/particle_scenes/ParticlePickUp.tscn")
+var dash_particles = preload("res://scenes/vfx_scenes/ParticleDash.tscn")
+var pick_up_particles = preload("res://scenes/vfx_scenes/ParticlePickUp.tscn")
 
 @onready var camera = $PlayerCamera
 @onready var item_sprite = $HeldItemSprite
@@ -18,6 +18,7 @@ var pick_up_particles = preload("res://scenes/particle_scenes/ParticlePickUp.tsc
 @onready var time_label = $HeadsUpDisplay/TopBar/Time
 @onready var coin_label = $HeadsUpDisplay/TopBar/Coins
 @onready var collider = $CollisionShape2D
+@onready var pickup_collider = $PickUpRange/CollisionShape2D
 
 # time
 var time = 0.0
@@ -26,15 +27,15 @@ var time = 0.0
 const item_sprite_base_speed = 1.0
 var item_sprite_speed = 1.0
 
-# money
+# coins
 var coins = 0
 
 # Dashing
 var is_dashing = false
-const dash_duration = 0.10
+var dash_duration = 0.10
 var dash_duration_counter = 0.0
-const dash_speed = 1400.0
-const dash_cool_down = 0.8
+var dash_speed = 1400.0
+var dash_cool_down = 0.8
 var dash_cool_down_counter = 0.0
 var dash_direction = Vector2.ZERO
 
@@ -53,11 +54,31 @@ var is_throwing = false
 var max_throw_time = 1.0 # makes sure we don't get stuck in the is_throwing state
 var throw_time_counter = 0.0
 
+# Projectile
+var proj_damage_mult = 1.0
+var proj_stagger_mult = 1.0
+var proj_knockback_mult = 1.0
+
 # Health
 var max_health = 100.0
-var health = 0.0 # set in ready
+var health = 0.0
 
 
+# starting values (used by upgrades) (set during ready)
+var starting_dash_duration
+var starting_dash_cool_down
+var starting_dash_speed
+var starting_speed
+var starting_pickup_radius_scale
+var starting_throw_force
+var starting_max_health
+var starting_proj_damage_mult
+var starging_proj_stagger_mult
+var starting_proj_knockback_mult
+
+
+
+# Signals: used for active upgrades
 signal begin_dash
 signal end_dash
 
@@ -71,6 +92,17 @@ func _ready():
 	set_cursor()
 	health = max_health
 	item_sprite.hide()
+	
+	starting_dash_duration = dash_duration
+	starting_dash_cool_down = dash_cool_down
+	starting_dash_speed = dash_speed
+	starting_speed = speed
+	starting_pickup_radius_scale = pickup_collider.scale.x
+	starting_throw_force = throw_force
+	starting_max_health = max_health
+	starting_proj_damage_mult = proj_damage_mult
+	starging_proj_stagger_mult = proj_stagger_mult
+	starting_proj_knockback_mult = proj_knockback_mult
 
 func _physics_process(delta):
 	if is_dashing:
@@ -275,8 +307,11 @@ func _on_pick_up_range_area_entered(area):
 			pick_up_item()
 	elif area.is_in_group("coins"):
 		self.coins += area.value
-		coin_label.text = str(self.coins)
+		update_coin_ui()
 		area.destroy()
+
+func update_coin_ui():
+	coin_label.text = str(self.coins)
 
 func _on_pick_up_range_area_exited(area):
 	if area.is_in_group("items"):

@@ -94,6 +94,7 @@ texture = ExtResource("6_vm5nh")
 centered = false
 
 [node name="PlayerCamera" type="Camera2D" parent="."]
+process_mode = 3
 position_smoothing_enabled = true
 script = ExtResource("7_xppg5")
 
@@ -128,7 +129,8 @@ text = "0"
 player = NodePath("..")
 
 [node name="UpgradeTimer" type="Timer" parent="UpgradeMenu"]
-wait_time = 30.0
+wait_time = 60.0
+autostart = true
 
 [connection signal="area_entered" from="PickUpRange" to="." method="_on_pick_up_range_area_entered"]
 [connection signal="area_exited" from="PickUpRange" to="." method="_on_pick_up_range_area_exited"]

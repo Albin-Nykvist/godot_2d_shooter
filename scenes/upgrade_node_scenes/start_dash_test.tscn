@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://c2ec13p0x5e4o"]
-
-[ext_resource type="Script" path="res://scripts/upgrades/start_dash_test.gd" id="1_p5kns"]
-
-[node name="StartDashTest" type="Node"]
-script = ExtResource("1_p5kns")

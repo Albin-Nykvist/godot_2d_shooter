@@ -1,7 +1,7 @@
 extends Area2D
 class_name Item
 
-var landing_particles = preload("res://scenes/particle_scenes/ParticleGroundHit.tscn")
+var landing_particles = preload("res://scenes/vfx_scenes/ParticleGroundHit.tscn")
 
 @export var projectile_scene = preload("res://scenes/projectile_scenes/projectile.tscn")
 
@@ -36,6 +36,9 @@ func throw(player: Node):
 	projectile.speed = player.throw_force
 	projectile.position += projectile.direction * 50 # nice initial offset
 	player.get_parent().add_child(projectile)
+	projectile.damage *= player.proj_damage_mult
+	projectile.stagger *= player.proj_stagger_mult
+	projectile.knockback *= player.proj_knockback_mult
 	player.camera.shake_screen(0.05, 10.0)
 	player.remove_held_item()
 	player.is_throwing = false

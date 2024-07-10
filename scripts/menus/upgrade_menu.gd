@@ -26,7 +26,9 @@ var upgrade_card_scene = preload("res://scenes/menu_scenes/ui_parts/upgrade_card
 
 @export var player: Node = null
 
-var start_dash_test = preload("res://scenes/upgrade_node_scenes/start_dash_test.tscn")
+# Upgrade scenes
+var upgrade_speed = preload("res://scenes/upgrade_node_scenes/upgrade_speed.tscn")
+var upgrade_damage = preload("res://scenes/upgrade_node_scenes/upgrade_damage.tscn")
 
 var colors = [
 	Color("#533747"),
@@ -39,38 +41,17 @@ var colors = [
 var upgrades = [
 	{
 		title = "SPEED",
-		description = "Increase speed by 10%",
+		description = "Increase speed by 15%",
 		price = 10,
 		color = colors[4],
-		upgrade_scene = start_dash_test,
+		upgrade_scene = upgrade_speed,
 	},
 	{
-		title = "DAMAGE",
-		description = "Increase damage by 10%",
-		price = 20,
-		color = colors[2],
-		upgrade_scene = start_dash_test,
-	},
-		{
-		title = "DASH",
-		description = "Increase dash speed by 20%",
-		price = 22,
+		title = "Damage",
+		description = "Increase damage by 20%",
+		price = 10,
 		color = colors[1],
-		upgrade_scene = start_dash_test,
-	},
-	{
-		title = "DROP RATE",
-		description = "Items drop in 5% faster",
-		price = 19,
-		color = colors[0],
-		upgrade_scene = start_dash_test,
-	},
-	{
-		title = "KNOCKBACK",
-		description = "Increase knockback by 5%",
-		price = 41,
-		color = colors[3],
-		upgrade_scene = start_dash_test,
+		upgrade_scene = upgrade_damage,
 	},
 ]
 
@@ -109,12 +90,21 @@ func toggle():
 		is_active = true
 
 func add_cards():
-	for i in 3:
+	for i in 4:
 		var upgrade_card = upgrade_card_scene.instantiate()
 		var upgrade = upgrades[randi() % upgrades.size()]
 		upgrade_card.title = upgrade.title
 		upgrade_card.description = upgrade.description
-		upgrade_card.price = upgrade.price
+		
+		if i == 0:
+			upgrade_card.price = 0
+		elif i == 1:
+			upgrade_card.price = upgrade.price * 0.7
+		elif i == 2:
+			upgrade_card.price = upgrade.price
+		else:
+			upgrade_card.price = upgrade.price * 1.2
+		
 		upgrade_card.color = upgrade.color
 		card_container.add_child(upgrade_card)
 		upgrade_card.player = player
