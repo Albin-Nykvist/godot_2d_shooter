@@ -132,4 +132,5 @@ wait_time = 30.0
 
 [connection signal="area_entered" from="PickUpRange" to="." method="_on_pick_up_range_area_entered"]
 [connection signal="area_exited" from="PickUpRange" to="." method="_on_pick_up_range_area_exited"]
+[connection signal="hidden" from="PauseMenu" to="UpgradeMenu" method="_on_pause_menu_hidden"]
 [connection signal="timeout" from="UpgradeMenu/UpgradeTimer" to="UpgradeMenu" method="_on_upgrade_timer_timeout"]

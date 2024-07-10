@@ -1,10 +1,8 @@
 extends MarginContainer
 class_name UpgradeCard
 
-# Allows us to interact with the upgrade menu (for example close it after pressing button)
-#@export var upgrade_menu: Node = null
+@export var upgrade_menu: Node = null
 
-##@export var game: Node = null
 @export var player: Node = null
 
 ## The scene we attach to the player
@@ -24,13 +22,6 @@ class_name UpgradeCard
 func _ready():
 	update()
 
-func _input(event):
-	if Input.is_action_just_pressed("pause"):
-		if visible:
-			hide()
-		else:
-			show()
-
 func update():
 	title_label.text = title
 	description_text_box.text = description
@@ -46,3 +37,5 @@ func _on_button_pressed():
 	var upgrade = upgrade_scene.instantiate()
 	upgrade.player = player
 	player.add_child(upgrade)
+	
+	upgrade_menu.toggle()

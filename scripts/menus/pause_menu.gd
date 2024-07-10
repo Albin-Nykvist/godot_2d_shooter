@@ -5,7 +5,6 @@ var screen_size = DisplayServer.screen_get_size()
 var screen_middle = Vector2(screen_size.x - (screen_size.x/2), screen_size.y - (screen_size.y/2))
 
 var arrow_cursor = load("res://assets/cursor/cursor_arrow.png")
-var previous_cursor = load("res://assets/cursor/cursor_point.png")
 
 func _ready():
 	# This garbage can not be centered by default, so this is centering for you 
@@ -32,11 +31,10 @@ func _on_quit_to_menu_pressed():
 
 func toggle():
 	if visible:
-		DisplayServer.cursor_set_custom_image(previous_cursor)
-		hide()
 		get_tree().paused = false
+		hide()
 	else:
-		get_tree().paused = true
 		DisplayServer.cursor_set_custom_image(arrow_cursor)
+		get_tree().paused = true
 		show()
 

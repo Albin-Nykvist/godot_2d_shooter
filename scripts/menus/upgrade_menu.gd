@@ -6,7 +6,6 @@ var screen_size = DisplayServer.screen_get_size()
 var screen_middle = Vector2(screen_size.x - (screen_size.x/2), screen_size.y - (screen_size.y/2))
 
 var arrow_cursor = load("res://assets/cursor/cursor_arrow.png")
-var previous_cursor = load("res://assets/cursor/cursor_point.png")
 
 var upgrade_card_scene = preload("res://scenes/menu_scenes/ui_parts/upgrade_card.tscn")
 
@@ -43,7 +42,6 @@ var upgrades = [
 		description = "Increase speed by 10%",
 		price = 10,
 		color = colors[4],
-		id = 0,
 		upgrade_scene = start_dash_test,
 	},
 	{
@@ -51,7 +49,6 @@ var upgrades = [
 		description = "Increase damage by 10%",
 		price = 20,
 		color = colors[2],
-		id = 1,
 		upgrade_scene = start_dash_test,
 	},
 		{
@@ -59,7 +56,6 @@ var upgrades = [
 		description = "Increase dash speed by 20%",
 		price = 22,
 		color = colors[1],
-		id = 2,
 		upgrade_scene = start_dash_test,
 	},
 	{
@@ -67,7 +63,6 @@ var upgrades = [
 		description = "Items drop in 5% faster",
 		price = 19,
 		color = colors[0],
-		id = 3,
 		upgrade_scene = start_dash_test,
 	},
 	{
@@ -75,10 +70,11 @@ var upgrades = [
 		description = "Increase knockback by 5%",
 		price = 41,
 		color = colors[3],
-		id = 4,
 		upgrade_scene = start_dash_test,
 	},
 ]
+
+var is_active = false
 
 func _ready():
 	# This garbage can not be centered by default, so this is centering for you 
@@ -91,6 +87,9 @@ func _ready():
 func _input(event):
 	if Input.is_action_just_pressed("ui_accept"):
 		toggle()
+	if Input.is_action_just_pressed("pause"):
+		if visible: # Going from upgrade_menu to pause_menu
+			hide()
 
 func _on_upgrade_timer_timeout():
 	toggle()
@@ -98,15 +97,16 @@ func _on_upgrade_timer_timeout():
 
 func toggle():
 	if visible:
-		DisplayServer.cursor_set_custom_image(previous_cursor)
 		hide()
 		get_tree().paused = false
 		remove_cards()
+		is_active = false
 	else:
 		get_tree().paused = true
 		DisplayServer.cursor_set_custom_image(arrow_cursor)
 		add_cards()
 		show()
+		is_active = true
 
 func add_cards():
 	for i in 3:
@@ -119,12 +119,15 @@ func add_cards():
 		card_container.add_child(upgrade_card)
 		upgrade_card.player = player
 		upgrade_card.upgrade_scene = upgrade.upgrade_scene
-		print(upgrade_card.upgrade_scene)
+		upgrade_card.upgrade_menu = self
 
 func remove_cards():
 	for n in card_container.get_children():
 		card_container.remove_child(n)
 		n.queue_free()
 
-func _on_upgrade_card_pressed(upgrade_id):
-	print("upgrade ", upgrade_id)
+
+func _on_pause_menu_hidden():
+	if is_active == true:
+		get_tree().paused = true
+		show()

@@ -1,0 +1,48 @@
+[gd_scene load_steps=4 format=3 uid="uid://bkt70kchywygg"]
+
+[ext_resource type="Theme" uid="uid://b5mwspinoi8yn" path="res://assets/ui/themes/main_theme.tres" id="1_qofey"]
+[ext_resource type="Script" path="res://scripts/menus/upgrade_menu.gd" id="2_1y5o6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_urap2"]
+bg_color = Color(0, 0, 0, 0.403922)
+
+[node name="UpgradeMenu" type="Control"]
+process_mode = 3
+visible = false
+z_index = 19
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_qofey")
+script = ExtResource("2_1y5o6")
+
+[node name="Panel" type="Panel" parent="."]
+z_index = -2
+layout_mode = 0
+offset_left = -570.0
+offset_top = -356.0
+offset_right = 2533.0
+offset_bottom = 1730.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_urap2")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -383.0
+offset_top = -146.0
+offset_right = 383.0
+offset_bottom = 146.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
