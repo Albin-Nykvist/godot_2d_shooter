@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://c1xqrf7ahgg8k"]
+[gd_scene load_steps=9 format=3 uid="uid://c1xqrf7ahgg8k"]
 
 [ext_resource type="Script" path="res://scripts/enemies/hopper.gd" id="1_j3qtd"]
 [ext_resource type="Texture2D" uid="uid://bqjtpr874cx7n" path="res://assets/enemy_sprites/hopper/hopper.png" id="2_tccfc"]
 [ext_resource type="Texture2D" uid="uid://dadtch02amhel" path="res://assets/enemy_sprites/hopper/hopper2.png" id="3_kwnhk"]
 [ext_resource type="PackedScene" uid="uid://cx72b5pmyf7wd" path="res://scenes/shadow.tscn" id="4_q0aab"]
+[ext_resource type="AudioStream" uid="uid://fqsby8888wun" path="res://assets/audio/sfx/doot.wav" id="5_khnr1"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_a4rsm"]
 animations = [{
@@ -49,6 +50,11 @@ collision_mask = 3
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(2, 7)
 shape = SubResource("CapsuleShape2D_eokyj")
+
+[node name="sfxHurt" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_khnr1")
+volume_db = 6.0
+pitch_scale = 4.0
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

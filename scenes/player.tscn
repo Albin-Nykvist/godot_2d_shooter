@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://ban4vdnehkkji"]
+[gd_scene load_steps=18 format=3 uid="uid://ban4vdnehkkji"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_n2dil"]
 [ext_resource type="Texture2D" uid="uid://coqca8tfhlpjf" path="res://assets/player_sprites/flower.png" id="2_vlq60"]
@@ -10,6 +10,9 @@
 [ext_resource type="PackedScene" uid="uid://bvmn6yjlabvhj" path="res://scenes/menu_scenes/pause_menu.tscn" id="8_ny718"]
 [ext_resource type="FontFile" uid="uid://wpf8eya4oe7f" path="res://assets/ui/fonts/I-pixel-u.ttf" id="9_17slt"]
 [ext_resource type="PackedScene" uid="uid://bkt70kchywygg" path="res://scenes/menu_scenes/upgrade_menu.tscn" id="10_ahauy"]
+[ext_resource type="AudioStream" uid="uid://b0kujnnpov8jg" path="res://assets/audio/sfx/laserShoot.wav" id="11_x500i"]
+[ext_resource type="AudioStream" uid="uid://brsadx5xnm0tc" path="res://assets/audio/sfx/pickupCoin.wav" id="12_kqpvt"]
+[ext_resource type="AudioStream" uid="uid://g5fx5ijcq6id" path="res://assets/audio/sfx/hitHurt.wav" id="13_xcit2"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_hyw7i"]
 animations = [{
@@ -131,6 +134,23 @@ player = NodePath("..")
 [node name="UpgradeTimer" type="Timer" parent="UpgradeMenu"]
 wait_time = 60.0
 autostart = true
+
+[node name="SfxDash" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("11_x500i")
+volume_db = -8.0
+pitch_scale = 0.54
+bus = &"SFX"
+
+[node name="SfxCoin" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("12_kqpvt")
+volume_db = -10.0
+pitch_scale = 2.0
+bus = &"SFX"
+
+[node name="SfxHurt" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("13_xcit2")
+pitch_scale = 0.5
+bus = &"SFX"
 
 [connection signal="area_entered" from="PickUpRange" to="." method="_on_pick_up_range_area_entered"]
 [connection signal="area_exited" from="PickUpRange" to="." method="_on_pick_up_range_area_exited"]

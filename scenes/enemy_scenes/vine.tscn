@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://bkr83b3g5tfae"]
+[gd_scene load_steps=9 format=3 uid="uid://bkr83b3g5tfae"]
 
 [ext_resource type="Script" path="res://scripts/enemies/vine.gd" id="1_krktg"]
 [ext_resource type="Texture2D" uid="uid://dnhnhdy3l364c" path="res://assets/enemy_sprites/vine/wine64.png" id="2_aqcd3"]
 [ext_resource type="Texture2D" uid="uid://d26y85oxvbx2e" path="res://assets/enemy_sprites/vine/wine2.png" id="3_dsp51"]
 [ext_resource type="PackedScene" uid="uid://cx72b5pmyf7wd" path="res://scenes/shadow.tscn" id="4_nemto"]
+[ext_resource type="AudioStream" uid="uid://fqsby8888wun" path="res://assets/audio/sfx/doot.wav" id="5_bqjuc"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_a4rsm"]
 animations = [{
@@ -49,6 +50,11 @@ collision_mask = 3
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(-1, 6)
 shape = SubResource("CapsuleShape2D_eokyj")
+
+[node name="sfxHurt" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_bqjuc")
+volume_db = 6.0
+pitch_scale = 4.0
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

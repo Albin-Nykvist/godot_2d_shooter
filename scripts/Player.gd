@@ -8,6 +8,7 @@ var cursor_point = preload("res://assets/cursor/cursor_point.png")
 var cursor_circle = preload("res://assets/cursor/cursor_circle.png")
 
 var dash_particles = preload("res://scenes/vfx_scenes/ParticleDash.tscn")
+var slide_particles = preload("res://scenes/vfx_scenes/ParticleSlide.tscn")
 var pick_up_particles = preload("res://scenes/vfx_scenes/ParticlePickUp.tscn")
 
 @onready var camera = $PlayerCamera
@@ -19,6 +20,10 @@ var pick_up_particles = preload("res://scenes/vfx_scenes/ParticlePickUp.tscn")
 @onready var coin_label = $HeadsUpDisplay/TopBar/Coins
 @onready var collider = $CollisionShape2D
 @onready var pickup_collider = $PickUpRange/CollisionShape2D
+
+@onready var sfx_dash = $SfxDash
+@onready var sfx_coin = $SfxCoin
+@onready var sfx_hurt = $SfxHurt
 
 # time
 var time = 0.0
@@ -39,8 +44,21 @@ var dash_cool_down = 0.8
 var dash_cool_down_counter = 0.0
 var dash_direction = Vector2.ZERO
 
+# Teleporting
+var teleport_cool_down = 2.0
+var teleport_cool_down_counter = 0.0
+
+# Sliding
+var is_sliding = false
+var slide_speed_bonus = 350.0
+var current_slide_speed_bonus = 0.0
+var slide_speed_reduction = 300.0
+var slide_direction = Vector2.ZERO
+var slide_cool_down = 0.15
+var slide_cool_down_counter = 0.0
+
 # Moving
-var speed = 300.0
+var speed = 200.0
 var direction = Vector2.ZERO
 
 # Inventory
@@ -107,13 +125,22 @@ func _ready():
 func _physics_process(delta):
 	if is_dashing:
 		dash(delta)
+	elif is_sliding:
+		slide(delta)
 	else:
 		walk()
-		handle_dash_cool_down(delta)
 	
+
 	var velocity_before_collision = velocity
 	var collision = move_and_collide(velocity * delta)
 	move_around_collision(collision, velocity_before_collision, delta)
+
+func slide(delta):
+	velocity = slide_direction * (self.current_slide_speed_bonus + self.speed)
+	current_slide_speed_bonus -= slide_speed_reduction * delta
+	if current_slide_speed_bonus < 0.0:
+		current_slide_speed_bonus = 0
+	look_towards_direction(slide_direction)
 
 func move_around_collision(collision: KinematicCollision2D, velocity_before_collision: Vector2, delta: float):
 	if collision == null: return
@@ -167,11 +194,18 @@ func handle_dash_cool_down(delta: float):
 		dash_cool_down_counter -= delta
 		if dash_cool_down_counter < 0.0:
 			dash_cool_down_counter = 0.0
-		dash_bar.scale.x = 1.0 - (dash_cool_down_counter / dash_cool_down)
+		var bar_scale = 1.0 - (dash_cool_down_counter / dash_cool_down)
+		if bar_scale < 0.0:
+			bar_scale = 0.0
+		dash_bar.scale.x = bar_scale
 	if dash_cool_down_counter <= 0.0 and Input.is_action_pressed("dash"):
 		begin_dash.emit()
+		play_sfx(sfx_dash)
 		is_dashing = true
-		dash_direction = self.direction
+		if is_sliding:
+			dash_direction = slide_direction
+		else:
+			dash_direction = self.direction
 		dash_duration_counter = dash_duration
 		camera.shake_screen(0.1, 4.0)
 		
@@ -197,10 +231,36 @@ func _process(delta):
 	
 	set_cursor()
 	
+	if !is_dashing:
+		handle_dash_cool_down(delta)
+	
+	
 	if throw_time_counter > 0 and is_throwing:
 		throw_time_counter -= delta
 	else:
 		is_throwing = false
+	
+	if teleport_cool_down_counter > 0:
+		teleport_cool_down_counter -= delta
+	
+	if is_sliding:
+		character_sprite.scale.y = 0.95
+		if character_sprite.flip_h:
+			character_sprite.skew = -0.1 * PI
+		else:
+			character_sprite.skew = 0.1 * PI
+		var particles = slide_particles.instantiate()
+		particles.emitting = true
+		particles.position = character_sprite.position + Vector2(0, 25)
+		
+		particles.z_index = -1
+		add_child(particles)
+	else:
+		character_sprite.scale.y = 1.0
+		character_sprite.skew = 0.0
+	
+	if slide_cool_down_counter > 0:
+		slide_cool_down_counter -= delta
 
 func rotate_held_item():
 	var max_offset = 35.0
@@ -224,7 +284,8 @@ func rotate_held_item():
 	
 
 func _input(event):
-	if event is InputEventMouseButton and event.is_pressed() and event.is_echo() == false: 
+	#if event is InputEventMouseButton and event.is_pressed() and event.is_echo() == false: 
+	if Input.is_action_just_pressed("throw") and event is InputEventMouseButton and event.is_pressed() and event.is_echo() == false:
 		throw_item()
 	
 	if Input.is_action_just_pressed("drop"):
@@ -232,6 +293,20 @@ func _input(event):
 			pick_up_item()
 		else:
 			drop_item()
+	
+	if Input.is_action_just_pressed("teleport") and dash_cool_down_counter <= 0:
+		position = get_global_mouse_position()
+		dash_cool_down_counter = dash_cool_down * 1.5
+		#teleport_cool_down_counter = teleport_cool_down
+	var direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+	if Input.is_action_pressed("slide") and direction and slide_cool_down_counter <= 0 and !is_sliding:
+		is_sliding = true
+		slide_direction = direction
+		current_slide_speed_bonus = slide_speed_bonus
+	if (!Input.is_action_pressed("slide") and is_sliding) or (direction != slide_direction and is_sliding): 
+		is_sliding = false
+		slide_direction = Vector2.ZERO
+		slide_cool_down_counter = slide_cool_down
 
 
 func recover_colors(): # should depend on delta?
@@ -309,6 +384,7 @@ func _on_pick_up_range_area_entered(area):
 		self.coins += area.value
 		update_coin_ui()
 		area.destroy()
+		play_sfx(sfx_coin)
 
 func update_coin_ui():
 	coin_label.text = str(self.coins)
@@ -327,6 +403,8 @@ func recieve_damage(damage: int):
 	health_bar.scale.x = health / max_health
 	
 	character_sprite.modulate = Color(1, 0, 0, 1)
+	
+	play_sfx(sfx_hurt)
 
 func set_cursor():
 	if held_item:
@@ -334,3 +412,9 @@ func set_cursor():
 	else:
 		DisplayServer.cursor_set_custom_image(cursor_point, 0, Vector2(32, 32))
 
+func play_sfx(audio_node: Node):
+	var original_pitch = audio_node.pitch_scale
+	var variance = 0.3
+	audio_node.pitch_scale = original_pitch - variance + randf() * variance
+	audio_node.playing = true
+	audio_node.pitch_scale = original_pitch

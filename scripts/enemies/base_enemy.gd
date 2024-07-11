@@ -53,6 +53,8 @@ var base_physics_process_delay_counter = 0.0
 var base_physics_process_delta_sum = 0.0
 # The performance goal is 400 basic enemies 
 
+# sound
+@onready var sfx_hurt = $sfxHurt
 
 func _ready():
 	base_ready()
@@ -234,6 +236,8 @@ func recover_speed(delta: float):
 func recieve_damage(damage: int):
 	if is_dead: return
 	health -= damage
+	play_sfx(sfx_hurt)
+	
 	if health <= 0:
 		var coin = coin_scene.instantiate()
 		coin.position = self.position + Vector2(-10 + randi() % 21, -10)
@@ -243,3 +247,11 @@ func recieve_damage(damage: int):
 		shadow.hide()
 
 
+func play_sfx(audio_node: Node):
+	if audio_node.playing: return
+		
+	var original_pitch = audio_node.pitch_scale
+	var variance = 0.3
+	audio_node.pitch_scale = original_pitch - variance + randf() * variance
+	audio_node.play()
+	audio_node.pitch_scale = original_pitch
