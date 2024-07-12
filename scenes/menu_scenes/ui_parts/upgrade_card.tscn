@@ -47,7 +47,7 @@ theme_override_constants/separation = 10
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("1_2dku4")
-theme_override_font_sizes/font_size = 28
+theme_override_font_sizes/font_size = 20
 text = "SPEED"
 horizontal_alignment = 1
 

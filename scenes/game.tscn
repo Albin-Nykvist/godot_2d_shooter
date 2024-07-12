@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bx22cg8abbed3" path="res://scenes/world.tscn" id="3_26hw7"]
 [ext_resource type="PackedScene" uid="uid://ce8hgh2k0c6kx" path="res://scenes/vfx_scenes/ParticleLeaves.tscn" id="3_eu7vq"]
 [ext_resource type="PackedScene" uid="uid://w6vqguk4o656" path="res://scenes/spawner.tscn" id="5_e1jsg"]
-[ext_resource type="PackedScene" uid="uid://svab6uqyfuk4" path="res://scenes/item_scenes/urn.tscn" id="6_cb55n"]
+[ext_resource type="PackedScene" uid="uid://c2b04tb5urukc" path="res://scenes/item_scenes/coffee.tscn" id="6_4l4uj"]
 [ext_resource type="PackedScene" uid="uid://c1xqrf7ahgg8k" path="res://scenes/enemy_scenes/hopper.tscn" id="7_bxqbb"]
 [ext_resource type="PackedScene" uid="uid://du8ylstvbcoo3" path="res://scenes/enemy_scenes/crab.tscn" id="7_hjgyj"]
 [ext_resource type="PackedScene" uid="uid://coghydqguv0xg" path="res://scenes/item_scenes/socks.tscn" id="8_dldyl"]
@@ -36,7 +36,7 @@ color = Color(0.956863, 1, 0.501961, 0.32549)
 [node name="World" parent="." instance=ExtResource("3_26hw7")]
 
 [node name="ItemSpawner" parent="." node_paths=PackedStringArray("player", "spawn_node") instance=ExtResource("5_e1jsg")]
-entity_scene = ExtResource("6_cb55n")
+entity_scene = ExtResource("6_4l4uj")
 entity_is_item = true
 player = NodePath("../Player")
 min_spawn_distance_to_player = 50.0
@@ -44,7 +44,7 @@ max_spawn_distance_to_player = 500.0
 spawn_node = NodePath("..")
 spawn_group = "items"
 spawner_group = "item_spawner"
-wave_rate = 10.0
+wave_rate = 8.0
 wave_size = 2
 
 [node name="VineSpawner" parent="." node_paths=PackedStringArray("player", "spawn_node") instance=ExtResource("5_e1jsg")]
@@ -57,7 +57,7 @@ spawn_node = NodePath("..")
 spawn_group = "enemies"
 spawner_group = "vine"
 wave_rate = 20.0
-wave_size = 9
+wave_size = 8
 wave_size_growth = 1
 max_number_of_entities = 200
 
@@ -85,4 +85,4 @@ max_spawn_distance_to_player = 500.0
 spawn_node = NodePath("..")
 spawn_group = "items"
 spawner_group = "item_spawner"
-wave_rate = 10.0
+wave_rate = 8.0

@@ -30,6 +30,7 @@ func throw(player: Node):
 	delay_counter = second_shot_delay
 
 func throw_projectile(player: Node, scene):
+	player.play_sfx(player.sfx_throw)
 	has_thown = true
 	var projectile = scene.instantiate()
 	projectile.position = player.position #+ item_sprite.position

@@ -27,6 +27,7 @@ func base_process(delta: float):
 
 func throw(player: Node):
 	player.is_throwing = true
+	player.play_sfx(player.sfx_throw)
 	var projectile = projectile_scene.instantiate()
 	projectile.position = player.position #+ item_sprite.position
 	projectile.add_to_group("projectiles")

@@ -24,6 +24,7 @@ var pick_up_particles = preload("res://scenes/vfx_scenes/ParticlePickUp.tscn")
 @onready var sfx_dash = $SfxDash
 @onready var sfx_coin = $SfxCoin
 @onready var sfx_hurt = $SfxHurt
+@onready var sfx_throw = $SfxThrow
 
 # time
 var time = 0.0
@@ -58,7 +59,7 @@ var slide_cool_down = 0.15
 var slide_cool_down_counter = 0.0
 
 # Moving
-var speed = 200.0
+var speed = 250.0
 var direction = Vector2.ZERO
 
 # Inventory
@@ -81,6 +82,10 @@ var proj_knockback_mult = 1.0
 var max_health = 100.0
 var health = 0.0
 
+# Invincibility period
+var is_invincible = false
+var invincible_duration = 0.2
+var invincible_duration_counter = 0.0
 
 # starting values (used by upgrades) (set during ready)
 var starting_dash_duration
@@ -135,6 +140,93 @@ func _physics_process(delta):
 	var collision = move_and_collide(velocity * delta)
 	move_around_collision(collision, velocity_before_collision, delta)
 
+func _process(delta):
+	time += delta
+	time_label.text = "%02d:%02d" % [time/60, fmod(time, 60)]
+	
+	if character_sprite.modulate != Color(1, 1, 1, 1):
+		recover_colors()
+	
+	rotate_held_item()
+	
+	set_cursor()
+	
+	if !is_dashing:
+		handle_dash_cool_down(delta)
+	
+	
+	if throw_time_counter > 0 and is_throwing:
+		throw_time_counter -= delta
+	else:
+		is_throwing = false
+	
+	if teleport_cool_down_counter > 0:
+		teleport_cool_down_counter -= delta
+	
+	if is_sliding:
+		character_sprite.scale.y = 0.95
+		if character_sprite.flip_h:
+			character_sprite.skew = -0.1 * PI
+		else:
+			character_sprite.skew = 0.1 * PI
+		var particles = slide_particles.instantiate()
+		particles.emitting = true
+		particles.position = character_sprite.position + Vector2(0, 25)
+		
+		particles.z_index = -1
+		add_child(particles)
+	else:
+		character_sprite.scale.y = 1.0
+		character_sprite.skew = 0.0
+	
+	if slide_cool_down_counter > 0:
+		slide_cool_down_counter -= delta
+	
+	if is_invincible:
+		invincible_duration_counter -= delta
+		if invincible_duration_counter <= 0:
+			is_invincible = false
+
+func _input(event):
+	#if event is InputEventMouseButton and event.is_pressed() and event.is_echo() == false: 
+	if Input.is_action_just_pressed("throw") and event is InputEventMouseButton and event.is_pressed() and event.is_echo() == false:
+		throw_item()
+	
+	if Input.is_action_just_pressed("drop"):
+		if held_item == null:
+			pick_up_item()
+		else:
+			drop_item()
+	
+	if Input.is_action_just_pressed("teleport") and dash_cool_down_counter <= 0:
+		position = get_global_mouse_position()
+		dash_cool_down_counter = dash_cool_down * 1.5
+		#teleport_cool_down_counter = teleport_cool_down
+	var direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+	if Input.is_action_pressed("slide") and direction and slide_cool_down_counter <= 0 and !is_sliding:
+		is_sliding = true
+		slide_direction = direction
+		current_slide_speed_bonus = slide_speed_bonus
+	if (!Input.is_action_pressed("slide") and is_sliding) or (direction != slide_direction and is_sliding): 
+		is_sliding = false
+		slide_direction = Vector2.ZERO
+		slide_cool_down_counter = slide_cool_down
+
+func _on_pick_up_range_area_entered(area):
+	if area.is_in_group("items"):
+		reachable_items.append(area)
+		if held_item == null:
+			pick_up_item()
+	elif area.is_in_group("coins"):
+		self.coins += area.value
+		update_coin_ui()
+		area.destroy()
+		play_sfx(sfx_coin)
+
+func _on_pick_up_range_area_exited(area):
+	if area.is_in_group("items"):
+		reachable_items.erase(area)
+
 func slide(delta):
 	velocity = slide_direction * (self.current_slide_speed_bonus + self.speed)
 	current_slide_speed_bonus -= slide_speed_reduction * delta
@@ -188,6 +280,8 @@ func dash(delta: float):
 	if dash_duration_counter <= 0.0:
 		is_dashing = false
 		dash_cool_down_counter = dash_cool_down
+		end_dash.emit()
+
 
 func handle_dash_cool_down(delta: float):
 	if dash_cool_down_counter > 0.0:
@@ -199,15 +293,17 @@ func handle_dash_cool_down(delta: float):
 			bar_scale = 0.0
 		dash_bar.scale.x = bar_scale
 	if dash_cool_down_counter <= 0.0 and Input.is_action_pressed("dash"):
-		begin_dash.emit()
 		play_sfx(sfx_dash)
 		is_dashing = true
 		if is_sliding:
 			dash_direction = slide_direction
+			current_slide_speed_bonus = slide_speed_bonus
 		else:
 			dash_direction = self.direction
 		dash_duration_counter = dash_duration
 		camera.shake_screen(0.1, 4.0)
+		
+		begin_dash.emit()
 		
 		var particles = dash_particles.instantiate()
 		particles.emitting = true
@@ -220,47 +316,6 @@ func look_towards_direction(direction: Vector2):
 	elif direction.x < 0.0:
 		character_sprite.flip_h = false
 
-func _process(delta):
-	time += delta
-	time_label.text = "%02d:%02d" % [time/60, fmod(time, 60)]
-	
-	if character_sprite.modulate != Color(1, 1, 1, 1):
-		recover_colors()
-	
-	rotate_held_item()
-	
-	set_cursor()
-	
-	if !is_dashing:
-		handle_dash_cool_down(delta)
-	
-	
-	if throw_time_counter > 0 and is_throwing:
-		throw_time_counter -= delta
-	else:
-		is_throwing = false
-	
-	if teleport_cool_down_counter > 0:
-		teleport_cool_down_counter -= delta
-	
-	if is_sliding:
-		character_sprite.scale.y = 0.95
-		if character_sprite.flip_h:
-			character_sprite.skew = -0.1 * PI
-		else:
-			character_sprite.skew = 0.1 * PI
-		var particles = slide_particles.instantiate()
-		particles.emitting = true
-		particles.position = character_sprite.position + Vector2(0, 25)
-		
-		particles.z_index = -1
-		add_child(particles)
-	else:
-		character_sprite.scale.y = 1.0
-		character_sprite.skew = 0.0
-	
-	if slide_cool_down_counter > 0:
-		slide_cool_down_counter -= delta
 
 func rotate_held_item():
 	var max_offset = 35.0
@@ -282,31 +337,6 @@ func rotate_held_item():
 	else:
 		item_sprite.scale = base_scale * (1.0 - scale_modifier + (scale_modifier * abs(item_sprite.position.x / max_offset)))
 	
-
-func _input(event):
-	#if event is InputEventMouseButton and event.is_pressed() and event.is_echo() == false: 
-	if Input.is_action_just_pressed("throw") and event is InputEventMouseButton and event.is_pressed() and event.is_echo() == false:
-		throw_item()
-	
-	if Input.is_action_just_pressed("drop"):
-		if held_item == null:
-			pick_up_item()
-		else:
-			drop_item()
-	
-	if Input.is_action_just_pressed("teleport") and dash_cool_down_counter <= 0:
-		position = get_global_mouse_position()
-		dash_cool_down_counter = dash_cool_down * 1.5
-		#teleport_cool_down_counter = teleport_cool_down
-	var direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
-	if Input.is_action_pressed("slide") and direction and slide_cool_down_counter <= 0 and !is_sliding:
-		is_sliding = true
-		slide_direction = direction
-		current_slide_speed_bonus = slide_speed_bonus
-	if (!Input.is_action_pressed("slide") and is_sliding) or (direction != slide_direction and is_sliding): 
-		is_sliding = false
-		slide_direction = Vector2.ZERO
-		slide_cool_down_counter = slide_cool_down
 
 
 func recover_colors(): # should depend on delta?
@@ -332,18 +362,22 @@ func pick_up_item():
 	if held_item == null and reachable_items.is_empty() == false:
 		var item = reachable_items[0]
 		reachable_items.erase(item)
-		held_item = item
-		item_sprite.texture = item.get_node("Sprite2D").texture
-		item_sprite.show()
-		item.get_parent().remove_child(item)
-		item.monitorable = false # map edge removes items, so we have to make this one not monitorable
-		item.monitoring = false
-		add_child(item)
-		item.position = Vector2.ZERO
-		item.hide()
-		var particles = pick_up_particles.instantiate()
-		particles.emitting = true
-		item_sprite.add_child(particles)
+		pick_up_this_item(item)
+
+func pick_up_this_item(item: Node):
+	held_item = item
+	item_sprite.texture = item.get_node("Sprite2D").texture
+	item_sprite.show()
+	item.get_parent().remove_child(item)
+	item.monitorable = false # map edge removes items, so we have to make this one not monitorable
+	item.monitoring = false
+	add_child(item) 
+	item.position = Vector2.ZERO
+	item.hide()
+	var particles = pick_up_particles.instantiate()
+	particles.emitting = true
+	item_sprite.add_child(particles)
+	pick_up.emit()
 
 func throw_item():
 	if held_item == null or is_throwing:
@@ -351,10 +385,12 @@ func throw_item():
 	
 	throw_time_counter = max_throw_time
 	held_item.throw(self)
+	throw.emit()
 
 func drop_item(): # exploit: if you drop after fireing one sock, you still drop a sock item
 	if held_item == null or is_throwing:
 		return
+	
 	
 	var item = held_item.duplicate()
 	item.show()
@@ -375,26 +411,19 @@ func remove_held_item():
 	if reachable_items.is_empty() == false:
 		pick_up_item()
 
-func _on_pick_up_range_area_entered(area):
-	if area.is_in_group("items"):
-		reachable_items.append(area)
-		if held_item == null:
-			pick_up_item()
-	elif area.is_in_group("coins"):
-		self.coins += area.value
-		update_coin_ui()
-		area.destroy()
-		play_sfx(sfx_coin)
 
 func update_coin_ui():
 	coin_label.text = str(self.coins)
 
-func _on_pick_up_range_area_exited(area):
-	if area.is_in_group("items"):
-		reachable_items.erase(area)
 
 func recieve_damage(damage: int):
+	if is_invincible: return
+	
 	health -= damage
+	is_invincible = true
+	invincible_duration_counter = invincible_duration
+	damage_recieved.emit()
+	
 	if health <= 0:
 		get_parent().reset()
 	

@@ -29,6 +29,8 @@ var upgrade_card_scene = preload("res://scenes/menu_scenes/ui_parts/upgrade_card
 # Upgrade scenes
 var upgrade_speed = preload("res://scenes/upgrade_node_scenes/upgrade_speed.tscn")
 var upgrade_damage = preload("res://scenes/upgrade_node_scenes/upgrade_damage.tscn")
+var upgrade_lance = preload("res://scenes/upgrade_node_scenes/upgrade_lance.tscn")
+var upgrade_pillow = preload("res://scenes/upgrade_node_scenes/upgrade_pillow.tscn")
 
 var colors = [
 	Color("#533747"),
@@ -47,11 +49,25 @@ var upgrades = [
 		upgrade_scene = upgrade_speed,
 	},
 	{
-		title = "Damage",
-		description = "Increase damage by 20%",
+		title = "DAMAGE",
+		description = "Increase projectile damage by 40%",
 		price = 10,
 		color = colors[1],
 		upgrade_scene = upgrade_damage,
+	},
+	{
+		title = "LANCE",
+		description = "deals 25 damage to enemies you dash through",
+		price = 10,
+		color = colors[2],
+		upgrade_scene = upgrade_lance,
+	},
+	{
+		title = "PILLOW",
+		description = "deals 5 damage and knocks back enemies you slide into",
+		price = 10,
+		color = colors[0],
+		upgrade_scene = upgrade_lance,
 	},
 ]
 

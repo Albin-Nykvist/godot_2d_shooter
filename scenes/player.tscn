@@ -132,6 +132,7 @@ text = "0"
 player = NodePath("..")
 
 [node name="UpgradeTimer" type="Timer" parent="UpgradeMenu"]
+process_mode = 1
 wait_time = 60.0
 autostart = true
 
@@ -151,6 +152,11 @@ bus = &"SFX"
 stream = ExtResource("13_xcit2")
 pitch_scale = 0.5
 bus = &"SFX"
+
+[node name="SfxThrow" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("13_xcit2")
+volume_db = -10.0
+pitch_scale = 2.0
 
 [connection signal="area_entered" from="PickUpRange" to="." method="_on_pick_up_range_area_entered"]
 [connection signal="area_exited" from="PickUpRange" to="." method="_on_pick_up_range_area_exited"]

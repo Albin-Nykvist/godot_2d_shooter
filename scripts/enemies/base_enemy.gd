@@ -84,30 +84,30 @@ func _process(delta):
 
 func base_body_entered(body):
 	if is_dead: return
+	
 	if body.is_in_group("projectiles"):
 		recieve_damage(body.damage)
 		speed *= body.stagger
-		
-		# Knockback
-		is_knocked_back = true
-		knockback_speed = body.knockback
-		knockback_direction = body.direction.normalized()
-		knockback_duration_counter = knockback_duration
-		# Apply an instant knockback
-		self.position += knockback_direction * (knockback_speed * 0.1)
-		
-		character_sprite.modulate = Color(100, 100, 100,1) # White flash
+		set_knock_back(body.knockback, body.direction)
 		body.destroy()
 	elif body.is_in_group("players"):
 		reachable_target = body
 		damage_rate_counter = 0.1
+
+func set_knock_back(speed: float, direction: Vector2):
+		is_knocked_back = true
+		knockback_speed = speed
+		knockback_direction = direction.normalized()
+		knockback_duration_counter = knockback_duration
+		# Apply an instant knockback
+		self.position += knockback_direction * (knockback_speed * 0.1)
 
 func base_body_exited(body):
 	if body == reachable_target:
 		reachable_target = null
 
 func base_process(delta: float):
-	reset_color()
+	reset_color(delta)
 	
 	if is_dead == false:
 		direct_towards_target()
@@ -208,17 +208,18 @@ func move_around_collision(collision: KinematicCollision2D, velocity_before_coll
 	velocity = velocity_before_collision.rotated(rotation)
 	move_and_collide(velocity * delta)
 
-func reset_color():
+func reset_color(delta: float):
+	var reset_speed = 800.0
 	if character_sprite.modulate.r > 1.0:
-		character_sprite.modulate.r -= 10.0
+		character_sprite.modulate.r -= reset_speed * delta
 		if character_sprite.modulate.r < 1.0:
 			character_sprite.modulate.r = 1.0
 	if character_sprite.modulate.g > 1.0:
-		character_sprite.modulate.g -= 10.0
+		character_sprite.modulate.g -= reset_speed * delta
 		if character_sprite.modulate.g < 1.0:
 			character_sprite.modulate.g = 1.0
 	if character_sprite.modulate.b > 1.0:
-		character_sprite.modulate.b -= 10.0
+		character_sprite.modulate.b -= reset_speed * delta
 		if character_sprite.modulate.b < 1.0:
 			character_sprite.modulate.b = 1.0
 
@@ -233,10 +234,11 @@ func recover_speed(delta: float):
 	if speed > start_speed:
 		speed = start_speed
 
-func recieve_damage(damage: int):
+func recieve_damage(damage: float):
 	if is_dead: return
 	health -= damage
 	play_sfx(sfx_hurt)
+	character_sprite.modulate = Color(100, 100, 100, 1) # White flash
 	
 	if health <= 0:
 		var coin = coin_scene.instantiate()

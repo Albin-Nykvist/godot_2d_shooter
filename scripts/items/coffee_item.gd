@@ -6,7 +6,7 @@ func _ready():
 
 func throw(player: Node):
 	player.is_throwing = true
-	
+	player.play_sfx(player.sfx_throw)
 	var angle_offset = 0.05 * PI
 	for i in 5:
 		var projectile = projectile_scene.instantiate()
