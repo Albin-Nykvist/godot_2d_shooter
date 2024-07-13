@@ -40,6 +40,7 @@ func throw(player: Node):
 	projectile.damage *= player.proj_damage_mult
 	projectile.stagger *= player.proj_stagger_mult
 	projectile.knockback *= player.proj_knockback_mult
+	player.projectile_created.emit(projectile)
 	player.camera.shake_screen(0.05, 10.0)
 	player.remove_held_item()
 	player.is_throwing = false

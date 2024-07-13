@@ -12,7 +12,7 @@ class_name UpgradeCard
 @export var description: String = "no description found"
 @export var price: int = -1
 @export var color: Color = Color(0.0, 0.0, 0.0)
-@export var id: int = -1
+@export var is_item: bool = false
 
 @onready var title_label = $MarginContainer/VBoxContainer/Label
 @onready var description_text_box = $MarginContainer/VBoxContainer/RichTextLabel
@@ -44,7 +44,19 @@ func _on_button_pressed():
 	player.update_coin_ui()
 	
 	var upgrade = upgrade_scene.instantiate()
+	if is_item: assign_item(upgrade)
 	upgrade.player = player
 	player.add_child(upgrade)
 	
 	upgrade_menu.toggle()
+
+
+var coffee_item = preload("res://scenes/item_scenes/coffee.tscn")
+var socks_item = preload("res://scenes/item_scenes/socks.tscn")
+
+
+func assign_item(upgrade: Node):
+	if title == "COFFEE":
+		upgrade.item_scene = coffee_item
+	elif title == "SOCKS":
+		upgrade.item_scene = socks_item

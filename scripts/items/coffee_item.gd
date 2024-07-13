@@ -19,6 +19,7 @@ func throw(player: Node):
 		projectile.speed = player.throw_force * 0.56
 		projectile.position += projectile.direction * 50 
 		player.get_parent().add_child(projectile)
+		player.projectile_created.emit(projectile)
 		player.camera.shake_screen(0.1, 10.0)
 	
 	player.is_throwing = false

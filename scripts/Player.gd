@@ -105,6 +105,9 @@ var starting_proj_knockback_mult
 signal begin_dash
 signal end_dash
 
+signal begin_slide
+signal end_slide
+
 signal throw
 signal projectile_created(projectile: Node)
 signal pick_up

@@ -31,6 +31,9 @@ var upgrade_speed = preload("res://scenes/upgrade_node_scenes/upgrade_speed.tscn
 var upgrade_damage = preload("res://scenes/upgrade_node_scenes/upgrade_damage.tscn")
 var upgrade_lance = preload("res://scenes/upgrade_node_scenes/upgrade_lance.tscn")
 var upgrade_pillow = preload("res://scenes/upgrade_node_scenes/upgrade_pillow.tscn")
+var upgrade_momentum = preload("res://scenes/upgrade_node_scenes/upgrade_momentum.tscn")
+var upgrade_laundry = preload("res://scenes/upgrade_node_scenes/upgrade_backwards_sock.tscn")
+var upgrade_item = preload("res://scenes/upgrade_node_scenes/upgrade_item.tscn")
 
 var colors = [
 	Color("#533747"),
@@ -47,6 +50,7 @@ var upgrades = [
 		price = 10,
 		color = colors[4],
 		upgrade_scene = upgrade_speed,
+		is_item = false,
 	},
 	{
 		title = "DAMAGE",
@@ -54,30 +58,64 @@ var upgrades = [
 		price = 10,
 		color = colors[1],
 		upgrade_scene = upgrade_damage,
+		is_item = false,
 	},
 	{
 		title = "LANCE",
-		description = "deals 25 damage to enemies you dash through",
+		description = "Deals 25 damage to enemies you dash through",
 		price = 10,
 		color = colors[2],
 		upgrade_scene = upgrade_lance,
+		is_item = false,
 	},
 	{
 		title = "PILLOW",
-		description = "deals 5 damage and knocks back enemies you slide into",
+		description = "Deals 5 damage and knocks back enemies you slide into",
 		price = 10,
 		color = colors[0],
-		upgrade_scene = upgrade_lance,
+		upgrade_scene = upgrade_pillow,
+		is_item = false,
+	},
+	{
+		title = "MOMENTUM",
+		description = "+50% damage and +20% speed on projectiles thrown while sliding",
+		price = 10,
+		color = colors[3],
+		upgrade_scene = upgrade_momentum,
+		is_item = false,
+	},
+	{
+		title = "LAUNDRY LOB",
+		description = "50% chance of throwing a sock when dashing",
+		price = 10,
+		color = colors[3],
+		upgrade_scene = upgrade_laundry,
+		is_item = false,
+	},
+	
+	# Items
+	{
+		title = "SOCKS",
+		description = "(ITEM) Throws 2 projectiles in quick succession",
+		price = 10,
+		color = colors[4],
+		upgrade_scene = upgrade_item,
+		is_item = true,
+	},
+	{
+		title = "COFFEE",
+		description = "(ITEM) Good for close range",
+		price = 10,
+		color = colors[3],
+		upgrade_scene = upgrade_item,
+		is_item = true,
 	},
 ]
 
 var is_active = false
 
 func _ready():
-	# This garbage can not be centered by default, so this is centering for you 
 	position = position - (screen_size/2.0)
-	
-	# Also, but more understandably center the container (there is probably a better way to do this)
 	container.position = screen_middle - Vector2(container.size.x/2, container.size.y/2)
 
 # DEV ONLY
@@ -122,6 +160,7 @@ func add_cards():
 			upgrade_card.price = upgrade.price * 1.2
 		
 		upgrade_card.color = upgrade.color
+		upgrade_card.is_item = upgrade.is_item
 		card_container.add_child(upgrade_card)
 		upgrade_card.player = player
 		upgrade_card.upgrade_scene = upgrade.upgrade_scene

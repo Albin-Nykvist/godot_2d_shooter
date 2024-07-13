@@ -3,9 +3,9 @@ extends Enemy
 var start_animation_speed = 0.0
 
 func _ready():
-	base_speed = 70.0
+	base_speed = 90.0
 	speed_variation = 10.0
-	speed_recovery = 2.5
+	speed_recovery = 3.5
 	max_health = 120.0
 	base_ready()
 	start_animation_speed = character_sprite.speed_scale
@@ -20,7 +20,7 @@ func move(delta: float):
 		velocity = Vector2(velocity.x * 1.5, velocity.y * 0.5)
 		character_sprite.speed_scale = start_animation_speed * 1.2
 	else:
-		velocity *= 0.8
+		velocity *= 0.6
 		character_sprite.speed_scale = start_animation_speed * 0.8
 	
 	var velocity_before_collision = velocity

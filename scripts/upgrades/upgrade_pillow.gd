@@ -3,7 +3,7 @@ extends Upgrade
 var enemy: Node = null
 
 var damage = 5
-var knockback = 900
+var knockback = 700
 
 var delay = 0.05
 var delay_counter = 0.0
