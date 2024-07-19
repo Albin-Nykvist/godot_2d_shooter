@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://e2jk5oiiup3v"]
+
+[ext_resource type="Script" path="res://scripts/items/fish_item.gd" id="1_0xa8g"]
+[ext_resource type="Texture2D" uid="uid://byhgdw0lq5snk" path="res://assets/item_sprites/fish.png" id="2_igtbe"]
+[ext_resource type="PackedScene" uid="uid://cx72b5pmyf7wd" path="res://scenes/shadow.tscn" id="3_o8cse"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7shs1"]
+radius = 41.0488
+
+[node name="Item" type="Area2D" groups=["items"]]
+y_sort_enabled = true
+linear_damp = 0.2
+script = ExtResource("1_0xa8g")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_7shs1")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_igtbe")
+
+[node name="Shadow" parent="Sprite2D" instance=ExtResource("3_o8cse")]
+z_as_relative = false
+position = Vector2(7, 0)

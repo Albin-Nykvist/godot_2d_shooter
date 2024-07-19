@@ -6,7 +6,7 @@ var noise = preload("res://scenes/noise.tscn")
 var noise_textures = [
 	preload("res://assets/background_noise/grass_noise.png"),
 	preload("res://assets/background_noise/grass_noise2.png"),
-		preload("res://assets/background_noise/flower_noise.png"),
+	preload("res://assets/background_noise/flower_noise.png"),
 ]
 
 var props = [

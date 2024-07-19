@@ -241,13 +241,15 @@ func recieve_damage(damage: float):
 	character_sprite.modulate = Color(100, 100, 100, 1) # White flash
 	
 	if health <= 0:
-		var coin = coin_scene.instantiate()
-		coin.position = self.position + Vector2(-10 + randi() % 21, -10)
-		get_parent().add_child(coin)
-		is_dead = true
-		character_sprite.pause()
-		shadow.hide()
+		die()
 
+func die():
+	var coin = coin_scene.instantiate()
+	coin.position = self.position + Vector2(-10 + randi() % 21, -10)
+	get_parent().add_child(coin)
+	is_dead = true
+	character_sprite.pause()
+	shadow.hide()
 
 func play_sfx(audio_node: Node):
 	if audio_node.playing: return
