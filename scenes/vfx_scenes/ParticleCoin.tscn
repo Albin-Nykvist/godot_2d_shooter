@@ -1,12 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://bni461abatpl4"]
+[gd_scene load_steps=3 format=3 uid="uid://bni461abatpl4"]
+
+[ext_resource type="Script" path="res://scripts/chain_emit_particle.gd" id="1_b4v8e"]
 
 [sub_resource type="Curve" id="Curve_4vug1"]
 _data = [Vector2(0.483146, 1), 0.0, 0.0, 0, 0, Vector2(0.483156, 0.483516), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [node name="Particle" type="CPUParticles2D"]
+z_index = -1
 emitting = false
-amount = 3
+amount = 30
 lifetime = 0.2
 one_shot = true
 explosiveness = 0.88
@@ -19,3 +22,22 @@ orbit_velocity_max = 0.1
 scale_amount_min = 8.0
 scale_amount_max = 16.0
 scale_amount_curve = SubResource("Curve_4vug1")
+script = ExtResource("1_b4v8e")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 15
+lifetime = 0.4
+one_shot = true
+explosiveness = 0.8
+lifetime_randomness = 1.0
+emission_shape = 1
+emission_sphere_radius = 25.0
+direction = Vector2(0, -1)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 150.0
+initial_velocity_max = 200.0
+scale_amount_min = 4.0
+scale_amount_max = 8.0
+color = Color(1, 0.807843, 0.521569, 1)

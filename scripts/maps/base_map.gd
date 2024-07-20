@@ -1,6 +1,6 @@
 extends Node2D
 
-var map_edge_scene = preload("res://scenes/prop_scenes/map_edge.tscn")
+var map_border_scene = preload("res://scenes/prop_scenes/map_edge.tscn")
 var noise = preload("res://scenes/noise.tscn")
 
 var noise_textures = [
@@ -22,20 +22,8 @@ var props = [
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
-	# make a perimiter for the map with a prop
-	var edge_radius = 4000
-	var num_scenes = 25
-	var angle = 0.0 * PI
-	var angle_increment = (2.0 * PI) / num_scenes 
-	for i in num_scenes:
-		var scene = map_edge_scene.instantiate()
-		scene.add_to_group("map_edge")
-		scene.position = Vector2.UP.rotated(angle) * edge_radius
-		scene.rotate(angle)
-		add_child(scene)
-		angle += angle_increment 
-	
-	
+	var border_radius = 4000.0
+	base_create_border(border_radius, 25)
 	
 	# spawn some props
 	var prop_area = Vector2i(8000, 8000)
@@ -70,6 +58,17 @@ func _ready():
 			y += 1
 		
 		# Could not make the map edge remove props, but this is the same
-		if prop.position.distance_to(self.position) > edge_radius:
+		if prop.position.distance_to(self.position) > border_radius:
 			remove_child(prop)
 
+## make a perimiter for the map with a border scene
+func base_create_border(border_radius: float, num_scenes: int):
+	var angle = 0.0 * PI
+	var angle_increment = (2.0 * PI) / num_scenes 
+	for i in num_scenes:
+		var scene = map_border_scene.instantiate()
+		scene.add_to_group("map_edge")
+		scene.position = Vector2.UP.rotated(angle) * border_radius
+		scene.rotate(angle)
+		add_child(scene)
+		angle += angle_increment 

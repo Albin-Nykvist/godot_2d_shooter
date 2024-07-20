@@ -4,6 +4,9 @@ class_name Enemy
 ## Money drop scene
 @export var coin_scene = preload("res://scenes/money_drop.tscn")
 
+## Death particle scene
+@export var death_particles = preload("res://scenes/vfx_scenes/ParticleBlood.tscn")
+
 ## Max health
 @export var max_health = 100.0
 var health = 0.0 # set in the ready function
@@ -250,6 +253,11 @@ func die():
 	is_dead = true
 	character_sprite.pause()
 	shadow.hide()
+	
+	var particles = death_particles.instantiate()
+	particles.position = self.position
+	particles.emitting = true
+	get_parent().add_child(particles)
 
 func play_sfx(audio_node: Node):
 	if audio_node.playing: return

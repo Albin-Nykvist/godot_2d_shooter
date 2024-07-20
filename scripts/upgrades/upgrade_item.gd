@@ -13,7 +13,7 @@ func _ready():
 	spawner.max_spawn_distance_to_player = 500
 	spawner.spawn_node = player.get_parent()
 	spawner.spawn_group = "items"
-	spawner.wave_rate = 15
+	spawner.wave_rate = 12
 	spawner.wave_size = 1
 	spawner.wave_size_growth = 0
 	spawner.spawn_wave_on_ready = true

@@ -1,0 +1,72 @@
+[gd_scene load_steps=4 format=3 uid="uid://b8is5qesfxsd5"]
+
+[ext_resource type="Script" path="res://scripts/chain_emit_particle.gd" id="1_n337t"]
+
+[sub_resource type="Curve" id="Curve_4cyiw"]
+_data = [Vector2(0.325843, 1), 0.0, 0.0, 0, 0, Vector2(0.792135, 0.395604), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_o51qs"]
+colors = PackedColorArray(0.61, 0.1769, 0.1769, 1, 0.870588, 0.278431, 0.278431, 1)
+
+[node name="ParticleThickBlood" type="CPUParticles2D"]
+z_index = -1
+emitting = false
+amount = 10
+lifetime = 0.8
+one_shot = true
+explosiveness = 1.0
+lifetime_randomness = 1.0
+emission_shape = 1
+emission_sphere_radius = 70.0
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+scale_amount_min = 12.0
+scale_amount_max = 16.0
+color = Color(0.670588, 0.215686, 0.215686, 1)
+script = ExtResource("1_n337t")
+
+[node name="SprayBlood" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 60
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.96
+lifetime_randomness = 1.0
+emission_shape = 1
+emission_sphere_radius = 22.0
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 100.0
+initial_velocity_max = 400.0
+damping_min = 100.0
+damping_max = 100.0
+angle_min = 45.0
+angle_max = 90.0
+scale_amount_min = 14.0
+scale_amount_max = 25.0
+scale_amount_curve = SubResource("Curve_4cyiw")
+color = Color(0.74902, 0.337255, 0.337255, 1)
+color_ramp = SubResource("Gradient_o51qs")
+
+[node name="SprayBones" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 7
+lifetime = 0.45
+one_shot = true
+explosiveness = 1.0
+lifetime_randomness = 1.0
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 200.0
+initial_velocity_max = 450.0
+damping_min = 100.0
+damping_max = 100.0
+angle_min = 45.0
+angle_max = 90.0
+scale_amount_min = 10.0
+scale_amount_max = 16.0
+color = Color(0.858824, 0.85098, 0.807843, 1)

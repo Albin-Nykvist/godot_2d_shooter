@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bx22cg8abbed3"]
 
-[ext_resource type="Script" path="res://scripts/world.gd" id="1_hg7vr"]
+[ext_resource type="Script" path="res://scripts/maps/base_map.gd" id="1_hg7vr"]
 [ext_resource type="Texture2D" uid="uid://bwfl0rb2jag4s" path="res://assets/white.png" id="2_6gux2"]
 
 [node name="World" type="Node2D"]
