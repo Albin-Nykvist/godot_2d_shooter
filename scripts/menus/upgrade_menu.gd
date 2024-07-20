@@ -126,9 +126,16 @@ func _input(event):
 		if visible: # Going from upgrade_menu to pause_menu
 			hide()
 
-func _on_upgrade_timer_timeout():
-	toggle()
+func _on_pause_menu_hidden():
+	if is_active == true:
+		get_tree().paused = true
+		show()
 
+func _on_player_coin_picked_up():
+	if player.coins >= player.next_upgrade_coin_amount:
+		toggle()
+		player.next_upgrade_coin_amount = 1 + floori(player.next_upgrade_coin_amount * 1.2)
+		player.update_coin_ui()
 
 func toggle():
 	if visible:
@@ -151,13 +158,13 @@ func add_cards():
 		upgrade_card.description = upgrade.description
 		
 		if i == 0:
-			upgrade_card.price = 0
+			upgrade_card.price = floori(player.next_upgrade_coin_amount * 0.8)
 		elif i == 1:
-			upgrade_card.price = upgrade.price * 0.7
+			upgrade_card.price = floori(player.next_upgrade_coin_amount * 0.9)
 		elif i == 2:
-			upgrade_card.price = upgrade.price
+			upgrade_card.price = floori(player.next_upgrade_coin_amount * 1.1)
 		else:
-			upgrade_card.price = upgrade.price * 1.2
+			upgrade_card.price = floori(player.next_upgrade_coin_amount * 1.2)
 		
 		upgrade_card.color = upgrade.color
 		upgrade_card.is_item = upgrade.is_item
@@ -171,8 +178,3 @@ func remove_cards():
 		card_container.remove_child(n)
 		n.queue_free()
 
-
-func _on_pause_menu_hidden():
-	if is_active == true:
-		get_tree().paused = true
-		show()

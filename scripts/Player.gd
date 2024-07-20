@@ -35,6 +35,7 @@ var item_sprite_speed = 1.0
 
 # coins
 var coins = 0
+var next_upgrade_coin_amount = 5
 
 # Dashing
 var is_dashing = false
@@ -102,6 +103,8 @@ var starting_proj_knockback_mult
 
 
 # Signals: used for active upgrades
+signal coin_picked_up
+
 signal begin_dash
 signal end_dash
 
@@ -224,6 +227,7 @@ func _on_pick_up_range_area_entered(area):
 		self.coins += area.value
 		update_coin_ui()
 		area.destroy()
+		coin_picked_up.emit()
 		play_sfx(sfx_coin)
 
 func _on_pick_up_range_area_exited(area):
@@ -416,7 +420,7 @@ func remove_held_item():
 
 
 func update_coin_ui():
-	coin_label.text = str(self.coins)
+	coin_label.text = str(self.coins) + "/" + str(self.next_upgrade_coin_amount)
 
 
 func recieve_damage(damage: int):
