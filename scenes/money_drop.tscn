@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://c3w3etlrv8r1t"]
+[gd_scene load_steps=6 format=3 uid="uid://c3w3etlrv8r1t"]
 
 [ext_resource type="Script" path="res://scripts/money_drop.gd" id="1_j1q2s"]
 [ext_resource type="Texture2D" uid="uid://c5ee4svkxia7o" path="res://assets/coin.png" id="1_vvsyg"]
@@ -6,6 +6,9 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_76amm"]
 radius = 45.0444
+
+[sub_resource type="Gradient" id="Gradient_sa8dg"]
+colors = PackedColorArray(1, 0.8275, 0.31, 1, 1, 1, 1, 1)
 
 [node name="MoneyDrop" type="Area2D" groups=["coins"]]
 script = ExtResource("1_j1q2s")
@@ -18,3 +21,19 @@ texture = ExtResource("1_vvsyg")
 
 [node name="Shadow" parent="Sprite2D" instance=ExtResource("2_wyxse")]
 scale = Vector2(0.18, 0.1)
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+z_index = -1
+amount = 4
+lifetime = 1.2
+lifetime_randomness = 0.5
+emission_shape = 1
+emission_sphere_radius = 17.0
+direction = Vector2(0, -1)
+spread = 10.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 35.0
+initial_velocity_max = 55.0
+scale_amount_min = 4.0
+scale_amount_max = 4.0
+color_ramp = SubResource("Gradient_sa8dg")

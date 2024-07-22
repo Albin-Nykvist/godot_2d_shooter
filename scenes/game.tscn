@@ -34,7 +34,8 @@ initial_velocity_max = 60.0
 damping_max = 10.0
 color = Color(0.956863, 1, 0.501961, 0.32549)
 
-[node name="World" parent="." instance=ExtResource("3_26hw7")]
+[node name="World" parent="." node_paths=PackedStringArray("player") instance=ExtResource("3_26hw7")]
+player = NodePath("../Player")
 
 [node name="ItemSpawner" parent="." node_paths=PackedStringArray("player", "spawn_node") instance=ExtResource("5_e1jsg")]
 entity_scene = ExtResource("6_4l4uj")

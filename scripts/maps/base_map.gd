@@ -1,9 +1,11 @@
 extends Node2D
 
-var map_border_scene = preload("res://scenes/prop_scenes/map_edge.tscn")
-var noise = preload("res://scenes/noise.tscn")
+@export var player: Node
 
-var noise_textures = [
+var map_border_scene = preload("res://scenes/prop_scenes/map_edge.tscn")
+var detail = preload("res://scenes/noise.tscn")
+
+var detail_textures = [
 	preload("res://assets/background_noise/grass_noise.png"),
 	preload("res://assets/background_noise/grass_noise2.png"),
 	preload("res://assets/background_noise/flower_noise.png"),
@@ -25,44 +27,16 @@ func _ready():
 	var border_radius = 4000.0
 	base_create_border(border_radius, 25)
 	
-	# spawn some props
-	var prop_area = Vector2i(8000, 8000)
-	var prop_area_position = -prop_area + (prop_area/2)
+	var map_area = Vector2i(8000, 8000)
 	var section_size = Vector2i(400, 400)
-	var x: int = 0
-	var y: int = 0
-	var margin = 100
-	var num_sections = (prop_area.x/section_size.x) * (prop_area.y/section_size.y)
-	for i in num_sections:
-		var section_position = Vector2(prop_area_position.x + (x * (section_size.x + margin)), prop_area_position.y + (y * (section_size.y + margin)))
-		var prop = props[randi() % props.size()].instantiate()
-		prop.add_to_group("props")
-		if randi() % 2 == 0:
-			prop.find_child("Sprite2D").flip_h = true
-		prop.position = Vector2(section_position.x + randi() % section_size.x, section_position.y + randi() % section_size.y)
-		add_child(prop)
-		
-		for j in 4:
-			var noise = self.noise.instantiate()
-			noise.z_index = -1
-			noise.texture = noise_textures[randi() % noise_textures.size()]
-			noise.self_modulate.a = randf_range(0.095, 0.15)
-			noise.position = Vector2(section_position.x + randi() % section_size.x, section_position.y + randi() % section_size.y)
-			if randi() % 2 == 0:
-				noise.flip_h = true
-			add_child(noise)
-		
-		x += 1
-		if x > prop_area.x/section_size.x:
-			x = 0
-			y += 1
-		
-		# Could not make the map edge remove props, but this is the same
-		if prop.position.distance_to(self.position) > border_radius:
-			remove_child(prop)
+	base_add_props(map_area, section_size, 100, border_radius)
+	
+	var details_section_size = Vector2i(400, 400)
+	base_add_background_details(map_area, details_section_size, 0, border_radius, 4)
+
 
 ## make a perimiter for the map with a border scene
-func base_create_border(border_radius: float, num_scenes: int):
+func base_create_border(border_radius: float, num_scenes: int): 
 	var angle = 0.0 * PI
 	var angle_increment = (2.0 * PI) / num_scenes 
 	for i in num_scenes:
@@ -72,3 +46,56 @@ func base_create_border(border_radius: float, num_scenes: int):
 		scene.rotate(angle)
 		add_child(scene)
 		angle += angle_increment 
+
+## add props to the map
+func base_add_props(prop_area: Vector2i, section_size: Vector2i, margin: float, border_radius: float):
+	var start_position = -prop_area + (prop_area/2)
+
+	var x: int = 0
+	var y: int = 0
+	var num_sections = (prop_area.x/section_size.x) * (prop_area.y/section_size.y)
+	for i in num_sections:
+		var section_position = Vector2(start_position.x + (x * (section_size.x + margin)), start_position.y + (y * (section_size.y + margin)))
+		
+		var prop = props[randi() % props.size()].instantiate()
+		prop.add_to_group("props")
+		if randi() % 2 == 0:
+			prop.find_child("Sprite2D").flip_h = true
+		prop.position = Vector2(section_position.x + randi() % section_size.x, section_position.y + randi() % section_size.y)
+		add_child(prop)
+		
+		if prop.position.distance_to(self.position) > border_radius:
+			remove_child(prop)
+		
+		x += 1
+		if x > prop_area.x/section_size.x:
+			x = 0
+			y += 1
+
+
+func base_add_background_details(area: Vector2i, section_size: Vector2i, margin: float, border_radius: float, details_per_section: int):
+	var start_position = -area + (area/2)
+
+	var x: int = 0
+	var y: int = 0
+	var num_sections = (area.x/section_size.x) * (area.y/section_size.y)
+	for i in num_sections:
+		for j in details_per_section:
+			var section_position = Vector2(start_position.x + (x * (section_size.x + margin)), start_position.y + (y * (section_size.y + margin)))
+			
+			var detail = self.detail.instantiate()
+			detail.z_index = -1
+			detail.texture = detail_textures[randi() % detail_textures.size()]
+			detail.self_modulate.a = randf_range(0.095, 0.15)
+			detail.position = Vector2(section_position.x + randi() % section_size.x, section_position.y + randi() % section_size.y)
+			if randi() % 2 == 0:
+				detail.flip_h = true
+			add_child(detail)
+			
+			if detail.position.distance_to(self.position) > border_radius:
+				remove_child(detail)
+		
+		x += 1
+		if x > area.x/section_size.x:
+			x = 0
+			y += 1

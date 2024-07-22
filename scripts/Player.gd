@@ -20,6 +20,7 @@ var pick_up_particles = preload("res://scenes/vfx_scenes/ParticlePickUp.tscn")
 @onready var coin_label = $HeadsUpDisplay/TopBar/Coins
 @onready var collider = $CollisionShape2D
 @onready var pickup_collider = $PickUpRange/CollisionShape2D
+@onready var walking_particles = $ParticlesWalking
 
 @onready var sfx_dash = $SfxDash
 @onready var sfx_coin = $SfxCoin
@@ -193,6 +194,7 @@ func _process(delta):
 		if invincible_duration_counter <= 0:
 			is_invincible = false
 
+
 func _input(event):
 	#if event is InputEventMouseButton and event.is_pressed() and event.is_echo() == false: 
 	if Input.is_action_just_pressed("throw") and event is InputEventMouseButton and event.is_pressed() and event.is_echo() == false:
@@ -274,6 +276,8 @@ func walk():
 	var input_direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	if input_direction != Vector2.ZERO:
 		self.direction = input_direction
+	
+	walking_particles.emitting = !(input_direction == Vector2.ZERO)
 	
 	velocity = input_direction * self.speed
 	look_towards_direction(input_direction)

@@ -49,6 +49,7 @@ func _on_button_pressed():
 
 var coffee_item = preload("res://scenes/item_scenes/coffee.tscn")
 var socks_item = preload("res://scenes/item_scenes/socks.tscn")
+var fish_item = preload("res://scenes/item_scenes/fish.tscn")
 
 
 func assign_item(upgrade: Node):
@@ -56,3 +57,5 @@ func assign_item(upgrade: Node):
 		upgrade.item_scene = coffee_item
 	elif title == "SOCKS":
 		upgrade.item_scene = socks_item
+	elif title == "FISH":
+		upgrade.item_scene = fish_item

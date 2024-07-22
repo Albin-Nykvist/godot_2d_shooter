@@ -110,6 +110,14 @@ var upgrades = [
 		upgrade_scene = upgrade_item,
 		is_item = true,
 	},
+	{
+		title = "FISH",
+		description = "(ITEM) It's a big fish",
+		price = 10,
+		color = colors[3],
+		upgrade_scene = upgrade_item,
+		is_item = true,
+	},
 ]
 
 var is_active = false
