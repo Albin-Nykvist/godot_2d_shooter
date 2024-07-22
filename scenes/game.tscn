@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://c2b04tb5urukc" path="res://scenes/item_scenes/coffee.tscn" id="6_4l4uj"]
 [ext_resource type="PackedScene" uid="uid://c1xqrf7ahgg8k" path="res://scenes/enemy_scenes/hopper.tscn" id="7_bxqbb"]
 [ext_resource type="PackedScene" uid="uid://coghydqguv0xg" path="res://scenes/item_scenes/socks.tscn" id="8_dldyl"]
-[ext_resource type="PackedScene" uid="uid://e2jk5oiiup3v" path="res://scenes/item_scenes/fish.tscn" id="8_m1y2j"]
+[ext_resource type="PackedScene" uid="uid://ctdrbxwlqprh1" path="res://scenes/item_scenes/corn.tscn" id="8_xpuau"]
 [ext_resource type="PackedScene" uid="uid://du8ylstvbcoo3" path="res://scenes/enemy_scenes/crab.tscn" id="9_bl0l5"]
 
 [node name="Game" type="Node2D"]
@@ -62,7 +62,7 @@ wave_rate = 12.0
 max_number_of_entities = 50
 
 [node name="ItemSpawner3" parent="." node_paths=PackedStringArray("player", "spawn_node") instance=ExtResource("5_e1jsg")]
-entity_scene = ExtResource("8_m1y2j")
+entity_scene = ExtResource("8_xpuau")
 entity_is_item = true
 player = NodePath("../Player")
 min_spawn_distance_to_player = 50.0

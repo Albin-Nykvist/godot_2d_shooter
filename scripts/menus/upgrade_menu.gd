@@ -118,6 +118,14 @@ var upgrades = [
 		upgrade_scene = upgrade_item,
 		is_item = true,
 	},
+	{
+		title = "CORN",
+		description = "(ITEM) Corn is useless, but it turns into popcorn!",
+		price = 10,
+		color = colors[3],
+		upgrade_scene = upgrade_item,
+		is_item = true,
+	},
 ]
 
 var is_active = false

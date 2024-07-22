@@ -28,7 +28,7 @@ func base_ready():
 
 func _physics_process(delta):
 	velocity = direction * speed
-
+	
 	time += delta
 	if time > life_time:
 		destroy()
