@@ -231,6 +231,11 @@ func _on_pick_up_range_area_entered(area):
 		area.destroy()
 		coin_picked_up.emit()
 		play_sfx(sfx_coin)
+	elif area.is_in_group("health"):
+		heal(area.value)
+		area.destroy()
+		#coin_picked_up.emit()
+		#play_sfx(sfx_coin)
 
 func _on_pick_up_range_area_exited(area):
 	if area.is_in_group("items"):
@@ -446,6 +451,13 @@ func recieve_damage(damage: int):
 	
 	play_sfx(sfx_hurt)
 
+func heal(amount: float):
+	self.health += amount
+	if health >= max_health:
+		health = max_health
+	
+	health_bar.scale.x = health / max_health
+
 func set_cursor():
 	if held_item:
 		DisplayServer.cursor_set_custom_image(cursor_circle, 0, Vector2(32, 32))
@@ -458,3 +470,9 @@ func play_sfx(audio_node: Node):
 	audio_node.pitch_scale = original_pitch - variance + randf() * variance
 	audio_node.playing = true
 	audio_node.pitch_scale = original_pitch
+
+
+func _on_hazard_detection_body_entered(body):
+	if is_dashing: return
+	if body.is_in_group("fire"):
+		recieve_damage(10)

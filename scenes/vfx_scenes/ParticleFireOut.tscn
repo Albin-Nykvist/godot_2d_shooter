@@ -21,6 +21,7 @@ color = Color(0.0901961, 0.0901961, 0.0901961, 1)
 script = ExtResource("1_n5isb")
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+z_index = 1
 emitting = false
 amount = 30
 lifetime = 1.5

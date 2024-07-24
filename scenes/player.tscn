@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://ban4vdnehkkji"]
+[gd_scene load_steps=19 format=3 uid="uid://ban4vdnehkkji"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_n2dil"]
 [ext_resource type="Texture2D" uid="uid://coqca8tfhlpjf" path="res://assets/player_sprites/flower.png" id="2_vlq60"]
@@ -35,6 +35,10 @@ height = 48.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_tfo3i"]
 radius = 39.0128
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8724k"]
+radius = 7.0
+height = 24.0
+
 [sub_resource type="Theme" id="Theme_mpbnr"]
 default_font = ExtResource("9_17slt")
 Label/font_sizes/font_size = 25
@@ -70,6 +74,14 @@ shape = SubResource("CircleShape2D_tfo3i")
 [node name="HeldItemSprite" type="Sprite2D" parent="."]
 position = Vector2(0, -42)
 texture = ExtResource("5_duwbx")
+
+[node name="HazardDetection" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 128
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HazardDetection"]
+position = Vector2(0, 15)
+shape = SubResource("CapsuleShape2D_8724k")
 
 [node name="Bar" type="Sprite2D" parent="."]
 self_modulate = Color(0, 0, 0, 0)
@@ -169,4 +181,5 @@ scale_amount_max = 4.0
 [connection signal="coin_picked_up" from="." to="UpgradeMenu" method="_on_player_coin_picked_up"]
 [connection signal="area_entered" from="PickUpRange" to="." method="_on_pick_up_range_area_entered"]
 [connection signal="area_exited" from="PickUpRange" to="." method="_on_pick_up_range_area_exited"]
+[connection signal="body_entered" from="HazardDetection" to="." method="_on_hazard_detection_body_entered"]
 [connection signal="hidden" from="PauseMenu" to="UpgradeMenu" method="_on_pause_menu_hidden"]

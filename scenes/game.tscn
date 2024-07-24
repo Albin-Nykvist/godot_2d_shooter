@@ -5,12 +5,12 @@
 [ext_resource type="PackedScene" uid="uid://bx22cg8abbed3" path="res://scenes/world.tscn" id="3_26hw7"]
 [ext_resource type="PackedScene" uid="uid://ce8hgh2k0c6kx" path="res://scenes/vfx_scenes/ParticleLeaves.tscn" id="3_eu7vq"]
 [ext_resource type="PackedScene" uid="uid://w6vqguk4o656" path="res://scenes/spawner.tscn" id="5_e1jsg"]
-[ext_resource type="PackedScene" uid="uid://c2b04tb5urukc" path="res://scenes/item_scenes/coffee.tscn" id="6_4l4uj"]
+[ext_resource type="PackedScene" uid="uid://b0mxsm2a0dsy8" path="res://scenes/item_scenes/lamp.tscn" id="6_fuhk3"]
 [ext_resource type="PackedScene" uid="uid://c1xqrf7ahgg8k" path="res://scenes/enemy_scenes/hopper.tscn" id="7_bxqbb"]
 [ext_resource type="PackedScene" uid="uid://coghydqguv0xg" path="res://scenes/item_scenes/socks.tscn" id="8_dldyl"]
 [ext_resource type="PackedScene" uid="uid://ctdrbxwlqprh1" path="res://scenes/item_scenes/corn.tscn" id="8_xpuau"]
 [ext_resource type="PackedScene" uid="uid://du8ylstvbcoo3" path="res://scenes/enemy_scenes/crab.tscn" id="9_bl0l5"]
-[ext_resource type="PackedScene" uid="uid://3janiphrexjq" path="res://scenes/fire.tscn" id="11_net7e"]
+[ext_resource type="PackedScene" uid="uid://bxjurfi8bf07j" path="res://scenes/hazard_scenes/snow.tscn" id="11_0lupl"]
 
 [node name="Game" type="Node2D"]
 y_sort_enabled = true
@@ -39,7 +39,7 @@ color = Color(0.956863, 1, 0.501961, 0.32549)
 player = NodePath("../Player")
 
 [node name="ItemSpawner" parent="." node_paths=PackedStringArray("player", "spawn_node") instance=ExtResource("5_e1jsg")]
-entity_scene = ExtResource("6_4l4uj")
+entity_scene = ExtResource("6_fuhk3")
 entity_is_item = true
 player = NodePath("../Player")
 min_spawn_distance_to_player = 50.0
@@ -105,5 +105,5 @@ spawn_wave_on_ready = false
 max_number_of_entities = 200
 endless = false
 
-[node name="Fire" parent="." instance=ExtResource("11_net7e")]
-position = Vector2(205, 34)
+[node name="Snow" parent="." instance=ExtResource("11_0lupl")]
+position = Vector2(230, 18)

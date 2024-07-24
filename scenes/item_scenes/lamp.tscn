@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://b0mxsm2a0dsy8"]
+
+[ext_resource type="Script" path="res://scripts/items/lamp_item.gd" id="1_l8da5"]
+[ext_resource type="Texture2D" uid="uid://corwri3cimrho" path="res://assets/item_sprites/lamp.png" id="2_noysh"]
+[ext_resource type="PackedScene" uid="uid://cx72b5pmyf7wd" path="res://scenes/shadow.tscn" id="3_qo7rm"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7shs1"]
+radius = 37.0
+
+[node name="Item" type="Area2D" groups=["items"]]
+y_sort_enabled = true
+linear_damp = 0.2
+script = ExtResource("1_l8da5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_7shs1")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-2, 0)
+texture = ExtResource("2_noysh")
+
+[node name="Shadow" parent="Sprite2D" instance=ExtResource("3_qo7rm")]
+z_as_relative = false
+position = Vector2(2, 0)

@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://dfojqwdaurqja"]
+
+[ext_resource type="Script" path="res://scripts/health_drop.gd" id="1_67vmn"]
+[ext_resource type="Texture2D" uid="uid://ui5s6lpdc6ta" path="res://assets/heart.png" id="1_ubnlj"]
+[ext_resource type="PackedScene" uid="uid://cx72b5pmyf7wd" path="res://scenes/shadow.tscn" id="3_kwhtk"]
+
+[sub_resource type="Gradient" id="Gradient_iosle"]
+colors = PackedColorArray(0, 0, 0, 1, 1, 0.57, 0.57, 1)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_657b3"]
+radius = 47.0106
+
+[node name="HealthDrop" type="Area2D" groups=["health"]]
+script = ExtResource("1_67vmn")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+amount = 10
+explosiveness = 0.25
+lifetime_randomness = 0.17
+emission_shape = 1
+emission_sphere_radius = 17.0
+direction = Vector2(0, -1)
+spread = 50.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 20.0
+initial_velocity_max = 40.0
+scale_amount_min = 2.0
+scale_amount_max = 4.0
+color_ramp = SubResource("Gradient_iosle")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-2, -4)
+texture = ExtResource("1_ubnlj")
+
+[node name="Shadow" parent="Sprite2D" instance=ExtResource("3_kwhtk")]
+position = Vector2(2, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_657b3")

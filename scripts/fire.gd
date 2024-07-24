@@ -5,7 +5,7 @@ var smoke = preload("res://scenes/vfx_scenes/ParticleFireOut.tscn")
 @onready var side_flame = $SideFlames
 @onready var center_flame = $CenterFlame
 
-@export var life_time = 5
+@export var life_time = 7
 var time = 0.0
 
 var is_reduced = false

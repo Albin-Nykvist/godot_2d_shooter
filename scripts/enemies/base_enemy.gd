@@ -3,6 +3,8 @@ class_name Enemy
 
 ## Money drop scene
 @export var coin_scene = preload("res://scenes/money_drop.tscn")
+## Money drop scene
+@export var health_scene = preload("res://scenes/health_drop.tscn")
 
 ## Death particle scene
 @export var death_particles = preload("res://scenes/vfx_scenes/ParticleBlood.tscn")
@@ -98,7 +100,7 @@ func base_body_entered(body):
 		damage_rate_counter = 0.1
 	elif body.is_in_group("fire"):
 		recieve_damage(40)
-		set_knock_back(250, -self.direction)
+		set_knock_back(300, -self.direction)
 
 func set_knock_back(speed: float, direction: Vector2):
 		is_knocked_back = true
@@ -250,9 +252,16 @@ func recieve_damage(damage: float):
 		die()
 
 func die():
-	var coin = coin_scene.instantiate()
-	coin.position = self.position + Vector2(-10 + randi() % 21, -10)
-	get_parent().add_child(coin)
+	if randi() % 100 < 98:
+		var coin = coin_scene.instantiate()
+		coin.position = self.position + Vector2(-10 + randi() % 21, -10)
+		get_parent().add_child(coin)
+	else:
+		var health_drop = health_scene.instantiate()
+		health_drop.position = self.position + Vector2(-10 + randi() % 21, -10)
+		get_parent().add_child(health_drop)
+	
+	
 	is_dead = true
 	character_sprite.pause()
 	shadow.hide()

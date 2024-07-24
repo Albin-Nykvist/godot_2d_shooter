@@ -1,14 +1,14 @@
 [gd_scene load_steps=8 format=3 uid="uid://3janiphrexjq"]
 
-[ext_resource type="Texture2D" uid="uid://b57w1bdk3xr7d" path="res://assets/fire.png" id="1_n0xv7"]
-[ext_resource type="Script" path="res://scripts/fire.gd" id="1_nlqj1"]
-[ext_resource type="Texture2D" uid="uid://dg7uc0xijxl1o" path="res://assets/circle.png" id="1_pllnf"]
+[ext_resource type="Script" path="res://scripts/fire.gd" id="1_2p5ra"]
+[ext_resource type="Texture2D" uid="uid://dg7uc0xijxl1o" path="res://assets/circle.png" id="2_t8n3s"]
+[ext_resource type="Texture2D" uid="uid://b57w1bdk3xr7d" path="res://assets/fire.png" id="3_h01rt"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_yclxn"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_n0xv7")
+"texture": ExtResource("3_h01rt")
 }],
 "loop": true,
 "name": &"default",
@@ -27,14 +27,14 @@ colors = PackedColorArray(1, 1, 1, 1, 1, 0.5725, 0.05, 1)
 y_sort_enabled = true
 collision_layer = 128
 collision_mask = 0
-script = ExtResource("1_nlqj1")
+script = ExtResource("1_2p5ra")
 
 [node name="Sprite2D2" type="Sprite2D" parent="."]
 modulate = Color(0.203922, 0.203922, 0.203922, 1)
 z_index = -2
 position = Vector2(-1.5, 17.5)
 scale = Vector2(0.4, 0.23)
-texture = ExtResource("1_pllnf")
+texture = ExtResource("2_t8n3s")
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="."]
 visible = false
