@@ -36,6 +36,12 @@ var wave_rate_counter: float = 0.0
 
 @export var max_number_of_entities: int = 100
 
+@export var endless = true
+
+## If not endless, the amount of units this spawner will spawn before being disabled
+@export var num_spawns = 100
+var spawn_counter = 0
+
 func _ready():
 	if spawn_wave_on_ready == false:
 		wave_rate_counter = wave_rate
@@ -58,6 +64,8 @@ func spawn_wave():
 	wave_size += wave_size_growth
 
 func spawn_entity():
+	if !endless and spawn_counter >= num_spawns: return
+	spawn_counter += 1
 	var entity = entity_scene.instantiate()
 	entity.add_to_group(spawn_group)
 	spawn_node.add_child(entity)

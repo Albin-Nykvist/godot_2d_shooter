@@ -1,0 +1,93 @@
+[gd_scene load_steps=8 format=3 uid="uid://3janiphrexjq"]
+
+[ext_resource type="Texture2D" uid="uid://b57w1bdk3xr7d" path="res://assets/fire.png" id="1_n0xv7"]
+[ext_resource type="Script" path="res://scripts/fire.gd" id="1_nlqj1"]
+[ext_resource type="Texture2D" uid="uid://dg7uc0xijxl1o" path="res://assets/circle.png" id="1_pllnf"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_yclxn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_n0xv7")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_my2y8"]
+radius = 21.0
+
+[sub_resource type="Gradient" id="Gradient_rmfyc"]
+
+[sub_resource type="Gradient" id="Gradient_f7bw5"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 0.5725, 0.05, 1)
+
+[node name="Fire" type="StaticBody2D" groups=["fire"]]
+y_sort_enabled = true
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("1_nlqj1")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+modulate = Color(0.203922, 0.203922, 0.203922, 1)
+z_index = -2
+position = Vector2(-1.5, 17.5)
+scale = Vector2(0.4, 0.23)
+texture = ExtResource("1_pllnf")
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+visible = false
+sprite_frames = SubResource("SpriteFrames_yclxn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["fire"]]
+position = Vector2(0, 14)
+shape = SubResource("CircleShape2D_my2y8")
+
+[node name="Smoke" type="CPUParticles2D" parent="."]
+lifetime = 1.3
+explosiveness = 0.15
+lifetime_randomness = 0.2
+emission_shape = 1
+emission_sphere_radius = 20.0
+direction = Vector2(0, -1)
+spread = 30.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 100.0
+scale_amount_min = 2.0
+scale_amount_max = 6.0
+color_ramp = SubResource("Gradient_rmfyc")
+
+[node name="SideFlames" type="CPUParticles2D" parent="."]
+position = Vector2(0, 24)
+amount = 60
+lifetime = 0.6
+explosiveness = 0.15
+lifetime_randomness = 0.45
+emission_shape = 3
+emission_rect_extents = Vector2(25, 5)
+direction = Vector2(0, -1)
+spread = 40.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 80.0
+scale_amount_min = 4.0
+scale_amount_max = 12.0
+color_ramp = SubResource("Gradient_f7bw5")
+
+[node name="CenterFlame" type="CPUParticles2D" parent="."]
+position = Vector2(0, 24)
+amount = 30
+explosiveness = 0.1
+lifetime_randomness = 0.2
+emission_shape = 3
+emission_rect_extents = Vector2(10, 5)
+direction = Vector2(0, -1)
+spread = 15.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 80.0
+scale_amount_min = 8.0
+scale_amount_max = 16.0
+color_ramp = SubResource("Gradient_f7bw5")

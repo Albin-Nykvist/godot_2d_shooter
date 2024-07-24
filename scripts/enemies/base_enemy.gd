@@ -96,6 +96,9 @@ func base_body_entered(body):
 	elif body.is_in_group("players"):
 		reachable_target = body
 		damage_rate_counter = 0.1
+	elif body.is_in_group("fire"):
+		recieve_damage(40)
+		set_knock_back(250, -self.direction)
 
 func set_knock_back(speed: float, direction: Vector2):
 		is_knocked_back = true

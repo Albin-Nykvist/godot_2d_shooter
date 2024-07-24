@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://clitgslpij8h5"]
+[gd_scene load_steps=12 format=3 uid="uid://clitgslpij8h5"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_ld2ed"]
 [ext_resource type="PackedScene" uid="uid://ban4vdnehkkji" path="res://scenes/player.tscn" id="2_l2eg0"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://coghydqguv0xg" path="res://scenes/item_scenes/socks.tscn" id="8_dldyl"]
 [ext_resource type="PackedScene" uid="uid://ctdrbxwlqprh1" path="res://scenes/item_scenes/corn.tscn" id="8_xpuau"]
 [ext_resource type="PackedScene" uid="uid://du8ylstvbcoo3" path="res://scenes/enemy_scenes/crab.tscn" id="9_bl0l5"]
+[ext_resource type="PackedScene" uid="uid://3janiphrexjq" path="res://scenes/fire.tscn" id="11_net7e"]
 
 [node name="Game" type="Node2D"]
 y_sort_enabled = true
@@ -47,7 +48,7 @@ spawn_node = NodePath("..")
 spawn_group = "items"
 spawner_group = "item_spawner"
 wave_rate = 12.0
-max_number_of_entities = 50
+max_number_of_entities = 10
 
 [node name="ItemSpawner2" parent="." node_paths=PackedStringArray("player", "spawn_node") instance=ExtResource("5_e1jsg")]
 entity_scene = ExtResource("8_dldyl")
@@ -59,7 +60,7 @@ spawn_node = NodePath("..")
 spawn_group = "items"
 spawner_group = "item_spawner"
 wave_rate = 12.0
-max_number_of_entities = 50
+max_number_of_entities = 10
 
 [node name="ItemSpawner3" parent="." node_paths=PackedStringArray("player", "spawn_node") instance=ExtResource("5_e1jsg")]
 entity_scene = ExtResource("8_xpuau")
@@ -71,7 +72,7 @@ spawn_node = NodePath("..")
 spawn_group = "items"
 spawner_group = "item_spawner"
 wave_rate = 12.0
-max_number_of_entities = 50
+max_number_of_entities = 10
 
 [node name="VineSpawner" parent="." node_paths=PackedStringArray("player", "spawn_node") instance=ExtResource("5_e1jsg")]
 entity_scene = ExtResource("9_bl0l5")
@@ -86,6 +87,7 @@ wave_rate = 20.0
 wave_size = 8
 wave_size_growth = 1
 max_number_of_entities = 200
+endless = false
 
 [node name="HopperSpawner" parent="." node_paths=PackedStringArray("player", "spawn_node") instance=ExtResource("5_e1jsg")]
 entity_scene = ExtResource("7_bxqbb")
@@ -101,3 +103,7 @@ wave_size = 12
 wave_size_growth = 1
 spawn_wave_on_ready = false
 max_number_of_entities = 200
+endless = false
+
+[node name="Fire" parent="." instance=ExtResource("11_net7e")]
+position = Vector2(205, 34)
