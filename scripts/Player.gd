@@ -63,6 +63,8 @@ var slide_cool_down_counter = 0.0
 # Moving
 var speed = 250.0
 var direction = Vector2.ZERO
+var speed_recovery = 1.5
+var target_speed = 250.0
 
 # Inventory
 var reachable_items = []
@@ -193,6 +195,10 @@ func _process(delta):
 		invincible_duration_counter -= delta
 		if invincible_duration_counter <= 0:
 			is_invincible = false
+	
+	recover_speed(delta)
+	if target_speed > speed:
+		recover_speed(delta)
 
 
 func _input(event):
@@ -458,6 +464,11 @@ func heal(amount: float):
 	
 	health_bar.scale.x = health / max_health
 
+func recover_speed(delta: float):
+	speed += (target_speed / speed_recovery) * delta
+	if speed > target_speed:
+		speed = target_speed
+
 func set_cursor():
 	if held_item:
 		DisplayServer.cursor_set_custom_image(cursor_circle, 0, Vector2(32, 32))
@@ -476,3 +487,7 @@ func _on_hazard_detection_body_entered(body):
 	if is_dashing: return
 	if body.is_in_group("fire"):
 		recieve_damage(10)
+	if body.is_in_group("snow"):
+		if speed == target_speed:
+			target_speed = speed
+		speed *= 0.0

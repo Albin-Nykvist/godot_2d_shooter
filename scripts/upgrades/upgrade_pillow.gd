@@ -3,7 +3,8 @@ extends Upgrade
 var enemy: Node = null
 
 var damage = 5
-var knockback = 700
+var knockback = 500
+var stagger = -20.0
 
 var delay = 0.05
 var delay_counter = 0.0
@@ -25,3 +26,4 @@ func apply():
 		var angle_variance = 0.25 * PI
 		var direction = player.slide_direction.rotated(-angle_variance + fmod(randi(), angle_variance*2))
 		enemy.set_knock_back(knockback, direction)
+		enemy.speed = stagger

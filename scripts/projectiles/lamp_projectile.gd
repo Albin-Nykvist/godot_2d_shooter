@@ -2,6 +2,8 @@ extends Projectile
 
 var fire_scene = preload("res://scenes/hazard_scenes/fire.tscn")
 
+var is_destroyed = false
+
 func _ready():
 	life_time = 3.5
 	damage = 10.0
@@ -11,6 +13,8 @@ func _ready():
 	base_ready()
 
 func destroy():
+	if is_destroyed: return
+	is_destroyed = true
 	var particles = particle_poof.instantiate()
 	particles.position = self.position
 	get_parent().add_child(particles)

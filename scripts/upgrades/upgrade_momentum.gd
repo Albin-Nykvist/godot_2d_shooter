@@ -1,7 +1,7 @@
 extends Upgrade
 
 var damage_mult = 1.5
-var speed_mult = 1.6
+var speed_mult = 1.2
 
 func _ready():
 	player.projectile_created.connect(_on_projectile_created)

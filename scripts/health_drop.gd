@@ -3,7 +3,7 @@ extends Area2D
 
 var particle_destroy = preload("res://scenes/vfx_scenes/ParticleHealth.tscn")
 
-@export var value: float = 40.0
+@export var value: float = 25.0
 
 
 func destroy():

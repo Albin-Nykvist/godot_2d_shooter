@@ -101,6 +101,8 @@ func base_body_entered(body):
 	elif body.is_in_group("fire"):
 		recieve_damage(40)
 		set_knock_back(300, -self.direction)
+	elif body.is_in_group("snow"):
+		speed *= 0.0
 
 func set_knock_back(speed: float, direction: Vector2):
 		is_knocked_back = true
@@ -252,7 +254,7 @@ func recieve_damage(damage: float):
 		die()
 
 func die():
-	if randi() % 100 < 98:
+	if randi() % 100 < 97:
 		var coin = coin_scene.instantiate()
 		coin.position = self.position + Vector2(-10 + randi() % 21, -10)
 		get_parent().add_child(coin)
