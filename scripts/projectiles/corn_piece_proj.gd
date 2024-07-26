@@ -1,7 +1,7 @@
 extends Projectile
 
 
-var pop_time = 0.178
+var pop_time = 0.168
 var is_popped = false
 
 @onready var sprite = $Sprite2D
@@ -14,8 +14,8 @@ var rotation_direction = 1.0
 var angle_variance = 0.10 * PI
 
 func _ready():
-	damage = 0.0
-	knockback = 0.0
+	damage = 10.0
+	knockback = 50.0
 	stagger = 1.0
 	life_time = 5.0
 	speed = speed * 1.2
@@ -40,7 +40,7 @@ func _physics_process(delta):
 
 func pop():
 	is_popped = true
-	damage = 50.0
+	damage *= 5
 	stagger = 0.4
 	knockback = 300.0
 	collider.scale *= 1.68

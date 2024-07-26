@@ -1,0 +1,61 @@
+[gd_scene load_steps=9 format=3 uid="uid://baunxfnhnhcyu"]
+
+[ext_resource type="Script" path="res://scripts/enemies/big_shroom.gd" id="1_umqej"]
+[ext_resource type="Texture2D" uid="uid://djh1w1e4dsmsx" path="res://assets/enemy_sprites/big_shroom/big_shroom.png" id="2_eulq2"]
+[ext_resource type="Texture2D" uid="uid://eb52slbpimnj" path="res://assets/enemy_sprites/big_shroom/big_shroom2.png" id="3_0smc8"]
+[ext_resource type="PackedScene" uid="uid://cx72b5pmyf7wd" path="res://scenes/shadow.tscn" id="4_nft6v"]
+[ext_resource type="AudioStream" uid="uid://fqsby8888wun" path="res://assets/audio/sfx/doot.wav" id="5_qfgka"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_a4rsm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_eulq2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_0smc8")
+}],
+"loop": true,
+"name": &"default",
+"speed": 2.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8bd8k"]
+radius = 18.0278
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_eokyj"]
+radius = 20.0
+height = 48.0
+
+[node name="Enemy" type="CharacterBody2D" groups=["enemies"]]
+collision_layer = 4
+collision_mask = 5
+motion_mode = 1
+script = ExtResource("1_umqej")
+
+[node name="CharacterSprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_a4rsm")
+autoplay = "default"
+frame_progress = 0.932742
+
+[node name="Shadow" parent="CharacterSprite" instance=ExtResource("4_nft6v")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-2, 22)
+shape = SubResource("CircleShape2D_8bd8k")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 131
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-2, 17)
+shape = SubResource("CapsuleShape2D_eokyj")
+
+[node name="sfxHurt" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_qfgka")
+volume_db = 6.0
+pitch_scale = 4.0
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

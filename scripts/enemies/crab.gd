@@ -3,7 +3,7 @@ extends Enemy
 var start_animation_speed = 0.0
 
 func _ready():
-	base_speed = 90.0
+	base_speed = 110.0
 	speed_variation = 10.0
 	speed_recovery = 3.5
 	max_health = 120.0

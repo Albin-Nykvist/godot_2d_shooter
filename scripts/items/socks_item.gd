@@ -41,6 +41,9 @@ func throw_projectile(player: Node, scene):
 	projectile.speed = player.throw_force
 	projectile.position += projectile.direction * 50 # nice initial offset
 	player.get_parent().add_child(projectile)
+	projectile.damage *= player.proj_damage_mult
+	projectile.stagger *= player.proj_stagger_mult
+	projectile.knockback *= player.proj_knockback_mult
 	player.projectile_created.emit(projectile)
 	player.camera.shake_screen(0.05, 10.0)
 

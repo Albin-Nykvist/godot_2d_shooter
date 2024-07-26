@@ -24,10 +24,10 @@ var props = [
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
-	var border_radius = 4000.0
+	var border_radius = 2000.0
 	base_create_border(border_radius, 25)
 	
-	var map_area = Vector2i(8000, 8000)
+	var map_area = Vector2i(border_radius * 2, border_radius * 2)
 	var section_size = Vector2i(400, 400)
 	base_add_props(map_area, section_size, 100, border_radius)
 	

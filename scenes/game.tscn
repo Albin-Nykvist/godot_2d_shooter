@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://clitgslpij8h5"]
+[gd_scene load_steps=11 format=3 uid="uid://clitgslpij8h5"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_ld2ed"]
 [ext_resource type="PackedScene" uid="uid://ban4vdnehkkji" path="res://scenes/player.tscn" id="2_l2eg0"]
@@ -9,8 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://r3ny0bop4xto" path="res://scenes/item_scenes/snowball.tscn" id="7_8r0o3"]
 [ext_resource type="PackedScene" uid="uid://c1xqrf7ahgg8k" path="res://scenes/enemy_scenes/hopper.tscn" id="7_bxqbb"]
 [ext_resource type="PackedScene" uid="uid://ctdrbxwlqprh1" path="res://scenes/item_scenes/corn.tscn" id="8_xpuau"]
-[ext_resource type="PackedScene" uid="uid://du8ylstvbcoo3" path="res://scenes/enemy_scenes/crab.tscn" id="9_bl0l5"]
-[ext_resource type="PackedScene" uid="uid://bxjurfi8bf07j" path="res://scenes/hazard_scenes/snow.tscn" id="11_0lupl"]
+[ext_resource type="PackedScene" uid="uid://baunxfnhnhcyu" path="res://scenes/enemy_scenes/big_shroom.tscn" id="9_5jvb3"]
 
 [node name="Game" type="Node2D"]
 y_sort_enabled = true
@@ -48,7 +47,7 @@ spawn_node = NodePath("..")
 spawn_group = "items"
 spawner_group = "item_spawner"
 wave_rate = 12.0
-max_number_of_entities = 10
+max_number_of_entities = 3
 
 [node name="ItemSpawner2" parent="." node_paths=PackedStringArray("player", "spawn_node") instance=ExtResource("5_e1jsg")]
 entity_scene = ExtResource("7_8r0o3")
@@ -60,7 +59,7 @@ spawn_node = NodePath("..")
 spawn_group = "items"
 spawner_group = "item_spawner"
 wave_rate = 12.0
-max_number_of_entities = 10
+max_number_of_entities = 3
 
 [node name="ItemSpawner3" parent="." node_paths=PackedStringArray("player", "spawn_node") instance=ExtResource("5_e1jsg")]
 entity_scene = ExtResource("8_xpuau")
@@ -72,10 +71,10 @@ spawn_node = NodePath("..")
 spawn_group = "items"
 spawner_group = "item_spawner"
 wave_rate = 12.0
-max_number_of_entities = 10
+max_number_of_entities = 3
 
 [node name="VineSpawner" parent="." node_paths=PackedStringArray("player", "spawn_node") instance=ExtResource("5_e1jsg")]
-entity_scene = ExtResource("9_bl0l5")
+entity_scene = ExtResource("9_5jvb3")
 entity_is_enemy = true
 player = NodePath("../Player")
 min_spawn_distance_to_player = 1000.0
@@ -84,10 +83,9 @@ spawn_node = NodePath("..")
 spawn_group = "enemies"
 spawner_group = "vine"
 wave_rate = 20.0
-wave_size = 8
-wave_size_growth = 1
+wave_size = 16
 max_number_of_entities = 200
-endless = false
+num_spawns = 0
 
 [node name="HopperSpawner" parent="." node_paths=PackedStringArray("player", "spawn_node") instance=ExtResource("5_e1jsg")]
 entity_scene = ExtResource("7_bxqbb")
@@ -99,11 +97,7 @@ spawn_node = NodePath("..")
 spawn_group = "enemies"
 spawner_group = "hopper"
 wave_rate = 45.0
-wave_size = 12
-wave_size_growth = 1
+wave_size = 8
 spawn_wave_on_ready = false
 max_number_of_entities = 200
-endless = false
-
-[node name="Snow" parent="." instance=ExtResource("11_0lupl")]
-position = Vector2(230, 18)
+num_spawns = 0

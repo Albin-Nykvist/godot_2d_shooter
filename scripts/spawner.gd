@@ -55,7 +55,11 @@ func _process(delta):
 
 func spawn_wave():
 	var current_wave_size = wave_size
-	var num_entities = spawn_node.get_child_count()
+	var num_entities = 0
+	for child in spawn_node.get_children():
+		if child.is_in_group(spawner_group):
+			num_entities += 1
+	print(num_entities)
 	if num_entities + wave_size >= max_number_of_entities:
 		current_wave_size = max_number_of_entities - num_entities 
 	
@@ -64,10 +68,11 @@ func spawn_wave():
 	wave_size += wave_size_growth
 
 func spawn_entity():
-	if !endless and spawn_counter >= num_spawns: return
+	if endless == false and spawn_counter >= num_spawns: return
 	spawn_counter += 1
 	var entity = entity_scene.instantiate()
 	entity.add_to_group(spawn_group)
+	entity.add_to_group(spawner_group)
 	spawn_node.add_child(entity)
 	if entity_is_enemy:
 		entity.attack_target = player
@@ -76,12 +81,3 @@ func spawn_entity():
 	var random_unit_vector = Vector2.UP.rotated(randf() * 2 * PI)
 	var distance_to_player = min_spawn_distance_to_player + fmod(randi(), max_spawn_distance_to_player)
 	entity.position = player.position + random_unit_vector.normalized() * distance_to_player 
-
-
-	#var item_near_player = false
-	#for item in get_tree().get_nodes_in_group("items"):
-		#if item.position.distance_to(player.position) < 800:
-			#item_near_player = true
-	#
-	#if item_near_player == false:
-		#spawn_item()

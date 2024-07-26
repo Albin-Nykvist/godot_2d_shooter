@@ -1,9 +1,12 @@
 extends CharacterBody2D
 class_name Enemy
 
+## Damage Number scene
+@export var damage_number_scene = preload("res://scenes/damage_number.tscn")
+
 ## Money drop scene
 @export var coin_scene = preload("res://scenes/money_drop.tscn")
-## Money drop scene
+## Health drop scene
 @export var health_scene = preload("res://scenes/health_drop.tscn")
 
 ## Death particle scene
@@ -249,6 +252,11 @@ func recieve_damage(damage: float):
 	health -= damage
 	play_sfx(sfx_hurt)
 	character_sprite.modulate = Color(100, 100, 100, 1) # White flash
+	
+	var damage_number = damage_number_scene.instantiate()
+	damage_number.position = self.position
+	damage_number.value = damage
+	get_parent().add_child(damage_number)
 	
 	if health <= 0:
 		die()

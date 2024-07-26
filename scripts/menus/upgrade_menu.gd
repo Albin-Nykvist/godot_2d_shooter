@@ -126,6 +126,22 @@ var upgrades = [
 		upgrade_scene = upgrade_item,
 		is_item = true,
 	},
+	{
+		title = "LAMP",
+		description = "(ITEM) Bursts into fire on impact!",
+		price = 10,
+		color = colors[3],
+		upgrade_scene = upgrade_item,
+		is_item = true,
+	},
+	{
+		title = "SNOWBALL",
+		description = "(ITEM) Covers the ground with snow on impact.",
+		price = 10,
+		color = colors[3],
+		upgrade_scene = upgrade_item,
+		is_item = true,
+	},
 ]
 
 var is_active = false

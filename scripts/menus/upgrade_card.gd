@@ -50,6 +50,8 @@ var coffee_item = preload("res://scenes/item_scenes/coffee.tscn")
 var socks_item = preload("res://scenes/item_scenes/socks.tscn")
 var fish_item = preload("res://scenes/item_scenes/fish.tscn")
 var corn_item = preload("res://scenes/item_scenes/corn.tscn")
+var lamp_item = preload("res://scenes/item_scenes/lamp.tscn")
+var snowball_item = preload("res://scenes/item_scenes/snowball.tscn")
 
 func assign_item(upgrade: Node):
 	if title == "COFFEE":
@@ -60,3 +62,7 @@ func assign_item(upgrade: Node):
 		upgrade.item_scene = fish_item
 	elif title == "CORN":
 		upgrade.item_scene = corn_item
+	elif title == "LAMP":
+		upgrade.item_scene = lamp_item
+	elif title == "SNOWBALL":
+		upgrade.item_scene = snowball_item
