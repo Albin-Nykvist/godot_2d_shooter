@@ -35,7 +35,7 @@ func _process(delta):
 		is_dissapearing = true
 		dissapear_time_counter = dissapear_time
 		var tween = get_tree().create_tween()
-		tween.tween_property(self, "scale", Vector2(0.7, 0.001), 1.0).set_trans(Tween.TRANS_SPRING)
+		tween.tween_property(self, "scale", Vector2(0.7, 0.4), 1.0).set_trans(Tween.TRANS_SPRING)
 		add_dig_particle()
 	
 	
@@ -47,6 +47,6 @@ func _process(delta):
 
 func add_dig_particle():
 	var dig = particle_dig.instantiate()
-	dig.position = self.position + Vector2(0, 30)
+	dig.position = self.position + Vector2(0, 40)
 	get_parent().add_child(dig)
 	dig.emitting = true
