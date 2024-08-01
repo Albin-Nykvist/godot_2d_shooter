@@ -1,0 +1,67 @@
+[gd_scene load_steps=9 format=3 uid="uid://di1vtelf8y6t3"]
+
+[ext_resource type="Script" path="res://scripts/enemies/bird.gd" id="1_tpkos"]
+[ext_resource type="Texture2D" uid="uid://biv1qmmrm65li" path="res://assets/enemy_sprites/bird/bird1.png" id="2_ile70"]
+[ext_resource type="Texture2D" uid="uid://crwh6c18vvcot" path="res://assets/enemy_sprites/bird/bird_fly.png" id="3_omcxr"]
+[ext_resource type="PackedScene" uid="uid://cx72b5pmyf7wd" path="res://scenes/shadow.tscn" id="4_uh7k6"]
+[ext_resource type="AudioStream" uid="uid://fqsby8888wun" path="res://assets/audio/sfx/doot.wav" id="5_dnn4e"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_a4rsm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_ile70")
+}],
+"loop": true,
+"name": &"default",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_omcxr")
+}],
+"loop": true,
+"name": &"fly",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8bd8k"]
+radius = 22.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_eokyj"]
+radius = 22.0
+height = 64.0
+
+[node name="Enemy" type="CharacterBody2D" groups=["enemies"]]
+collision_layer = 4
+collision_mask = 5
+motion_mode = 1
+script = ExtResource("1_tpkos")
+
+[node name="CharacterSprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_a4rsm")
+animation = &"fly"
+autoplay = "default"
+
+[node name="Shadow" parent="CharacterSprite" instance=ExtResource("4_uh7k6")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 19)
+shape = SubResource("CircleShape2D_8bd8k")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 131
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(1, 19)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_eokyj")
+
+[node name="sfxHurt" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_dnn4e")
+volume_db = 6.0
+pitch_scale = 4.0
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

@@ -146,7 +146,7 @@ func base_ready():
 	health = max_health
 	
 	# Randomize animation speed (looks better when you have many enemies in game)
-	character_sprite.speed_scale = 1.0 + ((-2 + randi() % 5) * 0.1)
+	character_sprite.speed_scale += (-2 + randi() % 5) * 0.1
 	
 	# Assign start speed (the speed this creature will try to move at)
 	start_speed = base_speed + (-speed_variation + fmod(randi(), speed_variation*2))
@@ -260,6 +260,11 @@ func recieve_damage(damage: float):
 	
 	if health <= 0:
 		die()
+	
+	recieve_damage_after()
+
+func recieve_damage_after():
+	pass
 
 func die():
 	if randi() % 100 < 97:

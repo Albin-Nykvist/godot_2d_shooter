@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://clitgslpij8h5"]
+[gd_scene load_steps=12 format=3 uid="uid://clitgslpij8h5"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_ld2ed"]
 [ext_resource type="PackedScene" uid="uid://ban4vdnehkkji" path="res://scenes/player.tscn" id="2_l2eg0"]
@@ -7,9 +7,10 @@
 [ext_resource type="PackedScene" uid="uid://w6vqguk4o656" path="res://scenes/spawner.tscn" id="5_e1jsg"]
 [ext_resource type="PackedScene" uid="uid://b0mxsm2a0dsy8" path="res://scenes/item_scenes/lamp.tscn" id="6_fuhk3"]
 [ext_resource type="PackedScene" uid="uid://r3ny0bop4xto" path="res://scenes/item_scenes/snowball.tscn" id="7_8r0o3"]
-[ext_resource type="PackedScene" uid="uid://c1xqrf7ahgg8k" path="res://scenes/enemy_scenes/hopper.tscn" id="7_bxqbb"]
 [ext_resource type="PackedScene" uid="uid://ctdrbxwlqprh1" path="res://scenes/item_scenes/corn.tscn" id="8_xpuau"]
-[ext_resource type="PackedScene" uid="uid://baunxfnhnhcyu" path="res://scenes/enemy_scenes/big_shroom.tscn" id="9_5jvb3"]
+[ext_resource type="PackedScene" uid="uid://dwdhtkkll1imh" path="res://scenes/enemy_scenes/dirt_golem.tscn" id="9_ri7jf"]
+[ext_resource type="PackedScene" uid="uid://dsp3w6gghsjnt" path="res://scenes/enemy_scenes/fast_shroom.tscn" id="9_vfi0m"]
+[ext_resource type="PackedScene" uid="uid://di1vtelf8y6t3" path="res://scenes/enemy_scenes/bird.tscn" id="9_yblk7"]
 
 [node name="Game" type="Node2D"]
 y_sort_enabled = true
@@ -74,7 +75,7 @@ wave_rate = 12.0
 max_number_of_entities = 3
 
 [node name="VineSpawner" parent="." node_paths=PackedStringArray("player", "spawn_node") instance=ExtResource("5_e1jsg")]
-entity_scene = ExtResource("9_5jvb3")
+entity_scene = ExtResource("9_vfi0m")
 entity_is_enemy = true
 player = NodePath("../Player")
 min_spawn_distance_to_player = 1000.0
@@ -85,10 +86,9 @@ spawner_group = "vine"
 wave_rate = 20.0
 wave_size = 16
 max_number_of_entities = 200
-num_spawns = 0
 
 [node name="HopperSpawner" parent="." node_paths=PackedStringArray("player", "spawn_node") instance=ExtResource("5_e1jsg")]
-entity_scene = ExtResource("7_bxqbb")
+entity_scene = ExtResource("9_yblk7")
 entity_is_enemy = true
 player = NodePath("../Player")
 min_spawn_distance_to_player = 1200.0
@@ -100,4 +100,13 @@ wave_rate = 45.0
 wave_size = 8
 spawn_wave_on_ready = false
 max_number_of_entities = 200
-num_spawns = 0
+
+[node name="GolemSpawner" parent="." node_paths=PackedStringArray("player") instance=ExtResource("5_e1jsg")]
+entity_scene = ExtResource("9_ri7jf")
+entity_is_enemy = true
+player = NodePath("../Player")
+min_spawn_distance_to_player = 200.0
+max_spawn_distance_to_player = 300.0
+wave_rate = 10.0
+wave_size = 20
+symetric_wave = true

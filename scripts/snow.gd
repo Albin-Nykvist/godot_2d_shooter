@@ -1,15 +1,10 @@
 extends StaticBody2D
 
-@export var life_time = 10
+@export var life_time = 10.0
 var time = 0.0
 
 @onready var sprite = $Sprite2D
 @onready var shadow = $Shadow
-
-
-var shadow_start_scale = Vector2.ZERO
-var shadow_end_scale = Vector2.ZERO
-
 
 func _ready():
 	if randi() % 2 == 0:
@@ -19,18 +14,22 @@ func _ready():
 	if randi() % 2 == 0:
 		scale.y += 0.2
 	
-	shadow_start_scale = shadow.scale
-	shadow_end_scale = shadow_start_scale * 1.3
+	life_time += randi() % 3
+	
+	var tween = get_tree().create_tween()
+	tween.tween_property(shadow, "scale", shadow.scale * 1.4, 2.5)
+	tween.tween_callback(Callable(self, "more_melt"))
+	
 
 func _process(delta):
 	time += delta
 	
-	shadow.scale += shadow_end_scale / 1400
-	if shadow.scale.x > shadow_end_scale.x:
-		shadow.scale.x = shadow_end_scale.x
-	if shadow.scale.y > shadow_end_scale.y:
-		shadow.scale.y = shadow_end_scale.y
+	if time >= life_time * 0.9:
+		sprite.visible = false
 	
 	if time >= life_time:
 		queue_free()
 
+func more_melt():
+	var tween = get_tree().create_tween()
+	tween.tween_property(shadow, "scale", shadow.scale * 1.1, 10.0)

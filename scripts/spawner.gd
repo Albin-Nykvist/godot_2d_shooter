@@ -29,6 +29,10 @@ var wave_rate_counter: float = 0.0
 
 @export var wave_size: int = 1
 
+@export var symetric_wave = false
+var spawn_angle = 0.0
+var spawn_angle_increment = 0.0
+
 ## Number added to wave_size each time a wave is spawned
 @export var wave_size_growth: int = 0
 
@@ -63,6 +67,9 @@ func spawn_wave():
 	if num_entities + wave_size >= max_number_of_entities:
 		current_wave_size = max_number_of_entities - num_entities 
 	
+	if symetric_wave and current_wave_size > 0:
+		spawn_angle_increment =  (2.0 * PI) / current_wave_size 
+	
 	for i in range(0, current_wave_size):
 		spawn_entity()
 	wave_size += wave_size_growth
@@ -78,6 +85,9 @@ func spawn_entity():
 		entity.attack_target = player
 	elif entity_is_item:
 		entity.set_to_falling()
-	var random_unit_vector = Vector2.UP.rotated(randf() * 2 * PI)
-	var distance_to_player = min_spawn_distance_to_player + fmod(randi(), max_spawn_distance_to_player)
-	entity.position = player.position + random_unit_vector.normalized() * distance_to_player 
+	var unit_vector = Vector2.UP.rotated(randf() * 2 * PI)
+	if symetric_wave:
+		unit_vector = Vector2.UP.rotated(spawn_angle)
+		spawn_angle += spawn_angle_increment
+	var distance_to_player = min_spawn_distance_to_player + fmod(randi(), max_spawn_distance_to_player - min_spawn_distance_to_player + 1)
+	entity.position = player.position + unit_vector.normalized() * distance_to_player 

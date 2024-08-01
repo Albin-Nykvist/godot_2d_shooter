@@ -2,6 +2,8 @@ extends Node2D
 
 @export var player: Node
 
+@onready var background = $Background
+
 var map_border_scene = preload("res://scenes/prop_scenes/map_edge.tscn")
 var detail = preload("res://scenes/noise.tscn")
 
@@ -42,6 +44,7 @@ func base_create_border(border_radius: float, num_scenes: int):
 	for i in num_scenes:
 		var scene = map_border_scene.instantiate()
 		scene.add_to_group("map_edge")
+		scene.get_node("Sprite2D").self_modulate = background.modulate.darkened(0.15)
 		scene.position = Vector2.UP.rotated(angle) * border_radius
 		scene.rotate(angle)
 		add_child(scene)
@@ -64,8 +67,8 @@ func base_add_props(prop_area: Vector2i, section_size: Vector2i, margin: float, 
 		prop.position = Vector2(section_position.x + randi() % section_size.x, section_position.y + randi() % section_size.y)
 		add_child(prop)
 		
-		if prop.position.distance_to(self.position) > border_radius:
-			remove_child(prop)
+		#if prop.position.distance_to(self.position) > border_radius:
+			#prop.get_node("Sprite2D").modulate.darkened(0.2)
 		
 		x += 1
 		if x > prop_area.x/section_size.x:
@@ -92,8 +95,6 @@ func base_add_background_details(area: Vector2i, section_size: Vector2i, margin:
 				detail.flip_h = true
 			add_child(detail)
 			
-			if detail.position.distance_to(self.position) > border_radius:
-				remove_child(detail)
 		
 		x += 1
 		if x > area.x/section_size.x:
