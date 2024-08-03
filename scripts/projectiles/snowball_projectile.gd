@@ -21,11 +21,9 @@ func destroy():
 	particles.emitting = true
 	
 	var distance = 60
-	#place_snow(self.position)
 	var amount = 25
 	var shift = 20
 	for i in amount:
-		#var pos = self.position + Vector2.UP.rotated(i * ((2.0 * PI) / amount)) * distance
 		var pos = self.position + Vector2.UP.rotated(fmod(randi(), 2 * PI)) * distance
 		pos.x += -shift + randi() % (shift * 2)
 		pos.y += -shift + randi() % (shift * 2)
@@ -36,5 +34,5 @@ func destroy():
 func place_snow(pos: Vector2):
 	var snow = snow_scene.instantiate()
 	snow.position = pos
-	snow.life_time = 12 + fmod(randi(), 0.5)
+	snow.life_time = 13 + fmod(randi(), 0.5)
 	get_parent().add_child(snow)

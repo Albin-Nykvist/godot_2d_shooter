@@ -43,7 +43,7 @@ var is_dashing = false
 var dash_duration = 0.10
 var dash_duration_counter = 0.0
 var dash_speed = 1400.0
-var dash_cool_down = 0.8
+var dash_cool_down = 1.0
 var dash_cool_down_counter = 0.0
 var dash_direction = Vector2.ZERO
 
@@ -55,13 +55,13 @@ var teleport_cool_down_counter = 0.0
 var is_sliding = false
 var slide_speed_bonus = 350.0
 var current_slide_speed_bonus = 0.0
-var slide_speed_reduction = 300.0
+var slide_speed_increase = 300.0
 var slide_direction = Vector2.ZERO
 var slide_cool_down = 0.15
 var slide_cool_down_counter = 0.0
 
 # Moving
-var speed = 250.0
+var speed = 200.0
 var direction = Vector2.ZERO
 var speed_recovery = 1.5
 var target_speed = 250.0
@@ -218,7 +218,7 @@ func _input(event):
 		#teleport_cool_down_counter = teleport_cool_down
 	var direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	if Input.is_action_pressed("slide") and direction and slide_cool_down_counter <= 0 and !is_sliding:
-		is_sliding = true
+		#is_sliding = true
 		slide_direction = direction
 		current_slide_speed_bonus = slide_speed_bonus
 	if (!Input.is_action_pressed("slide") and is_sliding) or (direction != slide_direction and is_sliding): 
@@ -249,7 +249,7 @@ func _on_pick_up_range_area_exited(area):
 
 func slide(delta):
 	velocity = slide_direction * (self.current_slide_speed_bonus + self.speed)
-	current_slide_speed_bonus -= slide_speed_reduction * delta
+	current_slide_speed_bonus -= slide_speed_increase * delta
 	if current_slide_speed_bonus < 0.0:
 		current_slide_speed_bonus = 0
 	look_towards_direction(slide_direction)
@@ -481,7 +481,6 @@ func play_sfx(audio_node: Node):
 	audio_node.pitch_scale = original_pitch - variance + randf() * variance
 	audio_node.playing = true
 	audio_node.pitch_scale = original_pitch
-
 
 func _on_hazard_detection_body_entered(body):
 	if is_dashing: return

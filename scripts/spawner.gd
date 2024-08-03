@@ -63,7 +63,6 @@ func spawn_wave():
 	for child in spawn_node.get_children():
 		if child.is_in_group(spawner_group):
 			num_entities += 1
-	print(num_entities)
 	if num_entities + wave_size >= max_number_of_entities:
 		current_wave_size = max_number_of_entities - num_entities 
 	

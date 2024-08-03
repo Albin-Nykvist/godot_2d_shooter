@@ -34,6 +34,7 @@ var upgrade_pillow = preload("res://scenes/upgrade_node_scenes/upgrade_pillow.ts
 var upgrade_momentum = preload("res://scenes/upgrade_node_scenes/upgrade_momentum.tscn")
 var upgrade_laundry = preload("res://scenes/upgrade_node_scenes/upgrade_backwards_sock.tscn")
 var upgrade_item = preload("res://scenes/upgrade_node_scenes/upgrade_item.tscn")
+var upgrade_endurance = preload("res://scenes/upgrade_node_scenes/upgrade_endurance.tscn")
 
 var colors = [
 	Color("#533747"),
@@ -45,7 +46,7 @@ var colors = [
 
 var upgrades = [
 	{
-		title = "SPEED",
+		title = "FAST FEET",
 		description = "Increase speed by 15%",
 		price = 10,
 		color = colors[4],
@@ -53,15 +54,15 @@ var upgrades = [
 		is_item = false,
 	},
 	{
-		title = "DAMAGE",
-		description = "Increase projectile damage by 40%",
+		title = "LETHALITY",
+		description = "Increase projectile damage by 35%",
 		price = 10,
 		color = colors[1],
 		upgrade_scene = upgrade_damage,
 		is_item = false,
 	},
 	{
-		title = "LANCE",
+		title = "CHARGE",
 		description = "Deals 25 damage to enemies you dash through",
 		price = 10,
 		color = colors[2],
@@ -69,21 +70,48 @@ var upgrades = [
 		is_item = false,
 	},
 	{
-		title = "PILLOW",
-		description = "Deals 5 damage and knocks back enemies you slide into",
+		title = "ENDURANCE",
+		description = "Reduce dash cool down by 10% and increase dash length by 10%",
 		price = 10,
-		color = colors[0],
-		upgrade_scene = upgrade_pillow,
+		color = colors[2],
+		upgrade_scene = upgrade_endurance,
 		is_item = false,
 	},
-	{
-		title = "MOMENTUM",
-		description = "+50% damage and +20% speed on projectiles thrown while sliding",
-		price = 10,
-		color = colors[3],
-		upgrade_scene = upgrade_momentum,
-		is_item = false,
-	},
+	#{
+		#title = "SUMMER CURSE",
+		#description = "Sometimes lights the ground on fire around you and decrease max health by 10%",
+		#price = 10,
+		#color = colors[2],
+		#upgrade_scene = upgrade_lance,
+		#is_item = false,
+	#},
+	#{
+		#title = "WINTER CURSE",
+		#description = "Sometimes creates piles of snow around you and decrease speed by 10%",
+		#price = 10,
+		#color = colors[2],
+		#upgrade_scene = upgrade_lance,
+		#is_item = false,
+	#},
+	
+	
+	# Slide related
+	#{
+		#title = "PILLOW",
+		#description = "Deals 5 damage and knocks back enemies you slide into",
+		#price = 10,
+		#color = colors[0],
+		#upgrade_scene = upgrade_pillow,
+		#is_item = false,
+	#},
+	#{
+		#title = "MOMENTUM",
+		#description = "+50% damage and +20% speed on projectiles thrown while sliding",
+		#price = 10,
+		#color = colors[3],
+		#upgrade_scene = upgrade_momentum,
+		#is_item = false,
+	#},
 	{
 		title = "LAUNDRY LOB",
 		description = "50% chance of throwing a sock when dashing",

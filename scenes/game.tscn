@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bx22cg8abbed3" path="res://scenes/world.tscn" id="3_26hw7"]
 [ext_resource type="PackedScene" uid="uid://ce8hgh2k0c6kx" path="res://scenes/vfx_scenes/ParticleLeaves.tscn" id="3_eu7vq"]
 [ext_resource type="PackedScene" uid="uid://w6vqguk4o656" path="res://scenes/spawner.tscn" id="5_e1jsg"]
-[ext_resource type="PackedScene" uid="uid://b0mxsm2a0dsy8" path="res://scenes/item_scenes/lamp.tscn" id="6_fuhk3"]
+[ext_resource type="PackedScene" uid="uid://c2b04tb5urukc" path="res://scenes/item_scenes/coffee.tscn" id="6_x3iq7"]
 [ext_resource type="PackedScene" uid="uid://r3ny0bop4xto" path="res://scenes/item_scenes/snowball.tscn" id="7_8r0o3"]
 [ext_resource type="PackedScene" uid="uid://ctdrbxwlqprh1" path="res://scenes/item_scenes/corn.tscn" id="8_xpuau"]
 [ext_resource type="PackedScene" uid="uid://dwdhtkkll1imh" path="res://scenes/enemy_scenes/dirt_golem.tscn" id="9_ri7jf"]
@@ -39,7 +39,7 @@ color = Color(0.956863, 1, 0.501961, 0.32549)
 player = NodePath("../Player")
 
 [node name="ItemSpawner" parent="." node_paths=PackedStringArray("player", "spawn_node") instance=ExtResource("5_e1jsg")]
-entity_scene = ExtResource("6_fuhk3")
+entity_scene = ExtResource("6_x3iq7")
 entity_is_item = true
 player = NodePath("../Player")
 min_spawn_distance_to_player = 50.0
@@ -97,7 +97,7 @@ spawn_node = NodePath("..")
 spawn_group = "enemies"
 spawner_group = "hopper"
 wave_rate = 45.0
-wave_size = 8
+wave_size = 4
 spawn_wave_on_ready = false
 max_number_of_entities = 200
 
@@ -105,8 +105,9 @@ max_number_of_entities = 200
 entity_scene = ExtResource("9_ri7jf")
 entity_is_enemy = true
 player = NodePath("../Player")
-min_spawn_distance_to_player = 200.0
-max_spawn_distance_to_player = 300.0
-wave_rate = 10.0
-wave_size = 20
+min_spawn_distance_to_player = 160.0
+max_spawn_distance_to_player = 250.0
+wave_rate = 60.0
+wave_size = 10
 symetric_wave = true
+spawn_wave_on_ready = false

@@ -30,5 +30,5 @@ func destroy():
 func place_fire(pos: Vector2):
 	var fire = fire_scene.instantiate()
 	fire.position = pos
-	fire.life_time = 7.5
+	fire.life_time = 5.5
 	get_parent().add_child(fire)
