@@ -267,7 +267,7 @@ func recieve_damage_after():
 	pass
 
 func die():
-	if randi() % 100 < 97:
+	if randi() % 100 < 98:
 		var coin = coin_scene.instantiate()
 		coin.position = self.position + Vector2(-10 + randi() % 21, -10)
 		get_parent().add_child(coin)

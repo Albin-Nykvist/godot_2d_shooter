@@ -27,6 +27,9 @@ func update():
 	description_text_box.text = description
 	button.text = str(price)
 	
+	if price == 0:
+		button.text = "FREE"
+	
 	# This took way to long to figure out
 	var styleBox: StyleBoxFlat = panel.get_theme_stylebox("panel").duplicate()
 	styleBox.set("bg_color", color)

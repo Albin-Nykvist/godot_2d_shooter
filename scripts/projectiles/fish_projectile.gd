@@ -1,7 +1,7 @@
 extends Projectile
 
 func _ready():
-	damage = 120.0
+	damage = 200.0
 	knockback = 650.0
 	life_time = 1.0
 	speed = speed * 0.6

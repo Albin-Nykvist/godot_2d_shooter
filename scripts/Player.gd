@@ -1,6 +1,8 @@
 extends CharacterBody2D
 class_name Player
 
+@export var game: Node = null
+
 var item_scene = preload("res://scenes/item_scenes/urn.tscn")
 #var projectile_scene = preload("res://scenes/projectile_scenes/projectile.tscn")
 
@@ -28,7 +30,7 @@ var pick_up_particles = preload("res://scenes/vfx_scenes/ParticlePickUp.tscn")
 @onready var sfx_throw = $SfxThrow
 
 # time
-var time = 0.0
+var time = 240
 
 # animate items sprite
 const item_sprite_base_speed = 1.0
@@ -43,7 +45,7 @@ var is_dashing = false
 var dash_duration = 0.10
 var dash_duration_counter = 0.0
 var dash_speed = 1400.0
-var dash_cool_down = 1.0
+var dash_cool_down = 1.05
 var dash_cool_down_counter = 0.0
 var dash_direction = Vector2.ZERO
 
@@ -61,10 +63,10 @@ var slide_cool_down = 0.15
 var slide_cool_down_counter = 0.0
 
 # Moving
-var speed = 200.0
+var speed = 220.0
 var direction = Vector2.ZERO
 var speed_recovery = 1.5
-var target_speed = 250.0
+var target_speed = 220.0
 
 # Inventory
 var reachable_items = []
@@ -135,6 +137,8 @@ func _ready():
 	starting_proj_damage_mult = proj_damage_mult
 	starging_proj_stagger_mult = proj_stagger_mult
 	starting_proj_knockback_mult = proj_knockback_mult
+	
+	update_coin_ui()
 
 func _physics_process(delta):
 	if is_dashing:
@@ -150,8 +154,11 @@ func _physics_process(delta):
 	move_around_collision(collision, velocity_before_collision, delta)
 
 func _process(delta):
-	time += delta
+	time -= delta
 	time_label.text = "%02d:%02d" % [time/60, fmod(time, 60)]
+	if time <= 0.0:
+		game.level_cleared()
+		time = 240
 	
 	if character_sprite.modulate != Color(1, 1, 1, 1):
 		recover_colors()
@@ -485,6 +492,8 @@ func play_sfx(audio_node: Node):
 func _on_hazard_detection_body_entered(body):
 	if is_dashing: return
 	if body.is_in_group("fire"):
+		recieve_damage(10)
+	if body.is_in_group("spore"):
 		recieve_damage(10)
 	if body.is_in_group("snow"):
 		if speed == target_speed:

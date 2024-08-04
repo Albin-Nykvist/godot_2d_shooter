@@ -49,7 +49,7 @@ var upgrades = [
 		title = "FAST FEET",
 		description = "Increase speed by 15%",
 		price = 10,
-		color = colors[4],
+		color = colors[0],
 		upgrade_scene = upgrade_speed,
 		is_item = false,
 	},
@@ -57,7 +57,7 @@ var upgrades = [
 		title = "LETHALITY",
 		description = "Increase projectile damage by 35%",
 		price = 10,
-		color = colors[1],
+		color = colors[0],
 		upgrade_scene = upgrade_damage,
 		is_item = false,
 	},
@@ -65,7 +65,7 @@ var upgrades = [
 		title = "CHARGE",
 		description = "Deals 25 damage to enemies you dash through",
 		price = 10,
-		color = colors[2],
+		color = colors[0],
 		upgrade_scene = upgrade_lance,
 		is_item = false,
 	},
@@ -73,7 +73,7 @@ var upgrades = [
 		title = "ENDURANCE",
 		description = "Reduce dash cool down by 10% and increase dash length by 10%",
 		price = 10,
-		color = colors[2],
+		color = colors[0],
 		upgrade_scene = upgrade_endurance,
 		is_item = false,
 	},
@@ -81,7 +81,7 @@ var upgrades = [
 		#title = "SUMMER CURSE",
 		#description = "Sometimes lights the ground on fire around you and decrease max health by 10%",
 		#price = 10,
-		#color = colors[2],
+		#color = colors[0],
 		#upgrade_scene = upgrade_lance,
 		#is_item = false,
 	#},
@@ -89,7 +89,7 @@ var upgrades = [
 		#title = "WINTER CURSE",
 		#description = "Sometimes creates piles of snow around you and decrease speed by 10%",
 		#price = 10,
-		#color = colors[2],
+		#color = colors[0],
 		#upgrade_scene = upgrade_lance,
 		#is_item = false,
 	#},
@@ -108,7 +108,7 @@ var upgrades = [
 		#title = "MOMENTUM",
 		#description = "+50% damage and +20% speed on projectiles thrown while sliding",
 		#price = 10,
-		#color = colors[3],
+		#color = colors[0],
 		#upgrade_scene = upgrade_momentum,
 		#is_item = false,
 	#},
@@ -116,17 +116,18 @@ var upgrades = [
 		title = "LAUNDRY LOB",
 		description = "50% chance of throwing a sock when dashing",
 		price = 10,
-		color = colors[3],
+		color = colors[0],
 		upgrade_scene = upgrade_laundry,
 		is_item = false,
 	},
-	
-	# Items
+]
+
+var items = [
 	{
 		title = "SOCKS",
 		description = "(ITEM) Throws 2 projectiles in quick succession",
 		price = 10,
-		color = colors[4],
+		color = colors[1],
 		upgrade_scene = upgrade_item,
 		is_item = true,
 	},
@@ -134,7 +135,7 @@ var upgrades = [
 		title = "COFFEE",
 		description = "(ITEM) Good for close range",
 		price = 10,
-		color = colors[3],
+		color = colors[1],
 		upgrade_scene = upgrade_item,
 		is_item = true,
 	},
@@ -142,7 +143,7 @@ var upgrades = [
 		title = "FISH",
 		description = "(ITEM) It's a big fish",
 		price = 10,
-		color = colors[3],
+		color = colors[1],
 		upgrade_scene = upgrade_item,
 		is_item = true,
 	},
@@ -150,7 +151,7 @@ var upgrades = [
 		title = "CORN",
 		description = "(ITEM) Corn is useless, but it turns into popcorn!",
 		price = 10,
-		color = colors[3],
+		color = colors[1],
 		upgrade_scene = upgrade_item,
 		is_item = true,
 	},
@@ -158,7 +159,7 @@ var upgrades = [
 		title = "LAMP",
 		description = "(ITEM) Bursts into fire on impact!",
 		price = 10,
-		color = colors[3],
+		color = colors[1],
 		upgrade_scene = upgrade_item,
 		is_item = true,
 	},
@@ -166,7 +167,7 @@ var upgrades = [
 		title = "SNOWBALL",
 		description = "(ITEM) Covers the ground with snow on impact.",
 		price = 10,
-		color = colors[3],
+		color = colors[1],
 		upgrade_scene = upgrade_item,
 		is_item = true,
 	},
@@ -211,20 +212,24 @@ func toggle():
 		is_active = true
 
 func add_cards():
-	for i in 4:
+	for i in 5:
 		var upgrade_card = upgrade_card_scene.instantiate()
 		var upgrade = upgrades[randi() % upgrades.size()]
+		if i < 2:
+			upgrade = items[randi() % items.size()]
 		upgrade_card.title = upgrade.title
 		upgrade_card.description = upgrade.description
 		
 		if i == 0:
-			upgrade_card.price = floori(player.next_upgrade_coin_amount * 0.8)
+			upgrade_card.price = floori(player.next_upgrade_coin_amount * 0.7)
 		elif i == 1:
-			upgrade_card.price = floori(player.next_upgrade_coin_amount * 0.9)
+			upgrade_card.price = floori(player.next_upgrade_coin_amount * 1.0)
 		elif i == 2:
-			upgrade_card.price = floori(player.next_upgrade_coin_amount * 1.1)
+			upgrade_card.price = floori(player.next_upgrade_coin_amount * 0.7)
+		elif i == 3:
+			upgrade_card.price = floori(player.next_upgrade_coin_amount * 0.85)
 		else:
-			upgrade_card.price = floori(player.next_upgrade_coin_amount * 1.2)
+			upgrade_card.price = floori(player.next_upgrade_coin_amount * 1.0)
 		
 		upgrade_card.color = upgrade.color
 		upgrade_card.is_item = upgrade.is_item

@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://dv761p7vttb4h"]
+
+[ext_resource type="Script" path="res://scripts/spore.gd" id="1_a05m7"]
+[ext_resource type="Texture2D" uid="uid://dg7uc0xijxl1o" path="res://assets/circle.png" id="2_yhyhd"]
+[ext_resource type="PackedScene" uid="uid://cwl3obbau3ax8" path="res://scenes/vfx_scenes/spore_particles.tscn" id="3_8aac1"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_my2y8"]
+radius = 26.0
+
+[node name="Spore" type="StaticBody2D" groups=["spore"]]
+y_sort_enabled = true
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("1_a05m7")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+modulate = Color(0.2, 0.2, 0.2, 0.172549)
+z_index = -2
+position = Vector2(0, 15)
+scale = Vector2(0.4, 0.23)
+texture = ExtResource("2_yhyhd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["fire"]]
+position = Vector2(0, 7)
+shape = SubResource("CircleShape2D_my2y8")
+
+[node name="SporeParticles" parent="." instance=ExtResource("3_8aac1")]

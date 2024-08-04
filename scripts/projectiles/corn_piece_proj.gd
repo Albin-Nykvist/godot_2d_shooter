@@ -40,7 +40,7 @@ func _physics_process(delta):
 
 func pop():
 	is_popped = true
-	damage *= 5
+	damage *= 4.5
 	stagger = 0.4
 	knockback = 300.0
 	collider.scale *= 1.68

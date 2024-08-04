@@ -73,8 +73,7 @@ theme_override_constants/outline_size = 0
 theme_override_fonts/font = ExtResource("3_hyipt")
 theme_override_font_sizes/font_size = 25
 theme_override_styles/normal = SubResource("StyleBoxFlat_0bvl3")
-text = "50
-"
+text = "50"
 icon = ExtResource("2_vd17r")
 alignment = 2
 
