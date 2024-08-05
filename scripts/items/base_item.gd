@@ -3,7 +3,10 @@ class_name Item
 
 var landing_particles = preload("res://scenes/vfx_scenes/ParticleGroundHit.tscn")
 
+var text_popup_scene = preload("res://scenes/text_popup.tscn")
+
 @export var projectile_scene = preload("res://scenes/projectile_scenes/projectile.tscn")
+
 
 @onready var sprite = $Sprite2D
 @onready var shadow = $Sprite2D/Shadow
@@ -17,6 +20,8 @@ var fall_acceleration = 1.05
 var initial_offset = 1500
 var initial_sprite_position: float
 var initial_shadow_position: float
+
+var is_ability_triggered = false
 
 func _process(delta):
 	base_process(delta)
@@ -44,6 +49,12 @@ func throw(player: Node):
 	player.camera.shake_screen(0.05, 10.0)
 	player.remove_held_item()
 	player.is_throwing = false
+
+func ability(player: Node):
+	var label = text_popup_scene.instantiate()
+	label.text = "no ability"
+	label.position = player.position
+	player.get_parent().add_child(label)
 
 func fall_from_sky(delta: float):
 	sprite.position.y += fall_speed * delta

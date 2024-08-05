@@ -213,16 +213,19 @@ func _input(event):
 	if Input.is_action_just_pressed("throw") and event is InputEventMouseButton and event.is_pressed() and event.is_echo() == false:
 		throw_item()
 	
+	if Input.is_action_just_pressed("ability") and event is InputEventMouseButton and event.is_pressed() and event.is_echo() == false:
+		use_item_ability()
+	
 	if Input.is_action_just_pressed("drop"):
 		if held_item == null:
 			pick_up_item()
 		else:
 			drop_item()
 	
-	if Input.is_action_just_pressed("teleport") and dash_cool_down_counter <= 0:
-		position = get_global_mouse_position()
-		dash_cool_down_counter = dash_cool_down * 1.5
-		#teleport_cool_down_counter = teleport_cool_down
+	#if Input.is_action_just_pressed("teleport") and dash_cool_down_counter <= 0:
+		#position = get_global_mouse_position()
+		#dash_cool_down_counter = dash_cool_down * 1.5
+		##teleport_cool_down_counter = teleport_cool_down
 	var direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	if Input.is_action_pressed("slide") and direction and slide_cool_down_counter <= 0 and !is_sliding:
 		#is_sliding = true
@@ -415,6 +418,12 @@ func throw_item():
 	throw_time_counter = max_throw_time
 	held_item.throw(self)
 	throw.emit()
+
+func use_item_ability():
+	if held_item == null or is_throwing:
+		return
+	
+	held_item.ability(self)
 
 func drop_item(): # exploit: if you drop after fireing one sock, you still drop a sock item
 	if held_item == null or is_throwing:
