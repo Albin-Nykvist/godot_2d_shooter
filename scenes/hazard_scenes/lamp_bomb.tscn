@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://cnjd1q0cyh4np"]
+
+[ext_resource type="Script" path="res://scripts/hazards/lamp_bomb.gd" id="1_vkqp3"]
+[ext_resource type="Texture2D" uid="uid://corwri3cimrho" path="res://assets/item_sprites/lamp.png" id="2_2upys"]
+
+[sub_resource type="Gradient" id="Gradient_5h5eo"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 0.533333, 0, 1)
+
+[node name="LampBomb" type="Node2D"]
+script = ExtResource("1_vkqp3")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_2upys")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+z_index = -1
+position = Vector2(1, -28)
+amount = 30
+lifetime = 0.8
+explosiveness = 0.1
+lifetime_randomness = 0.5
+emission_shape = 1
+emission_sphere_radius = 10.0
+direction = Vector2(0, -1)
+spread = 20.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 100.0
+initial_velocity_max = 150.0
+scale_amount_min = 2.0
+scale_amount_max = 4.0
+color_ramp = SubResource("Gradient_5h5eo")

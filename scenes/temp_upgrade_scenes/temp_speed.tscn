@@ -1,6 +1,19 @@
-[gd_scene load_steps=2 format=3 uid="uid://cf2duetdxnyou"]
+[gd_scene load_steps=3 format=3 uid="uid://cf2duetdxnyou"]
 
 [ext_resource type="Script" path="res://scripts/temp_upgrades/temp_speed.gd" id="1_rs05w"]
 
+[sub_resource type="Gradient" id="Gradient_5eskr"]
+
 [node name="TempSpeed" type="Node2D"]
 script = ExtResource("1_rs05w")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+z_index = -1
+amount = 40
+lifetime = 0.5
+emission_shape = 1
+emission_sphere_radius = 20.0
+gravity = Vector2(0, 0)
+scale_amount_min = 4.0
+scale_amount_max = 8.0
+color_ramp = SubResource("Gradient_5eskr")

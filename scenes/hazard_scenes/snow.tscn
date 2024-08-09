@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://bxjurfi8bf07j"]
 
-[ext_resource type="Script" path="res://scripts/snow.gd" id="1_bnfb4"]
+[ext_resource type="Script" path="res://scripts/hazards/snow.gd" id="1_bnfb4"]
 [ext_resource type="Texture2D" uid="uid://f4p6jkcf6ff0" path="res://assets/snow.png" id="1_h2kr5"]
 [ext_resource type="PackedScene" uid="uid://cx72b5pmyf7wd" path="res://scenes/shadow.tscn" id="3_v4wb8"]
 
