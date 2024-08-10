@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://brjd3vuclltll"]
+
+[ext_resource type="Script" path="res://scripts/upgrades/upgrade_summer_curse.gd" id="1_fenho"]
+
+[node name="Upgrade" type="Node"]
+script = ExtResource("1_fenho")

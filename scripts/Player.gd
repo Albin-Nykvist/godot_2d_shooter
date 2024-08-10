@@ -467,18 +467,21 @@ func recieve_damage(damage: int):
 	
 	camera.shake_screen(0.2, 18.0)
 	
-	health_bar.scale.x = health / max_health
+	update_health_ui()
 	
 	character_sprite.modulate = Color(1, 0, 0, 1)
 	
 	play_sfx(sfx_hurt)
+
+func update_health_ui():
+	health_bar.scale.x = health / max_health
 
 func heal(amount: float):
 	self.health += amount
 	if health >= max_health:
 		health = max_health
 	
-	health_bar.scale.x = health / max_health
+	update_health_ui()
 
 func recover_speed(delta: float):
 	speed += (target_speed / speed_recovery) * delta

@@ -268,9 +268,11 @@ func recieve_damage_after():
 
 func die():
 	if randi() % 100 < 98:
-		var coin = coin_scene.instantiate()
-		coin.position = self.position + Vector2(-10 + randi() % 21, -10)
-		get_parent().add_child(coin)
+		var num_coins = floor(max_health / 100)
+		for i in num_coins:
+			var coin = coin_scene.instantiate()
+			coin.position = self.position + Vector2(-10 + randi() % 21, -10)
+			get_parent().add_child(coin)
 	else:
 		var health_drop = health_scene.instantiate()
 		health_drop.position = self.position + Vector2(-10 + randi() % 21, -10)

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bmub8d5dg8dlu"]
+
+[ext_resource type="Script" path="res://scripts/upgrades/upgrade_winter_curse.gd" id="1_qw7w5"]
+
+[node name="Upgrade" type="Node"]
+script = ExtResource("1_qw7w5")

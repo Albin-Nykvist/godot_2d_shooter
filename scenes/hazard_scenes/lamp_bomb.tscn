@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://cnjd1q0cyh4np"]
+[gd_scene load_steps=5 format=3 uid="uid://cnjd1q0cyh4np"]
 
 [ext_resource type="Script" path="res://scripts/hazards/lamp_bomb.gd" id="1_vkqp3"]
 [ext_resource type="Texture2D" uid="uid://corwri3cimrho" path="res://assets/item_sprites/lamp.png" id="2_2upys"]
+[ext_resource type="PackedScene" uid="uid://cx72b5pmyf7wd" path="res://scenes/shadow.tscn" id="3_1fv76"]
 
 [sub_resource type="Gradient" id="Gradient_5h5eo"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 0.533333, 0, 1)
@@ -10,7 +11,12 @@ colors = PackedColorArray(1, 1, 1, 1, 1, 0.533333, 0, 1)
 script = ExtResource("1_vkqp3")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-2, 0)
 texture = ExtResource("2_2upys")
+
+[node name="Shadow" parent="Sprite2D" instance=ExtResource("3_1fv76")]
+position = Vector2(2, 27)
+script = null
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
 z_index = -1

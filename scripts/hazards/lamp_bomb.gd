@@ -7,8 +7,11 @@ var fire_scene = preload("res://scenes/hazard_scenes/fire.tscn")
 
 @onready var sprite = $Sprite2D
 
-var explode_time = 6.0
+const explode_time = 6.0
 var time = 0.0
+
+var blink_delay = 0.5
+var blink_delay_counter = 0.5
 
 func _ready():
 	scale = Vector2(0.9, 0.9)
@@ -19,6 +22,15 @@ func _process(delta):
 	time += delta
 	if time >= explode_time:
 		explode()
+	
+	if time >= explode_time * 0.5:
+		blink_delay_counter -= delta
+		if blink_delay_counter <= 0.0:
+			blink_delay -= 0.05
+			blink_delay_counter = blink_delay
+			sprite.modulate = Color(100, 100, 100)
+			var tween = get_tree().create_tween()
+			tween.tween_property(sprite, "modulate", Color(1, 1, 1, 1), 0.1).set_trans(Tween.TRANS_LINEAR)
 
 func explode():
 	var particles = particle_poof.instantiate()

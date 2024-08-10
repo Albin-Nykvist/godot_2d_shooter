@@ -2,9 +2,9 @@ extends Enemy
 
 @onready var spore_scene = preload("res://scenes/hazard_scenes/spore.tscn")
 
-const spores_to_place = 4
+const spores_to_place = 9
 var spores_placed = 0
-const spore_place_delay = 1.8
+const spore_place_delay = 1.7
 var spore_place_delay_counter = 0.0
 var is_placing_spores = false
 

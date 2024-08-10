@@ -35,6 +35,11 @@ var upgrade_momentum = preload("res://scenes/upgrade_node_scenes/upgrade_momentu
 var upgrade_laundry = preload("res://scenes/upgrade_node_scenes/upgrade_backwards_sock.tscn")
 var upgrade_item = preload("res://scenes/upgrade_node_scenes/upgrade_item.tscn")
 var upgrade_endurance = preload("res://scenes/upgrade_node_scenes/upgrade_endurance.tscn")
+var upgrade_sky_coins = preload("res://scenes/upgrade_node_scenes/upgrade_sky_coins.tscn")
+var upgrade_health = preload("res://scenes/upgrade_node_scenes/upgrade_health.tscn")
+var upgrade_summer_curse = preload("res://scenes/upgrade_node_scenes/upgrade_summer_curse.tscn")
+var upgrade_winter_curse = preload("res://scenes/upgrade_node_scenes/upgrade_winter_curse.tscn")
+
 
 var colors = [
 	Color("#533747"),
@@ -77,22 +82,46 @@ var upgrades = [
 		upgrade_scene = upgrade_endurance,
 		is_item = false,
 	},
-	#{
-		#title = "SUMMER CURSE",
-		#description = "Sometimes lights the ground on fire around you and decrease max health by 10%",
-		#price = 10,
-		#color = colors[0],
-		#upgrade_scene = upgrade_lance,
-		#is_item = false,
-	#},
-	#{
-		#title = "WINTER CURSE",
-		#description = "Sometimes creates piles of snow around you and decrease speed by 10%",
-		#price = 10,
-		#color = colors[0],
-		#upgrade_scene = upgrade_lance,
-		#is_item = false,
-	#},
+	{
+		title = "COIN RAIN",
+		description = "A coin falls from the sky every 8 seconds",
+		price = 10,
+		color = colors[0],
+		upgrade_scene = upgrade_sky_coins,
+		is_item = false,
+	},
+	{
+		title = "HEART",
+		description = "Increase max health by 25%",
+		price = 10,
+		color = colors[0],
+		upgrade_scene = upgrade_health,
+		is_item = false,
+	},
+	{
+		title = "LAUNDRY LOB",
+		description = "50% chance of throwing a sock when dashing",
+		price = 10,
+		color = colors[0],
+		upgrade_scene = upgrade_laundry,
+		is_item = false,
+	},
+	{
+		title = "SUMMER CURSE",
+		description = "Sometimes lights the ground on fire around you and decrease max health by 10%",
+		price = 10,
+		color = colors[0],
+		upgrade_scene = upgrade_summer_curse,
+		is_item = false,
+	},
+	{
+		title = "WINTER CURSE",
+		description = "Sometimes creates piles of snow around you and decrease speed by 5%",
+		price = 10,
+		color = colors[0],
+		upgrade_scene = upgrade_winter_curse,
+		is_item = false,
+	},
 	
 	
 	# Slide related
@@ -112,14 +141,6 @@ var upgrades = [
 		#upgrade_scene = upgrade_momentum,
 		#is_item = false,
 	#},
-	{
-		title = "LAUNDRY LOB",
-		description = "50% chance of throwing a sock when dashing",
-		price = 10,
-		color = colors[0],
-		upgrade_scene = upgrade_laundry,
-		is_item = false,
-	},
 ]
 
 var items = [

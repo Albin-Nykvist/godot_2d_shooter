@@ -8,9 +8,9 @@
 [ext_resource type="PackedScene" uid="uid://c2b04tb5urukc" path="res://scenes/item_scenes/coffee.tscn" id="6_x3iq7"]
 [ext_resource type="PackedScene" uid="uid://coghydqguv0xg" path="res://scenes/item_scenes/socks.tscn" id="7_uldov"]
 [ext_resource type="PackedScene" uid="uid://e2jk5oiiup3v" path="res://scenes/item_scenes/fish.tscn" id="8_22mef"]
+[ext_resource type="PackedScene" uid="uid://du8ylstvbcoo3" path="res://scenes/enemy_scenes/crab.tscn" id="9_kfeoa"]
 [ext_resource type="PackedScene" uid="uid://dwdhtkkll1imh" path="res://scenes/enemy_scenes/dirt_golem.tscn" id="9_ri7jf"]
 [ext_resource type="PackedScene" uid="uid://di1vtelf8y6t3" path="res://scenes/enemy_scenes/bird.tscn" id="9_yblk7"]
-[ext_resource type="PackedScene" uid="uid://d4hd6ruurrigk" path="res://scenes/enemy_scenes/spore_shroom.tscn" id="9_yqy0x"]
 
 [node name="Game" type="Node2D" node_paths=PackedStringArray("player")]
 y_sort_enabled = true
@@ -77,7 +77,7 @@ wave_rate = 12.0
 max_number_of_entities = 3
 
 [node name="VineSpawner" parent="." node_paths=PackedStringArray("player", "spawn_node") instance=ExtResource("5_e1jsg")]
-entity_scene = ExtResource("9_yqy0x")
+entity_scene = ExtResource("9_kfeoa")
 entity_is_enemy = true
 player = NodePath("../Player")
 min_spawn_distance_to_player = 1000.0
