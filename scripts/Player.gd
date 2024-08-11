@@ -30,7 +30,7 @@ var pick_up_particles = preload("res://scenes/vfx_scenes/ParticlePickUp.tscn")
 @onready var sfx_throw = $SfxThrow
 
 # time
-var time = 240
+var time = 300
 
 # animate items sprite
 const item_sprite_base_speed = 1.0
@@ -154,11 +154,7 @@ func _physics_process(delta):
 	move_around_collision(collision, velocity_before_collision, delta)
 
 func _process(delta):
-	time -= delta
-	time_label.text = "%02d:%02d" % [time/60, fmod(time, 60)]
-	if time <= 0.0:
-		game.level_cleared()
-		time = 240
+
 	
 	if character_sprite.modulate != Color(1, 1, 1, 1):
 		recover_colors()

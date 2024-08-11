@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://clitgslpij8h5"]
+[gd_scene load_steps=10 format=3 uid="uid://clitgslpij8h5"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_ld2ed"]
 [ext_resource type="PackedScene" uid="uid://ban4vdnehkkji" path="res://scenes/player.tscn" id="2_l2eg0"]
@@ -8,9 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://c2b04tb5urukc" path="res://scenes/item_scenes/coffee.tscn" id="6_x3iq7"]
 [ext_resource type="PackedScene" uid="uid://coghydqguv0xg" path="res://scenes/item_scenes/socks.tscn" id="7_uldov"]
 [ext_resource type="PackedScene" uid="uid://e2jk5oiiup3v" path="res://scenes/item_scenes/fish.tscn" id="8_22mef"]
-[ext_resource type="PackedScene" uid="uid://du8ylstvbcoo3" path="res://scenes/enemy_scenes/crab.tscn" id="9_kfeoa"]
-[ext_resource type="PackedScene" uid="uid://dwdhtkkll1imh" path="res://scenes/enemy_scenes/dirt_golem.tscn" id="9_ri7jf"]
-[ext_resource type="PackedScene" uid="uid://di1vtelf8y6t3" path="res://scenes/enemy_scenes/bird.tscn" id="9_yblk7"]
+[ext_resource type="PackedScene" uid="uid://vsscct86ia30" path="res://scenes/enemy_team_spawner_scenes/mushroom_spawner_1.tscn" id="12_kc4xe"]
 
 [node name="Game" type="Node2D" node_paths=PackedStringArray("player")]
 y_sort_enabled = true
@@ -20,7 +18,7 @@ player = NodePath("Player")
 [node name="Player" parent="." node_paths=PackedStringArray("game") instance=ExtResource("2_l2eg0")]
 game = NodePath("..")
 
-[node name="ParticleLeaves" parent="Player" instance=ExtResource("3_eu7vq")]
+[node name="ParticleLeaves" parent="Player" groups=["map_particle"] instance=ExtResource("3_eu7vq")]
 position = Vector2(0, -600)
 emission_rect_extents = Vector2(1800, 1)
 initial_velocity_min = 20.0
@@ -28,7 +26,7 @@ initial_velocity_max = 60.0
 damping_max = 10.0
 color = Color(0.956863, 1, 0.501961, 0.32549)
 
-[node name="ParticleLeaves2" parent="Player" instance=ExtResource("3_eu7vq")]
+[node name="ParticleLeaves2" parent="Player" groups=["map_particle"] instance=ExtResource("3_eu7vq")]
 position = Vector2(0, 600)
 rotation = 3.14159
 emission_rect_extents = Vector2(1800, 1)
@@ -37,10 +35,14 @@ initial_velocity_max = 60.0
 damping_max = 10.0
 color = Color(0.956863, 1, 0.501961, 0.32549)
 
-[node name="World" parent="." node_paths=PackedStringArray("player") instance=ExtResource("3_26hw7")]
+[node name="Map" parent="." node_paths=PackedStringArray("player") groups=["map"] instance=ExtResource("3_26hw7")]
 player = NodePath("../Player")
 
-[node name="ItemSpawner" parent="." node_paths=PackedStringArray("player", "spawn_node") instance=ExtResource("5_e1jsg")]
+[node name="MushroomSpawner1" parent="." node_paths=PackedStringArray("game", "player") groups=["enemy_team_spawner"] instance=ExtResource("12_kc4xe")]
+game = NodePath("..")
+player = NodePath("../Player")
+
+[node name="ItemSpawner" parent="." node_paths=PackedStringArray("player", "spawn_node") groups=["item_spawner"] instance=ExtResource("5_e1jsg")]
 entity_scene = ExtResource("6_x3iq7")
 entity_is_item = true
 player = NodePath("../Player")
@@ -52,7 +54,7 @@ spawner_group = "item_spawner"
 wave_rate = 12.0
 max_number_of_entities = 3
 
-[node name="ItemSpawner2" parent="." node_paths=PackedStringArray("player", "spawn_node") instance=ExtResource("5_e1jsg")]
+[node name="ItemSpawner2" parent="." node_paths=PackedStringArray("player", "spawn_node") groups=["item_spawner"] instance=ExtResource("5_e1jsg")]
 entity_scene = ExtResource("7_uldov")
 entity_is_item = true
 player = NodePath("../Player")
@@ -64,7 +66,7 @@ spawner_group = "item_spawner"
 wave_rate = 12.0
 max_number_of_entities = 3
 
-[node name="ItemSpawner3" parent="." node_paths=PackedStringArray("player", "spawn_node") instance=ExtResource("5_e1jsg")]
+[node name="ItemSpawner3" parent="." node_paths=PackedStringArray("player", "spawn_node") groups=["item_spawner"] instance=ExtResource("5_e1jsg")]
 entity_scene = ExtResource("8_22mef")
 entity_is_item = true
 player = NodePath("../Player")
@@ -75,40 +77,3 @@ spawn_group = "items"
 spawner_group = "item_spawner"
 wave_rate = 12.0
 max_number_of_entities = 3
-
-[node name="VineSpawner" parent="." node_paths=PackedStringArray("player", "spawn_node") instance=ExtResource("5_e1jsg")]
-entity_scene = ExtResource("9_kfeoa")
-entity_is_enemy = true
-player = NodePath("../Player")
-min_spawn_distance_to_player = 1000.0
-max_spawn_distance_to_player = 1000.0
-spawn_node = NodePath("..")
-spawn_group = "enemies"
-spawner_group = "vine"
-wave_rate = 20.0
-wave_size = 6
-
-[node name="HopperSpawner" parent="." node_paths=PackedStringArray("player", "spawn_node") instance=ExtResource("5_e1jsg")]
-entity_scene = ExtResource("9_yblk7")
-entity_is_enemy = true
-player = NodePath("../Player")
-min_spawn_distance_to_player = 1200.0
-max_spawn_distance_to_player = 1200.0
-spawn_node = NodePath("..")
-spawn_group = "enemies"
-spawner_group = "hopper"
-wave_rate = 45.0
-wave_size = 3
-spawn_wave_on_ready = false
-
-[node name="GolemSpawner" parent="." node_paths=PackedStringArray("player") instance=ExtResource("5_e1jsg")]
-entity_scene = ExtResource("9_ri7jf")
-entity_is_enemy = true
-player = NodePath("../Player")
-min_spawn_distance_to_player = 160.0
-max_spawn_distance_to_player = 250.0
-wave_rate = 60.0
-wave_size = 10
-symetric_wave = true
-spawn_wave_on_ready = false
-max_number_of_entities = 50

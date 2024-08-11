@@ -1,0 +1,50 @@
+[gd_scene load_steps=6 format=3 uid="uid://vsscct86ia30"]
+
+[ext_resource type="Script" path="res://scripts/enemy_team_spawner.gd" id="1_hngv6"]
+[ext_resource type="PackedScene" uid="uid://w6vqguk4o656" path="res://scenes/spawner.tscn" id="2_oansk"]
+[ext_resource type="PackedScene" uid="uid://dsp3w6gghsjnt" path="res://scenes/enemy_scenes/fast_shroom.tscn" id="3_1xjb3"]
+[ext_resource type="PackedScene" uid="uid://d4hd6ruurrigk" path="res://scenes/enemy_scenes/spore_shroom.tscn" id="4_hcmgp"]
+[ext_resource type="PackedScene" uid="uid://baunxfnhnhcyu" path="res://scenes/enemy_scenes/big_shroom.tscn" id="4_ooovt"]
+
+[node name="MushroomSpawner1" type="Node2D"]
+script = ExtResource("1_hngv6")
+
+[node name="FastShroom_Spawner" parent="." groups=["spawner"] instance=ExtResource("2_oansk")]
+enabled = false
+entity_scene = ExtResource("3_1xjb3")
+entity_is_enemy = true
+min_spawn_distance_to_player = 1100.0
+max_spawn_distance_to_player = 1100.0
+wave_rate = 30.0
+wave_size = 15
+
+[node name="FastShroom_Spawner2" parent="." groups=["spawner"] instance=ExtResource("2_oansk")]
+enabled = false
+entity_scene = ExtResource("3_1xjb3")
+entity_is_enemy = true
+min_spawn_distance_to_player = 1100.0
+max_spawn_distance_to_player = 1100.0
+wave_rate = 120.0
+wave_size = 30
+spawn_wave_on_ready = false
+
+[node name="BigShroom_Spawner" parent="." groups=["spawner"] instance=ExtResource("2_oansk")]
+enabled = false
+entity_scene = ExtResource("4_ooovt")
+entity_is_enemy = true
+min_spawn_distance_to_player = 1100.0
+max_spawn_distance_to_player = 1100.0
+wave_rate = 30.0
+wave_size_growth = 3
+spawn_wave_on_ready = false
+
+[node name="SporeShroom_Spawner" parent="." groups=["spawner"] instance=ExtResource("2_oansk")]
+enabled = false
+entity_scene = ExtResource("4_hcmgp")
+entity_is_enemy = true
+min_spawn_distance_to_player = 1100.0
+max_spawn_distance_to_player = 1100.0
+wave_rate = 60.0
+wave_size = 8
+wave_size_growth = 2
+spawn_wave_on_ready = false

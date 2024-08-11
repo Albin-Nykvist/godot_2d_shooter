@@ -1,6 +1,8 @@
 extends Node2D
 class_name Spawner
 
+@export var enabled = true
+
 ## The scene that is instantiated by the spawner
 @export var entity_scene: PackedScene
 
@@ -52,6 +54,7 @@ func _ready():
 	spawn_node = self
 
 func _process(delta):
+	if !enabled: return
 	wave_rate_counter -= delta
 	if wave_rate_counter < 0.0:
 		spawn_wave()
