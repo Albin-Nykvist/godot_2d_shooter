@@ -1,7 +1,7 @@
 extends Node2D
 class_name EnemyTeamSpawner
 
-@export var enabled = true
+@export var enabled = false
 
 @export var game: Node = null
 @export var player: Node = null

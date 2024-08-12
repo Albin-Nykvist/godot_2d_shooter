@@ -5,7 +5,7 @@ var coin_scene = preload("res://scenes/money_drop.tscn")
 var max_distance = 400
 var min_distance = 0
 
-var cool_down = 8.0
+var cool_down = 6.0
 var cool_down_counter = 0.0
 
 func _ready():
@@ -19,7 +19,7 @@ func _process(delta):
 
 func place_coin():
 	var coin = coin_scene.instantiate()
-	coin.position = self.position + Vector2(min_distance + fmod(randi(), max_distance - min_distance), 0).rotated(fmod(randi(), 2.0 * PI))
-	get_parent().get_parent().add_child(coin)
+	coin.position = player.position + Vector2(min_distance + fmod(randi(), max_distance - min_distance), 0).rotated(fmod(randi(), 2.0 * PI))
+	player.get_parent().add_child(coin)
 	coin.set_to_falling()
 	coin.set_idle()

@@ -87,6 +87,7 @@ var proj_knockback_mult = 1.0
 # Health
 var max_health = 100.0
 var health = 0.0
+var fire_damage = 15.0
 
 # Invincibility period
 var is_invincible = false
@@ -101,6 +102,7 @@ var starting_speed
 var starting_pickup_radius_scale
 var starting_throw_force
 var starting_max_health
+var starting_fire_damage
 var starting_proj_damage_mult
 var starging_proj_stagger_mult
 var starting_proj_knockback_mult
@@ -134,6 +136,7 @@ func _ready():
 	starting_pickup_radius_scale = pickup_collider.scale.x
 	starting_throw_force = throw_force
 	starting_max_health = max_health
+	starting_fire_damage = fire_damage
 	starting_proj_damage_mult = proj_damage_mult
 	starging_proj_stagger_mult = proj_stagger_mult
 	starting_proj_knockback_mult = proj_knockback_mult
@@ -500,7 +503,7 @@ func play_sfx(audio_node: Node):
 func _on_hazard_detection_body_entered(body):
 	if is_dashing: return
 	if body.is_in_group("fire"):
-		recieve_damage(10)
+		recieve_damage(fire_damage)
 	if body.is_in_group("spore"):
 		recieve_damage(10)
 	if body.is_in_group("snow"):

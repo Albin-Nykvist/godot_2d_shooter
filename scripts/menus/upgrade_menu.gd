@@ -39,6 +39,9 @@ var upgrade_sky_coins = preload("res://scenes/upgrade_node_scenes/upgrade_sky_co
 var upgrade_health = preload("res://scenes/upgrade_node_scenes/upgrade_health.tscn")
 var upgrade_summer_curse = preload("res://scenes/upgrade_node_scenes/upgrade_summer_curse.tscn")
 var upgrade_winter_curse = preload("res://scenes/upgrade_node_scenes/upgrade_winter_curse.tscn")
+var upgrade_critical_hit = preload("res://scenes/upgrade_node_scenes/upgrade_critical_hit.tscn")
+var upgrade_escape_artist = preload("res://scenes/upgrade_node_scenes/upgrade_escape_artist.tscn")
+var upgrade_fire_boots = preload("res://scenes/upgrade_node_scenes/upgrade_fire_boots.tscn")
 
 
 var colors = [
@@ -84,7 +87,7 @@ var upgrades = [
 	},
 	{
 		title = "COIN RAIN",
-		description = "A coin falls from the sky every 8 seconds",
+		description = "A coin falls from the sky every 6 seconds",
 		price = 10,
 		color = colors[0],
 		upgrade_scene = upgrade_sky_coins,
@@ -122,7 +125,70 @@ var upgrades = [
 		upgrade_scene = upgrade_winter_curse,
 		is_item = false,
 	},
-	
+	{
+		title = "CRITICAL HIT",
+		description = "Projectiles have a 20% chance of dealing double damage",
+		price = 10,
+		color = colors[0],
+		upgrade_scene = upgrade_critical_hit,
+		is_item = false,
+	},
+	{
+		title = "ESCAPE ARTIST",
+		description = "Picking up an item gives you a small speed boost",
+		price = 10,
+		color = colors[0],
+		upgrade_scene = upgrade_escape_artist,
+		is_item = false,
+	},
+	{
+		title = "FLAME BOOTS",
+		description = "Dashing lights the ground on fire and you take 20% less damage from fire",
+		price = 10,
+		color = colors[0],
+		upgrade_scene = upgrade_fire_boots,
+		is_item = false,
+	},
+	{
+		title = "SNIPER",
+		description = "Projectiles deal more damage the longer they travel",
+		price = 10,
+		color = colors[0],
+		upgrade_scene = upgrade_winter_curse,
+		is_item = false,
+	},
+	{
+		title = "GLASS CANNON",
+		description = "Projectiles deal 50% more damage and decrease max health by 20%",
+		price = 10,
+		color = colors[0],
+		upgrade_scene = upgrade_winter_curse,
+		is_item = false,
+	},
+	{
+		title = "LASSO",
+		description = "Increase pick up range by 25%",
+		price = 10,
+		color = colors[0],
+		upgrade_scene = upgrade_winter_curse,
+		is_item = false,
+	},
+	{
+		title = "WATER PARK",
+		description = "Projectiles deal 20% of their damage as splash damage",
+		price = 10,
+		color = colors[0],
+		upgrade_scene = upgrade_winter_curse,
+		is_item = false,
+	},
+	{
+		title = "EXECUTIONER",
+		description = "Projectiles deal 100% more damage at point blank range",
+		price = 10,
+		color = colors[0],
+		upgrade_scene = upgrade_winter_curse,
+		is_item = false,
+	},
 	
 	# Slide related
 	#{

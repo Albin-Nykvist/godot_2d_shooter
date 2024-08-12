@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bd2lhbghnt7w8"]
+
+[ext_resource type="Script" path="res://scripts/upgrades/upgrade_escape_artist.gd" id="1_v1y6e"]
+
+[node name="Upgrade" type="Node"]
+script = ExtResource("1_v1y6e")

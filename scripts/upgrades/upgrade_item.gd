@@ -18,4 +18,5 @@ func _ready():
 	spawner.wave_size_growth = 0
 	spawner.spawn_wave_on_ready = true
 	spawner.max_number_of_entities = 3
+	spawner.add_to_group("item_spawner")
 	player.get_parent().add_child(spawner)
