@@ -15,6 +15,7 @@ class_name Enemy
 ## Max health
 @export var max_health = 100.0
 var health = 0.0 # set in the ready function
+var fire_damage = 30.0
 
 ## Base speed
 @export var base_speed = 50.0
@@ -102,7 +103,7 @@ func base_body_entered(body):
 		reachable_target = body
 		damage_rate_counter = 0.1
 	elif body.is_in_group("fire"):
-		recieve_damage(40)
+		recieve_damage(fire_damage)
 		set_knock_back(300, -self.direction)
 	elif body.is_in_group("snow"):
 		speed *= 0.0

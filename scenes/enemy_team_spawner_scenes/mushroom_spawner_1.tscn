@@ -17,6 +17,7 @@ min_spawn_distance_to_player = 1100.0
 max_spawn_distance_to_player = 1100.0
 wave_rate = 30.0
 wave_size = 15
+max_number_of_entities = 50
 
 [node name="FastShroom_Spawner2" parent="." groups=["spawner"] instance=ExtResource("2_oansk")]
 enabled = false
@@ -27,6 +28,7 @@ max_spawn_distance_to_player = 1100.0
 wave_rate = 120.0
 wave_size = 30
 spawn_wave_on_ready = false
+max_number_of_entities = 50
 
 [node name="BigShroom_Spawner" parent="." groups=["spawner"] instance=ExtResource("2_oansk")]
 enabled = false
@@ -37,6 +39,7 @@ max_spawn_distance_to_player = 1100.0
 wave_rate = 30.0
 wave_size_growth = 3
 spawn_wave_on_ready = false
+max_number_of_entities = 50
 
 [node name="SporeShroom_Spawner" parent="." groups=["spawner"] instance=ExtResource("2_oansk")]
 enabled = false
@@ -45,6 +48,7 @@ entity_is_enemy = true
 min_spawn_distance_to_player = 1100.0
 max_spawn_distance_to_player = 1100.0
 wave_rate = 60.0
-wave_size = 8
-wave_size_growth = 2
+wave_size = 4
+wave_size_growth = 3
 spawn_wave_on_ready = false
+max_number_of_entities = 50

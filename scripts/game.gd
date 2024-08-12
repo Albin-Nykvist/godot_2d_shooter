@@ -6,15 +6,22 @@ var round_time = 300
 var time = 300
 
 var maps = [
-	preload("res://scenes/world.tscn")
+	{
+		world = preload("res://scenes/map_scenes/map_forest.tscn"),
+		particles = preload("res://scenes/vfx_scenes/ParticleMapLeaves.tscn")
+	},
+	{
+		world = preload("res://scenes/map_scenes/map_underwater.tscn"),
+		particles = null
+	},
 ]
 
 var enemy_team_spawners = [
 	preload("res://scenes/enemy_team_spawner_scenes/mushroom_spawner_1.tscn")
 ]
 
-func reset():
-	get_tree().reload_current_scene()
+func _ready():
+	new_level()
 
 func _process(delta):
 	time -= delta
@@ -39,8 +46,13 @@ func level_cleared():
 
 func new_level():
 	# add in a world scene
-	var map = maps[randi() % maps.size()].instantiate()
-	add_child(map)
+	var map = maps[randi() % maps.size()]
+	map = maps[1]
+	var world = map.world.instantiate()
+	add_child(world)
+	if map.particles:
+		var particles = map.particles.instantiate()
+		player.add_child(particles)
 
 	# set player in middle
 	player.position = Vector2.ZERO

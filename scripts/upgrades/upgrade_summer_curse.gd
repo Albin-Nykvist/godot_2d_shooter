@@ -12,7 +12,7 @@ var min_cool_down = 0.1
 var cool_down_counter = 0.0
 
 func _ready():
-	player.max_health -= 10.0
+	player.max_health -= player.starting_max_health * 0.1
 	if player.max_health <= 0.0:
 		player.max_health = 1.0
 	if player.health > player.max_health:

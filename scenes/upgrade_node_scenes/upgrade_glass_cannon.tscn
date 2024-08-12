@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://b02wuq37n2mlv"]
+
+[ext_resource type="Script" path="res://scripts/upgrades/upgrade_glass_cannon.gd" id="1_ik3rs"]
+
+[node name="Upgrade" type="Node"]
+script = ExtResource("1_ik3rs")

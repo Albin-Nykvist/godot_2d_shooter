@@ -42,6 +42,7 @@ var upgrade_winter_curse = preload("res://scenes/upgrade_node_scenes/upgrade_win
 var upgrade_critical_hit = preload("res://scenes/upgrade_node_scenes/upgrade_critical_hit.tscn")
 var upgrade_escape_artist = preload("res://scenes/upgrade_node_scenes/upgrade_escape_artist.tscn")
 var upgrade_fire_boots = preload("res://scenes/upgrade_node_scenes/upgrade_fire_boots.tscn")
+var upgrade_glass_cannon = preload("res://scenes/upgrade_node_scenes/upgrade_glass_cannon.tscn")
 
 
 var colors = [
@@ -150,19 +151,11 @@ var upgrades = [
 		is_item = false,
 	},
 	{
-		title = "SNIPER",
-		description = "Projectiles deal more damage the longer they travel",
-		price = 10,
-		color = colors[0],
-		upgrade_scene = upgrade_winter_curse,
-		is_item = false,
-	},
-	{
 		title = "GLASS CANNON",
 		description = "Projectiles deal 50% more damage and decrease max health by 20%",
 		price = 10,
 		color = colors[0],
-		upgrade_scene = upgrade_winter_curse,
+		upgrade_scene = upgrade_glass_cannon,
 		is_item = false,
 	},
 	{
@@ -176,14 +169,6 @@ var upgrades = [
 	{
 		title = "WATER PARK",
 		description = "Projectiles deal 20% of their damage as splash damage",
-		price = 10,
-		color = colors[0],
-		upgrade_scene = upgrade_winter_curse,
-		is_item = false,
-	},
-	{
-		title = "EXECUTIONER",
-		description = "Projectiles deal 100% more damage at point blank range",
 		price = 10,
 		color = colors[0],
 		upgrade_scene = upgrade_winter_curse,
@@ -298,12 +283,25 @@ func toggle():
 		show()
 		is_active = true
 
+func get_random(list: Array, exclude_list: Array):
+	var list_copy = list.duplicate()
+	for item in exclude_list:
+		list_copy.erase(item)
+	return list_copy[randi() % list_copy.size()]
+
 func add_cards():
+	var choosen_upgrades = []
+	var choosen_items = []
 	for i in 5:
 		var upgrade_card = upgrade_card_scene.instantiate()
-		var upgrade = upgrades[randi() % upgrades.size()]
+		
+		var upgrade
 		if i < 2:
-			upgrade = items[randi() % items.size()]
+			upgrade = get_random(items, choosen_items)
+			choosen_items.append(upgrade)
+		else:
+			upgrade = get_random(upgrades, choosen_upgrades)
+			choosen_upgrades.append(upgrade)
 		upgrade_card.title = upgrade.title
 		upgrade_card.description = upgrade.description
 		

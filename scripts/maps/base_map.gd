@@ -1,4 +1,5 @@
 extends Node2D
+class_name map
 
 @export var player: Node
 
@@ -23,17 +24,19 @@ var props = [
 	preload("res://scenes/prop_scenes/tree3.tscn"),
 ]
 
+var border_radius = 2000.0
+var map_area = Vector2i(5000.0, 5000.0)
+var section_size = Vector2i(400, 400)
+var details_section_size = Vector2i(400, 400)
+var margin = 100
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	
-	var border_radius = 2000.0
+	base_ready()
+
+func base_ready():
 	base_create_border(border_radius, 25)
-	
-	var map_area = Vector2i(border_radius * 2, border_radius * 2)
-	var section_size = Vector2i(400, 400)
-	base_add_props(map_area, section_size, 100, border_radius)
-	
-	var details_section_size = Vector2i(400, 400)
+	base_add_props(map_area, section_size, margin, border_radius)
 	base_add_background_details(map_area, details_section_size, 0, border_radius, 4)
 
 
@@ -77,8 +80,9 @@ func base_add_props(prop_area: Vector2i, section_size: Vector2i, margin: float, 
 
 
 func base_add_background_details(area: Vector2i, section_size: Vector2i, margin: float, border_radius: float, details_per_section: int):
+	if detail_textures.is_empty(): return
+	
 	var start_position = -area + (area/2)
-
 	var x: int = 0
 	var y: int = 0
 	var num_sections = (area.x/section_size.x) * (area.y/section_size.y)

@@ -462,7 +462,7 @@ func recieve_damage(damage: int):
 	damage_recieved.emit()
 	
 	if health <= 0:
-		get_parent().reset()
+		get_tree().change_scene_to_file("res://scenes/menu_scenes/start_menu.tscn")
 	
 	camera.shake_screen(0.2, 18.0)
 	

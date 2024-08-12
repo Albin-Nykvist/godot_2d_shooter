@@ -15,7 +15,9 @@ var gravity = 10
 func _ready():
 	var rand_x = 50
 	speed = Vector2(-rand_x + randi() % (rand_x*2), -280)
-	label.text = str(value)
+	if value == 0:
+		value = 1
+	label.text = str(floor(value))
 	scale = Vector2.ZERO
 	start_position_y = position.y
 

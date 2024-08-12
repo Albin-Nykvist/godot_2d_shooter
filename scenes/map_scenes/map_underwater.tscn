@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://caqc8tp13tdnq"]
+
+[ext_resource type="Script" path="res://scripts/maps/map_underwater.gd" id="1_r3e6i"]
+[ext_resource type="Texture2D" uid="uid://bwfl0rb2jag4s" path="res://assets/white.png" id="2_r1t05"]
+
+[node name="World" type="Node2D"]
+z_as_relative = false
+y_sort_enabled = true
+script = ExtResource("1_r3e6i")
+
+[node name="Background" type="Sprite2D" parent="."]
+modulate = Color(0.168627, 0.196078, 0.258824, 1)
+z_index = -11
+scale = Vector2(700, 700)
+texture = ExtResource("2_r1t05")
