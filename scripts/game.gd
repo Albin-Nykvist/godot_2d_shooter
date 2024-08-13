@@ -12,7 +12,7 @@ var maps = [
 	},
 	{
 		world = preload("res://scenes/map_scenes/map_underwater.tscn"),
-		particles = null
+		particles = preload("res://scenes/vfx_scenes/ParticleBubbles.tscn")
 	},
 ]
 

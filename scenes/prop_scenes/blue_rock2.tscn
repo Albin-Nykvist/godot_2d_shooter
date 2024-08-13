@@ -1,45 +1,45 @@
-[gd_scene load_steps=6 format=3 uid="uid://wow8mxitatrr"]
+[gd_scene load_steps=6 format=3 uid="uid://iv1umyc5sb8w"]
 
-[ext_resource type="Script" path="res://scripts/static_prop.gd" id="1_xelxc"]
-[ext_resource type="Texture2D" uid="uid://xan5firgifaj" path="res://assets/prop_sprites/coral2.png" id="2_sjmns"]
-[ext_resource type="Texture2D" uid="uid://dg7uc0xijxl1o" path="res://assets/circle.png" id="3_740f5"]
+[ext_resource type="Script" path="res://scripts/static_prop.gd" id="1_trjpl"]
+[ext_resource type="Texture2D" uid="uid://rwink3atg2xk" path="res://assets/prop_sprites/blue_rock2.png" id="2_qxtrl"]
+[ext_resource type="Texture2D" uid="uid://dg7uc0xijxl1o" path="res://assets/circle.png" id="3_hq7mb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_onc4m"]
-size = Vector2(56, 23)
+size = Vector2(66, 23)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_05hkx"]
 radius = 11.0454
 
-[node name="Coral" type="StaticBody2D"]
+[node name="Rock" type="StaticBody2D"]
 z_as_relative = false
 y_sort_enabled = true
-position = Vector2(0, -12)
+position = Vector2(0, -8)
 collision_mask = 0
-script = ExtResource("1_xelxc")
+script = ExtResource("1_trjpl")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, -13)
-texture = ExtResource("2_sjmns")
+position = Vector2(0, -28)
+texture = ExtResource("2_qxtrl")
 offset = Vector2(0, -30)
 
 [node name="Shadow" type="Sprite2D" parent="Sprite2D"]
 modulate = Color(0, 0, 0, 0.25098)
 z_index = -1
-position = Vector2(0, 19)
-scale = Vector2(0.6, 0.184)
-texture = ExtResource("3_740f5")
+position = Vector2(0, 29)
+scale = Vector2(0.5, 0.153)
+texture = ExtResource("3_hq7mb")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-7.62939e-06, 0.5)
+position = Vector2(0, -5)
 shape = SubResource("RectangleShape2D_onc4m")
 
 [node name="Area2D" type="Area2D" parent="."]
-position = Vector2(0, 33)
+position = Vector2(7.62939e-06, 27.5)
 collision_layer = 3
 collision_mask = 7
 
 [node name="ProjectileCollider" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(0, -32)
+position = Vector2(-7.62939e-06, -35.5)
 shape = SubResource("CircleShape2D_05hkx")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

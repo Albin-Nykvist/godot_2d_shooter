@@ -1,36 +1,36 @@
-[gd_scene load_steps=6 format=3 uid="uid://wow8mxitatrr"]
+[gd_scene load_steps=6 format=3 uid="uid://ct0wlkx7on20v"]
 
-[ext_resource type="Script" path="res://scripts/static_prop.gd" id="1_xelxc"]
-[ext_resource type="Texture2D" uid="uid://xan5firgifaj" path="res://assets/prop_sprites/coral2.png" id="2_sjmns"]
-[ext_resource type="Texture2D" uid="uid://dg7uc0xijxl1o" path="res://assets/circle.png" id="3_740f5"]
+[ext_resource type="Script" path="res://scripts/static_prop.gd" id="1_d10p8"]
+[ext_resource type="Texture2D" uid="uid://cgwfre4vj4lyw" path="res://assets/prop_sprites/sea_weed1.png" id="2_txlwg"]
+[ext_resource type="Texture2D" uid="uid://dg7uc0xijxl1o" path="res://assets/circle.png" id="3_ulkpv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_onc4m"]
-size = Vector2(56, 23)
+size = Vector2(88, 23)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_05hkx"]
-radius = 11.0454
+radius = 15.0333
 
 [node name="Coral" type="StaticBody2D"]
 z_as_relative = false
 y_sort_enabled = true
 position = Vector2(0, -12)
 collision_mask = 0
-script = ExtResource("1_xelxc")
+script = ExtResource("1_d10p8")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, -13)
-texture = ExtResource("2_sjmns")
+position = Vector2(-1, -34)
+texture = ExtResource("2_txlwg")
 offset = Vector2(0, -30)
 
 [node name="Shadow" type="Sprite2D" parent="Sprite2D"]
 modulate = Color(0, 0, 0, 0.25098)
 z_index = -1
-position = Vector2(0, 19)
-scale = Vector2(0.6, 0.184)
-texture = ExtResource("3_740f5")
+position = Vector2(0, 39)
+scale = Vector2(0.65, 0.199)
+texture = ExtResource("3_ulkpv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-7.62939e-06, 0.5)
+position = Vector2(-1, 0.5)
 shape = SubResource("RectangleShape2D_onc4m")
 
 [node name="Area2D" type="Area2D" parent="."]
@@ -39,7 +39,7 @@ collision_layer = 3
 collision_mask = 7
 
 [node name="ProjectileCollider" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(0, -32)
+position = Vector2(0, -37)
 shape = SubResource("CircleShape2D_05hkx")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

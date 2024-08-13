@@ -13,26 +13,28 @@ radius = 11.0454
 [node name="Coral" type="StaticBody2D"]
 z_as_relative = false
 y_sort_enabled = true
+position = Vector2(0, -8)
 collision_mask = 0
 script = ExtResource("1_hlako")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, -46)
+position = Vector2(0, -14)
 texture = ExtResource("2_fqoew")
 offset = Vector2(0, -30)
 
 [node name="Shadow" type="Sprite2D" parent="Sprite2D"]
 modulate = Color(0, 0, 0, 0.25098)
 z_index = -1
-position = Vector2(0, 19)
+position = Vector2(1, 15)
 scale = Vector2(0.6, 0.184)
 texture = ExtResource("3_6ajo8")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-7.62939e-06, -32.5)
+position = Vector2(0, -5)
 shape = SubResource("RectangleShape2D_onc4m")
 
 [node name="Area2D" type="Area2D" parent="."]
+position = Vector2(7.62939e-06, 27.5)
 collision_layer = 3
 collision_mask = 7
 

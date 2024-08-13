@@ -28,6 +28,8 @@ var border_radius = 2000.0
 var map_area = Vector2i(5000.0, 5000.0)
 var section_size = Vector2i(400, 400)
 var details_section_size = Vector2i(400, 400)
+var details_per_section = 4
+var details_margin = 0
 var margin = 100
 
 # Called when the node enters the scene tree for the first time.
@@ -37,7 +39,7 @@ func _ready():
 func base_ready():
 	base_create_border(border_radius, 25)
 	base_add_props(map_area, section_size, margin, border_radius)
-	base_add_background_details(map_area, details_section_size, 0, border_radius, 4)
+	base_add_background_details(map_area, details_section_size, details_margin, border_radius, details_per_section)
 
 
 ## make a perimiter for the map with a border scene
@@ -59,7 +61,7 @@ func base_add_props(prop_area: Vector2i, section_size: Vector2i, margin: float, 
 
 	var x: int = 0
 	var y: int = 0
-	var num_sections = (prop_area.x/section_size.x) * (prop_area.y/section_size.y)
+	var num_sections = floor((1 + (prop_area.x/section_size.x)) * (1 + (prop_area.y/section_size.y)))
 	for i in num_sections:
 		var section_position = Vector2(start_position.x + (x * (section_size.x + margin)), start_position.y + (y * (section_size.y + margin)))
 		
