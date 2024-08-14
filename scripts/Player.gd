@@ -53,14 +53,11 @@ var dash_direction = Vector2.ZERO
 var teleport_cool_down = 2.0
 var teleport_cool_down_counter = 0.0
 
-# Sliding
-var is_sliding = false
-var slide_speed_bonus = 350.0
-var current_slide_speed_bonus = 0.0
-var slide_speed_increase = 300.0
-var slide_direction = Vector2.ZERO
-var slide_cool_down = 0.15
-var slide_cool_down_counter = 0.0
+# Fire status effect
+var is_burning = false
+var fire_damage = 8.0
+var burn_delay = 0.5
+var burn_delay_counter = 0.0
 
 # Moving
 var speed = 220.0
@@ -87,7 +84,7 @@ var proj_knockback_mult = 1.0
 # Health
 var max_health = 100.0
 var health = 0.0
-var fire_damage = 15.0
+
 
 # Invincibility period
 var is_invincible = false
@@ -146,8 +143,6 @@ func _ready():
 func _physics_process(delta):
 	if is_dashing:
 		dash(delta)
-	elif is_sliding:
-		slide(delta)
 	else:
 		walk()
 	
@@ -157,8 +152,6 @@ func _physics_process(delta):
 	move_around_collision(collision, velocity_before_collision, delta)
 
 func _process(delta):
-
-	
 	if character_sprite.modulate != Color(1, 1, 1, 1):
 		recover_colors()
 	
@@ -178,29 +171,16 @@ func _process(delta):
 	if teleport_cool_down_counter > 0:
 		teleport_cool_down_counter -= delta
 	
-	if is_sliding:
-		character_sprite.scale.y = 0.95
-		if character_sprite.flip_h:
-			character_sprite.skew = -0.1 * PI
-		else:
-			character_sprite.skew = 0.1 * PI
-		var particles = slide_particles.instantiate()
-		particles.emitting = true
-		particles.position = character_sprite.position + Vector2(0, 25)
-		
-		particles.z_index = -1
-		add_child(particles)
-	else:
-		character_sprite.scale.y = 1.0
-		character_sprite.skew = 0.0
-	
-	if slide_cool_down_counter > 0:
-		slide_cool_down_counter -= delta
-	
 	if is_invincible:
 		invincible_duration_counter -= delta
 		if invincible_duration_counter <= 0:
 			is_invincible = false
+	
+	if is_burning:
+		burn_delay_counter -= delta
+		if burn_delay_counter <= 0.0:
+			recieve_damage(fire_damage)
+			burn_delay_counter = burn_delay
 	
 	recover_speed(delta)
 	if target_speed > speed:
@@ -225,15 +205,6 @@ func _input(event):
 		#position = get_global_mouse_position()
 		#dash_cool_down_counter = dash_cool_down * 1.5
 		##teleport_cool_down_counter = teleport_cool_down
-	var direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
-	if Input.is_action_pressed("slide") and direction and slide_cool_down_counter <= 0 and !is_sliding:
-		#is_sliding = true
-		slide_direction = direction
-		current_slide_speed_bonus = slide_speed_bonus
-	if (!Input.is_action_pressed("slide") and is_sliding) or (direction != slide_direction and is_sliding): 
-		is_sliding = false
-		slide_direction = Vector2.ZERO
-		slide_cool_down_counter = slide_cool_down
 
 func _on_pick_up_range_area_entered(area):
 	if area.is_in_group("items"):
@@ -255,13 +226,6 @@ func _on_pick_up_range_area_entered(area):
 func _on_pick_up_range_area_exited(area):
 	if area.is_in_group("items"):
 		reachable_items.erase(area)
-
-func slide(delta):
-	velocity = slide_direction * (self.current_slide_speed_bonus + self.speed)
-	current_slide_speed_bonus -= slide_speed_increase * delta
-	if current_slide_speed_bonus < 0.0:
-		current_slide_speed_bonus = 0
-	look_towards_direction(slide_direction)
 
 func move_around_collision(collision: KinematicCollision2D, velocity_before_collision: Vector2, delta: float):
 	if collision == null: return
@@ -326,11 +290,7 @@ func handle_dash_cool_down(delta: float):
 	if dash_cool_down_counter <= 0.0 and Input.is_action_pressed("dash"):
 		play_sfx(sfx_dash)
 		is_dashing = true
-		if is_sliding:
-			dash_direction = slide_direction
-			current_slide_speed_bonus = slide_speed_bonus
-		else:
-			dash_direction = self.direction
+		dash_direction = self.direction
 		dash_duration_counter = dash_duration
 		camera.shake_screen(0.1, 4.0)
 		
@@ -503,10 +463,16 @@ func play_sfx(audio_node: Node):
 func _on_hazard_detection_body_entered(body):
 	if is_dashing: return
 	if body.is_in_group("fire"):
-		recieve_damage(fire_damage)
+		burn_delay_counter = 0.0
+		is_burning = true
 	if body.is_in_group("spore"):
 		recieve_damage(10)
 	if body.is_in_group("snow"):
 		if speed == target_speed:
 			target_speed = speed
 		speed *= 0.0
+
+
+func _on_hazard_detection_body_exited(body):
+	if body.is_in_group("fire"):
+		is_burning = false

@@ -187,4 +187,5 @@ scale_amount_max = 4.0
 [connection signal="area_entered" from="PickUpRange" to="." method="_on_pick_up_range_area_entered"]
 [connection signal="area_exited" from="PickUpRange" to="." method="_on_pick_up_range_area_exited"]
 [connection signal="body_entered" from="HazardDetection" to="." method="_on_hazard_detection_body_entered"]
+[connection signal="body_exited" from="HazardDetection" to="." method="_on_hazard_detection_body_exited"]
 [connection signal="hidden" from="PauseMenu" to="UpgradeMenu" method="_on_pause_menu_hidden"]

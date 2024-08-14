@@ -15,7 +15,20 @@ class_name Enemy
 ## Max health
 @export var max_health = 100.0
 var health = 0.0 # set in the ready function
-var fire_damage = 30.0
+
+## Fire status effect
+var is_burning = false
+var fire_damage = 10.0
+var burn_delay = 0.2
+var burn_delay_counter = 0.0
+
+## Poison status effect
+var is_poisoned = false
+var poison_damage = 20.0
+var poison_delay = 0.5
+var poison_delay_counter = 0.0
+var poison_duration = 0.0
+var poison_duration_counter = 0.0
 
 ## Base speed
 @export var base_speed = 50.0
@@ -57,10 +70,9 @@ var death_duration = 0.3
 var death_duration_counter = 0.0
 
 # Performance / frame skip
-var base_physics_process_delay = 0.015 # approx 66 fps
+var base_physics_process_delay = 0.015
 var base_physics_process_delay_counter = 0.0
 var base_physics_process_delta_sum = 0.0
-# The performance goal is 400 basic enemies 
 
 # sound
 @onready var sfx_hurt = $sfxHurt
@@ -103,8 +115,8 @@ func base_body_entered(body):
 		reachable_target = body
 		damage_rate_counter = 0.1
 	elif body.is_in_group("fire"):
-		recieve_damage(fire_damage)
-		set_knock_back(300, -self.direction)
+		burn_delay_counter = 0.0
+		is_burning = true
 	elif body.is_in_group("snow"):
 		speed *= 0.0
 
@@ -119,6 +131,9 @@ func set_knock_back(speed: float, direction: Vector2):
 func base_body_exited(body):
 	if body == reachable_target:
 		reachable_target = null
+	
+	if body.is_in_group("fire"):
+		is_burning = false
 
 func base_process(delta: float):
 	reset_color(delta)
@@ -137,6 +152,12 @@ func base_process(delta: float):
 			knockback_duration_counter -= delta
 		else:
 			is_knocked_back = false
+	
+	if is_burning:
+		burn_delay_counter -= delta
+		if burn_delay_counter <= 0.0:
+			recieve_damage(fire_damage)
+			burn_delay_counter = burn_delay
 	
 	if reachable_target and reachable_target.is_dashing == false:
 		damage_rate_counter -= delta
