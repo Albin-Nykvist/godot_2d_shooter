@@ -13,14 +13,14 @@ script = ExtResource("1_vkqp3")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(-2, 0)
 texture = ExtResource("2_2upys")
+offset = Vector2(0, -32)
 
 [node name="Shadow" parent="Sprite2D" instance=ExtResource("3_1fv76")]
 position = Vector2(2, 27)
-script = null
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
 z_index = -1
-position = Vector2(1, -28)
+position = Vector2(1, -48)
 amount = 30
 lifetime = 0.8
 explosiveness = 0.1

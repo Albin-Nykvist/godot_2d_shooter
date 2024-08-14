@@ -13,18 +13,14 @@ radius = 15.0
 [node name="Rock" type="StaticBody2D"]
 z_as_relative = false
 y_sort_enabled = true
+position = Vector2(-1, -60)
 collision_mask = 0
 script = ExtResource("1_vmjig")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(1, 60)
 texture = ExtResource("2_o3e6b")
-
-[node name="Shadow" type="Sprite2D" parent="Sprite2D"]
-modulate = Color(0, 0, 0, 0.25098)
-z_index = -1
-position = Vector2(0.999996, 43.5)
-scale = Vector2(0.63, 0.315)
-texture = ExtResource("2_u7nwy")
+offset = Vector2(0, -60)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.5, 30)
@@ -37,5 +33,12 @@ collision_mask = 7
 [node name="ProjectileCollider" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(0, 30)
 shape = SubResource("CircleShape2D_05hkx")
+
+[node name="Shadow" type="Sprite2D" parent="."]
+modulate = Color(0, 0, 0, 0.25098)
+z_index = -1
+position = Vector2(0.999996, 43.5)
+scale = Vector2(0.63, 0.315)
+texture = ExtResource("2_u7nwy")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

@@ -7,7 +7,9 @@ func _ready():
 	var character = get_parent()
 	if character is Sprite2D:
 		var texture_size = character.get_texture().get_size()
-		position.y = texture_size.y/2
+		#position.y = texture_size.y/2
+		position.y = 0
 	elif character is AnimatedSprite2D:
 		var texture_size = character.sprite_frames.get_frame_texture("default", 0).get_size()
-		position.y = texture_size.y/2
+		#position.y = texture_size.y/2
+		position.y = 0

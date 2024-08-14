@@ -10,6 +10,7 @@ func _ready():
 	props = [
 		preload("res://scenes/prop_scenes/coral.tscn"),
 		preload("res://scenes/prop_scenes/coral2.tscn"),
+		#preload("res://scenes/prop_scenes/coral3.tscn"),
 		preload("res://scenes/prop_scenes/sea_weed.tscn"),
 		preload("res://scenes/prop_scenes/sea_weed2.tscn"),
 		preload("res://scenes/prop_scenes/blue_rock.tscn"),
@@ -32,13 +33,9 @@ func base_add_props(prop_area: Vector2i, section_size: Vector2i, margin: float, 
 	var x: int = 0
 	var y: int = 0
 	var num_sections = floor((1 + (prop_area.x/section_size.x)) * (1 + (prop_area.y/section_size.y)))
-	var clearings = []
-	for i in 5:
-		var index = randi() % num_sections
-		clearings.append(index)
 	for i in num_sections:
-		var num_props = 8
-		if clearings.has(i): 
+		var num_props = 9
+		if i % 4 == 0:
 			num_props = 1
 		for j in num_props:
 			var section_position = Vector2(start_position.x + (x * (section_size.x + margin)), start_position.y + (y * (section_size.y + margin)))

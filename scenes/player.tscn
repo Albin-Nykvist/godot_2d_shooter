@@ -46,20 +46,23 @@ Label/fonts/font = ExtResource("9_17slt")
 
 [node name="Player" type="CharacterBody2D" groups=["players"]]
 y_sort_enabled = true
+position = Vector2(0, -32)
 collision_mask = 17
 motion_mode = 1
 wall_min_slide_angle = 3.14159
 script = ExtResource("1_n2dil")
 
 [node name="CharacterSprite" type="AnimatedSprite2D" parent="."]
-position = Vector2(1, 0)
+position = Vector2(0, 32)
 sprite_frames = SubResource("SpriteFrames_hyw7i")
 autoplay = "default"
 frame_progress = 0.192982
+offset = Vector2(0, -32)
 
 [node name="Shadow" parent="CharacterSprite" instance=ExtResource("5_negvc")]
 position = Vector2(-1, 0)
 scale = Vector2(0.27, 0.0899999)
+script = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 15)

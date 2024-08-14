@@ -13,11 +13,13 @@ linear_damp = 0.2
 script = ExtResource("1_l8da5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -32)
 shape = SubResource("CircleShape2D_7shs1")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(-2, 0)
 texture = ExtResource("2_noysh")
+offset = Vector2(0, -32)
 
 [node name="Shadow" parent="Sprite2D" instance=ExtResource("3_qo7rm")]
 z_as_relative = false

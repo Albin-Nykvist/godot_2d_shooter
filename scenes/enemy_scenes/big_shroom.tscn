@@ -37,14 +37,16 @@ script = ExtResource("1_umqej")
 sprite_frames = SubResource("SpriteFrames_a4rsm")
 autoplay = "default"
 frame_progress = 0.932742
+offset = Vector2(0, -38)
 
 [node name="Shadow" parent="CharacterSprite" instance=ExtResource("4_nft6v")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-2, 22)
+position = Vector2(-2, -15)
 shape = SubResource("CircleShape2D_8bd8k")
 
 [node name="Area2D" type="Area2D" parent="."]
+position = Vector2(0, -36)
 collision_layer = 2
 collision_mask = 131
 

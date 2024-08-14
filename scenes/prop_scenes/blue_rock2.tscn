@@ -13,28 +13,27 @@ radius = 11.0454
 [node name="Rock" type="StaticBody2D"]
 z_as_relative = false
 y_sort_enabled = true
-position = Vector2(0, -8)
+position = Vector2(0, -1)
 collision_mask = 0
 script = ExtResource("1_trjpl")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, -28)
 texture = ExtResource("2_qxtrl")
-offset = Vector2(0, -30)
+offset = Vector2(0, -65)
 
 [node name="Shadow" type="Sprite2D" parent="Sprite2D"]
 modulate = Color(0, 0, 0, 0.25098)
 z_index = -1
-position = Vector2(0, 29)
-scale = Vector2(0.5, 0.153)
+position = Vector2(-1, -7)
+scale = Vector2(0.5, 0.188)
 texture = ExtResource("3_hq7mb")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -5)
+position = Vector2(0, -13)
 shape = SubResource("RectangleShape2D_onc4m")
 
 [node name="Area2D" type="Area2D" parent="."]
-position = Vector2(7.62939e-06, 27.5)
+position = Vector2(7.62939e-06, 19.5)
 collision_layer = 3
 collision_mask = 7
 
