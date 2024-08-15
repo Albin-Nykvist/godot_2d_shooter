@@ -47,7 +47,6 @@ func level_cleared():
 func new_level():
 	# add in a world scene
 	var map = maps[randi() % maps.size()]
-	map = maps[1]
 	var world = map.world.instantiate()
 	add_child(world)
 	if map.particles:

@@ -14,6 +14,8 @@ offsets = PackedFloat32Array(0, 0.993333)
 colors = PackedColorArray(0.579975, 0.95, 0.5605, 1, 0.1, 0.1, 0.1, 1)
 
 [node name="PoisonExplosion" type="StaticBody2D" groups=["poison_explosion"]]
+collision_layer = 128
+collision_mask = 0
 script = ExtResource("1_xn7ea")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -22,7 +24,7 @@ shape = SubResource("CircleShape2D_xxyur")
 [node name="Particles" type="CPUParticles2D" parent="."]
 z_index = 1
 emitting = false
-amount = 30
+amount = 40
 lifetime = 0.3
 one_shot = true
 explosiveness = 0.9
