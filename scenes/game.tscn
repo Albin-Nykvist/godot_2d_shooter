@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_ld2ed"]
 [ext_resource type="PackedScene" uid="uid://ban4vdnehkkji" path="res://scenes/player.tscn" id="2_l2eg0"]
 [ext_resource type="PackedScene" uid="uid://w6vqguk4o656" path="res://scenes/spawner.tscn" id="5_e1jsg"]
-[ext_resource type="PackedScene" uid="uid://b0mxsm2a0dsy8" path="res://scenes/item_scenes/lamp.tscn" id="5_xpkgr"]
+[ext_resource type="PackedScene" uid="uid://dkikoypggpi0u" path="res://scenes/item_scenes/poison_flask.tscn" id="5_ehv2i"]
 [ext_resource type="PackedScene" uid="uid://d2phtdx2wsdd3" path="res://scenes/item_scenes/peanut.tscn" id="6_ui42c"]
 [ext_resource type="PackedScene" uid="uid://c2b04tb5urukc" path="res://scenes/item_scenes/coffee.tscn" id="6_x3iq7"]
 
@@ -28,7 +28,7 @@ wave_rate = 12.0
 max_number_of_entities = 3
 
 [node name="ItemSpawner2" parent="." node_paths=PackedStringArray("player", "spawn_node") groups=["item_spawner"] instance=ExtResource("5_e1jsg")]
-entity_scene = ExtResource("5_xpkgr")
+entity_scene = ExtResource("5_ehv2i")
 entity_is_item = true
 player = NodePath("../Player")
 min_spawn_distance_to_player = 50.0

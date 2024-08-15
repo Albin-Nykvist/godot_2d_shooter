@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://dkikoypggpi0u"]
+
+[ext_resource type="Script" path="res://scripts/items/poison_flask_item.gd" id="1_r8oh7"]
+[ext_resource type="Texture2D" uid="uid://cot7tplwauwv8" path="res://assets/item_sprites/poison_flask.png" id="2_yfrn4"]
+[ext_resource type="PackedScene" uid="uid://cx72b5pmyf7wd" path="res://scenes/shadow.tscn" id="3_7u526"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7shs1"]
+radius = 37.0
+
+[node name="Item" type="Area2D" groups=["items"]]
+y_sort_enabled = true
+linear_damp = 0.2
+script = ExtResource("1_r8oh7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -32)
+shape = SubResource("CircleShape2D_7shs1")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_yfrn4")
+offset = Vector2(0, -32)
+
+[node name="Shadow" parent="Sprite2D" instance=ExtResource("3_7u526")]
+z_as_relative = false
+scale = Vector2(0.3, 0.1)

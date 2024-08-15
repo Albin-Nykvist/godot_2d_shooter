@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://c1jwpapc078uw"]
+
+[ext_resource type="Script" path="res://scripts/hazards/poison_explosion.gd" id="1_xn7ea"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xxyur"]
+radius = 65.0077
+
+[sub_resource type="Curve" id="Curve_4vug1"]
+_data = [Vector2(0.483146, 1), 0.0, 0.0, 0, 0, Vector2(0.483156, 0.483516), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_nxd1p"]
+offsets = PackedFloat32Array(0, 0.993333)
+colors = PackedColorArray(0.579975, 0.95, 0.5605, 1, 0.1, 0.1, 0.1, 1)
+
+[node name="PoisonExplosion" type="StaticBody2D" groups=["poison_explosion"]]
+script = ExtResource("1_xn7ea")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_xxyur")
+
+[node name="Particles" type="CPUParticles2D" parent="."]
+z_index = 1
+emitting = false
+amount = 30
+lifetime = 0.3
+one_shot = true
+explosiveness = 0.9
+lifetime_randomness = 0.2
+emission_shape = 1
+emission_sphere_radius = 5.0
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 200.0
+initial_velocity_max = 300.0
+scale_amount_min = 16.0
+scale_amount_max = 20.0
+scale_amount_curve = SubResource("Curve_4vug1")
+color_ramp = SubResource("Gradient_nxd1p")

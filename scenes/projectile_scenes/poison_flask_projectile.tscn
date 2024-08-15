@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://c02bns8vysn61"]
+
+[ext_resource type="Script" path="res://scripts/projectiles/poison_flask_projectile.gd" id="1_wuti1"]
+[ext_resource type="Texture2D" uid="uid://cot7tplwauwv8" path="res://assets/item_sprites/poison_flask.png" id="2_7tf1f"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_oej32"]
+radius = 40.0
+
+[node name="Projectile" type="CharacterBody2D" groups=["projectiles"]]
+collision_layer = 2
+collision_mask = 0
+motion_mode = 1
+script = ExtResource("1_wuti1")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-2, 0)
+texture = ExtResource("2_7tf1f")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_oej32")

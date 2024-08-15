@@ -6,9 +6,9 @@ var is_destroyed = false
 
 func _ready():
 	life_time = 3.5
-	damage = 10.0
+	damage = 20.0
 	knockback = 250.0
-	stagger = 1.0
+	stagger = 0.6
 	speed = speed * 0.8
 	base_ready()
 

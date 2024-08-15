@@ -17,15 +17,14 @@ collision_mask = 0
 script = ExtResource("1_xelxc")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, -26)
 texture = ExtResource("2_sjmns")
-offset = Vector2(0, -30)
+offset = Vector2(0, -56)
 
 [node name="Shadow" type="Sprite2D" parent="Sprite2D"]
 modulate = Color(0, 0, 0, 0.25098)
 z_index = -1
-position = Vector2(0, 19)
-scale = Vector2(0.6, 0.184)
+position = Vector2(0, -5)
+scale = Vector2(0.5, 0.153)
 texture = ExtResource("3_740f5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

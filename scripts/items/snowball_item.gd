@@ -2,6 +2,8 @@ extends Item
 
 var snow_scene = preload("res://scenes/hazard_scenes/snow.tscn")
 
+var snow_poof = preload("res://scenes/vfx_scenes/ParticleSnowPoof.tscn")
+
 func _ready():
 	projectile_scene = preload("res://scenes/projectile_scenes/snowball_projectile.tscn")
 
@@ -17,6 +19,11 @@ func ability(player: Node):
 		var distance = min_distance + randi() % (max_distance - min_distance)
 		place_snow(player, Vector2(-rand_x + fmod(randi(), rand_x * 2.0), -distance).rotated(angle))
 		angle += angle_increment
+	
+	var poof = snow_poof.instantiate()
+	poof.position = player.position
+	player.get_parent().add_child(poof)
+	poof.emitting = true
 	
 	player.remove_held_item()
 

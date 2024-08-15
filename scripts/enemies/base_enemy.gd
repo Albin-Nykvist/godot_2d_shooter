@@ -11,6 +11,8 @@ class_name Enemy
 
 ## Death particle scene
 @export var death_particles = preload("res://scenes/vfx_scenes/ParticleBlood.tscn")
+## Poison particle scene
+@export var poison_particles = preload("res://scenes/vfx_scenes/ParticlePoisonEnemy.tscn")
 
 ## Max health
 @export var max_health = 100.0
@@ -24,8 +26,9 @@ var burn_delay_counter = 0.0
 
 ## Poison status effect
 var is_poisoned = false
-var poison_damage = 20.0
-var poison_delay = 0.5
+var poison_damage = 8.0
+var base_poison_delay = 1.0
+var poison_delay = 1.0
 var poison_delay_counter = 0.0
 var poison_duration = 0.0
 var poison_duration_counter = 0.0
@@ -119,6 +122,18 @@ func base_body_entered(body):
 		is_burning = true
 	elif body.is_in_group("snow"):
 		speed *= 0.0
+	elif body.is_in_group("poison_explosion"):
+		if !is_poisoned:
+			poison_duration = body.poison_duration
+			poison_duration_counter = poison_duration
+			poison_delay = base_poison_delay
+			poison_delay_counter = 0.0
+			is_poisoned = true
+		else:
+			if body.poison_duration > poison_duration_counter:
+				poison_duration = body.poison_duration
+				poison_duration_counter = poison_duration
+			poison_delay *= 0.5
 
 func set_knock_back(speed: float, direction: Vector2):
 		is_knocked_back = true
@@ -158,6 +173,19 @@ func base_process(delta: float):
 		if burn_delay_counter <= 0.0:
 			recieve_damage(fire_damage)
 			burn_delay_counter = burn_delay
+	
+	if is_poisoned:
+		poison_delay_counter -= delta
+		if poison_delay_counter <= 0.0:
+			recieve_damage(poison_damage)
+			var particles = poison_particles.instantiate()
+			particles.position = Vector2.ZERO
+			add_child(particles)
+			particles.emitting = true
+			poison_delay_counter = poison_delay
+		poison_duration_counter -= delta
+		if poison_duration_counter <= 0.0:
+			is_poisoned = false
 	
 	if reachable_target and reachable_target.is_dashing == false:
 		damage_rate_counter -= delta
