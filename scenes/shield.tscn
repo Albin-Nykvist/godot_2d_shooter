@@ -1,0 +1,43 @@
+[gd_scene load_steps=5 format=3 uid="uid://cd2sin6rlmrxl"]
+
+[ext_resource type="Script" path="res://scripts/Shield.gd" id="1_cd4jv"]
+[ext_resource type="Texture2D" uid="uid://dg7uc0xijxl1o" path="res://assets/circle.png" id="2_ckw07"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_i0232"]
+radius = 201.002
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vc22s"]
+radius = 201.249
+
+[node name="Shield" type="StaticBody2D"]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_cd4jv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_i0232")
+disabled = true
+one_way_collision = true
+one_way_collision_margin = 20.0
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+rotation = -3.14159
+shape = SubResource("CircleShape2D_i0232")
+disabled = true
+one_way_collision = true
+one_way_collision_margin = 20.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+self_modulate = Color(1, 1, 1, 0.129412)
+position = Vector2(1.00001, 1.00001)
+scale = Vector2(2.01, 2.01)
+texture = ExtResource("2_ckw07")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_vc22s")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

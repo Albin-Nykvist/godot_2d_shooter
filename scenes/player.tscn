@@ -46,14 +46,12 @@ Label/fonts/font = ExtResource("9_17slt")
 
 [node name="Player" type="CharacterBody2D" groups=["players"]]
 y_sort_enabled = true
-position = Vector2(0, -32)
 collision_mask = 17
 motion_mode = 1
 wall_min_slide_angle = 3.14159
 script = ExtResource("1_n2dil")
 
 [node name="CharacterSprite" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, 32)
 sprite_frames = SubResource("SpriteFrames_hyw7i")
 autoplay = "default"
 frame_progress = 0.192982
@@ -65,11 +63,12 @@ scale = Vector2(0.27, 0.0899999)
 script = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 15)
+position = Vector2(0, -17)
 scale = Vector2(0.5, 0.5)
 shape = SubResource("CapsuleShape2D_6f6d5")
 
 [node name="PickUpRange" type="Area2D" parent="."]
+position = Vector2(0, -32)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PickUpRange"]
 shape = SubResource("CircleShape2D_tfo3i")
@@ -77,8 +76,10 @@ shape = SubResource("CircleShape2D_tfo3i")
 [node name="HeldItemSprite" type="Sprite2D" parent="."]
 position = Vector2(0, -42)
 texture = ExtResource("5_duwbx")
+offset = Vector2(0, -32)
 
 [node name="HazardDetection" type="Area2D" parent="."]
+position = Vector2(0, -32)
 collision_layer = 0
 collision_mask = 128
 
@@ -88,7 +89,7 @@ shape = SubResource("CapsuleShape2D_8724k")
 
 [node name="Bar" type="Sprite2D" parent="."]
 self_modulate = Color(0, 0, 0, 0)
-position = Vector2(0, 53)
+position = Vector2(0, 21)
 scale = Vector2(0.7, 1.3)
 texture = ExtResource("6_vm5nh")
 
@@ -113,6 +114,7 @@ centered = false
 
 [node name="PlayerCamera" type="Camera2D" parent="."]
 process_mode = 3
+position = Vector2(0, -32)
 process_callback = 0
 position_smoothing_enabled = true
 position_smoothing_speed = 4.0
@@ -172,7 +174,7 @@ pitch_scale = 2.0
 
 [node name="ParticlesWalking" type="CPUParticles2D" parent="."]
 z_index = -1
-position = Vector2(0, 25)
+position = Vector2(0, -7)
 explosiveness = 0.1
 lifetime_randomness = 1.0
 emission_shape = 1

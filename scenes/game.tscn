@@ -19,34 +19,34 @@ game = NodePath("..")
 entity_scene = ExtResource("6_x3iq7")
 entity_is_item = true
 player = NodePath("../Player")
-min_spawn_distance_to_player = 50.0
-max_spawn_distance_to_player = 500.0
+min_spawn_distance_to_player = 100.0
+max_spawn_distance_to_player = 700.0
 spawn_node = NodePath("..")
 spawn_group = "items"
-spawner_group = "item_spawner"
+spawner_group = "item_spawner1"
 wave_rate = 12.0
-max_number_of_entities = 3
+max_number_of_entities = 2
 
 [node name="ItemSpawner2" parent="." node_paths=PackedStringArray("player", "spawn_node") groups=["item_spawner"] instance=ExtResource("5_e1jsg")]
 entity_scene = ExtResource("5_ehv2i")
 entity_is_item = true
 player = NodePath("../Player")
-min_spawn_distance_to_player = 50.0
-max_spawn_distance_to_player = 500.0
+min_spawn_distance_to_player = 100.0
+max_spawn_distance_to_player = 700.0
 spawn_node = NodePath("..")
 spawn_group = "items"
-spawner_group = "item_spawner"
+spawner_group = "item_spawner2"
 wave_rate = 12.0
-max_number_of_entities = 3
+max_number_of_entities = 2
 
 [node name="ItemSpawner3" parent="." node_paths=PackedStringArray("player", "spawn_node") groups=["item_spawner"] instance=ExtResource("5_e1jsg")]
 entity_scene = ExtResource("6_ui42c")
 entity_is_item = true
 player = NodePath("../Player")
-min_spawn_distance_to_player = 50.0
-max_spawn_distance_to_player = 500.0
+min_spawn_distance_to_player = 100.0
+max_spawn_distance_to_player = 700.0
 spawn_node = NodePath("..")
 spawn_group = "items"
-spawner_group = "item_spawner"
+spawner_group = "item_spawner3"
 wave_rate = 12.0
-max_number_of_entities = 3
+max_number_of_entities = 2
