@@ -12,17 +12,16 @@ size = Vector2(20, 24)
 
 [node name="Tree" type="StaticBody2D"]
 z_as_relative = false
-position = Vector2(0, -39)
 collision_mask = 0
 script = ExtResource("1_30btg")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(5, 51)
+position = Vector2(5, 1)
 texture = ExtResource("2_xt0gf")
 offset = Vector2(-5, -125)
 
 [node name="Area2D" type="Area2D" parent="."]
-position = Vector2(0, -22)
+position = Vector2(0, -72)
 collision_layer = 3
 collision_mask = 7
 
@@ -31,13 +30,13 @@ position = Vector2(-7.62939e-06, 49)
 shape = SubResource("CircleShape2D_05hkx")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 25)
+position = Vector2(0, -25)
 shape = SubResource("RectangleShape2D_onc4m")
 
 [node name="Shadow" type="Sprite2D" parent="."]
 modulate = Color(0, 0, 0, 0.25098)
 z_index = -1
-position = Vector2(-5.72205e-06, 40)
+position = Vector2(-5.72205e-06, -10)
 scale = Vector2(0.59, 0.19)
 texture = ExtResource("3_gkah4")
 

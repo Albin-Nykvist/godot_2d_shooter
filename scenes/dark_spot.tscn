@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://c7ysp7fx1avo"]
+
+[ext_resource type="Texture2D" uid="uid://dd76fgxafc7b8" path="res://assets/blob.png" id="1_g3fpy"]
+
+[node name="Sprite2D" type="Sprite2D"]
+self_modulate = Color(0, 0, 0, 0.0823529)
+z_index = -1
+scale = Vector2(3, 3)
+texture = ExtResource("1_g3fpy")
+offset = Vector2(0, -100)
