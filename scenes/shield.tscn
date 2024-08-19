@@ -8,7 +8,7 @@
 radius = 35.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vc22s"]
-radius = 32.0
+radius = 25.02
 
 [node name="Shield" type="StaticBody2D"]
 z_as_relative = false

@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://bvrcl4mtotynu"]
+[gd_scene load_steps=6 format=3 uid="uid://bvrcl4mtotynu"]
 
 [ext_resource type="Script" path="res://scripts/enemy_team_spawner.gd" id="1_3wy8r"]
 [ext_resource type="PackedScene" uid="uid://w6vqguk4o656" path="res://scenes/spawner.tscn" id="2_j1sl6"]
 [ext_resource type="PackedScene" uid="uid://7p3bupdd3s4n" path="res://scenes/enemy_scenes/seahorse.tscn" id="3_8t3n2"]
 [ext_resource type="PackedScene" uid="uid://dsp3w6gghsjnt" path="res://scenes/enemy_scenes/fast_shroom.tscn" id="3_axjt7"]
+[ext_resource type="PackedScene" uid="uid://bq27mkx44tnpt" path="res://scenes/enemy_scenes/pufferfish.tscn" id="5_3fx4o"]
 
 [node name="MushroomSpawner1" type="Node2D"]
 script = ExtResource("1_3wy8r")
@@ -21,6 +22,16 @@ max_number_of_entities = 50
 [node name="FastShroom_Spawner2" parent="." groups=["spawner"] instance=ExtResource("2_j1sl6")]
 enabled = false
 entity_scene = ExtResource("3_axjt7")
+entity_is_enemy = true
+min_spawn_distance_to_player = 1100.0
+max_spawn_distance_to_player = 1100.0
+wave_rate = 30.0
+wave_size = 3
+max_number_of_entities = 50
+
+[node name="FastShroom_Spawner3" parent="." groups=["spawner"] instance=ExtResource("2_j1sl6")]
+enabled = false
+entity_scene = ExtResource("5_3fx4o")
 entity_is_enemy = true
 min_spawn_distance_to_player = 1100.0
 max_spawn_distance_to_player = 1100.0

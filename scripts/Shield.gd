@@ -2,7 +2,7 @@ extends StaticBody2D
 
 var death_particles = preload("res://scenes/vfx_scenes/ParticlePoof.tscn")
 
-@export var health = 400.0
+@export var health = 100.0
 
 var rotation_direction = 0
 var rotation_speed = 0
