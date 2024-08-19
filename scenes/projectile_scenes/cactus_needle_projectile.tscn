@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://cbkismyxrn6hl"]
+
+[ext_resource type="Script" path="res://scripts/projectiles/cactus_needle_projectile.gd" id="1_o328r"]
+[ext_resource type="Texture2D" uid="uid://cg5nv7wnits3d" path="res://assets/projectile_sprites/cactus_needle.png" id="2_n6von"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fevaf"]
+radius = 6.0
+height = 20.0
+
+[node name="Projectile" type="CharacterBody2D" groups=["projectiles"]]
+collision_layer = 2
+collision_mask = 0
+motion_mode = 1
+script = ExtResource("1_o328r")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-2, 0)
+texture = ExtResource("2_n6von")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -2)
+shape = SubResource("CapsuleShape2D_fevaf")

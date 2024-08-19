@@ -120,6 +120,9 @@ func base_body_entered(body):
 	elif body.is_in_group("fire"):
 		burn_delay_counter = 0.0
 		is_burning = true
+	elif body.is_in_group("cactus"):
+		recieve_damage(5)
+		set_knock_back(280, -self.direction)
 	elif body.is_in_group("snow"):
 		speed *= 0.0
 	elif body.is_in_group("poison_explosion"):

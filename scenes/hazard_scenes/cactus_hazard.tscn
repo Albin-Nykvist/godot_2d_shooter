@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://f1has3jiexfk"]
+
+[ext_resource type="Script" path="res://scripts/hazards/cactus_hazard.gd" id="1_08gla"]
+[ext_resource type="Texture2D" uid="uid://wnqdwkiixn5v" path="res://assets/cactus_hazard.png" id="1_gqhih"]
+[ext_resource type="PackedScene" uid="uid://cx72b5pmyf7wd" path="res://scenes/shadow.tscn" id="2_guypf"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kf6at"]
+radius = 18.5
+height = 56.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_okkwq"]
+radius = 29.0
+height = 63.0
+
+[node name="CactusHazard" type="StaticBody2D" groups=["cactus"]]
+collision_mask = 0
+script = ExtResource("1_08gla")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_gqhih")
+offset = Vector2(0, -40)
+
+[node name="Shadow" parent="Sprite2D" instance=ExtResource("2_guypf")]
+position = Vector2(0, -6)
+scale = Vector2(0.35, 0.14)
+script = null
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, -31)
+shape = SubResource("CapsuleShape2D_kf6at")
+
+[node name="DamageBody" type="StaticBody2D" parent="." groups=["cactus"]]
+collision_layer = 128
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageBody"]
+position = Vector2(0, -31.5)
+shape = SubResource("CapsuleShape2D_okkwq")

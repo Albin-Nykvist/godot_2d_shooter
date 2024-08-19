@@ -467,6 +467,8 @@ func _on_hazard_detection_body_entered(body):
 		is_burning = true
 	if body.is_in_group("spore"):
 		recieve_damage(10)
+	if body.is_in_group("cactus"):
+		recieve_damage(10)
 	if body.is_in_group("snow"):
 		if speed == target_speed:
 			target_speed = speed

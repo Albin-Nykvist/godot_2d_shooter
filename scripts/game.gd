@@ -17,8 +17,8 @@ var maps = [
 ]
 
 var enemy_team_spawners = [
-	#preload("res://scenes/enemy_team_spawner_scenes/mushroom_spawner_1.tscn"),
-	preload("res://scenes/enemy_team_spawner_scenes/ocean_spawner_1.tscn"),
+	preload("res://scenes/enemy_team_spawner_scenes/mushroom_spawner_1.tscn"),
+	#preload("res://scenes/enemy_team_spawner_scenes/ocean_spawner_1.tscn"),
 ]
 
 func _ready():
