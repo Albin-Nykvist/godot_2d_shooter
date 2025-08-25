@@ -73,7 +73,7 @@ var death_duration = 0.3
 var death_duration_counter = 0.0
 
 # Performance / frame skip
-var base_physics_process_delay = 0.015
+var base_physics_process_delay =  0.015
 var base_physics_process_delay_counter = 0.0
 var base_physics_process_delta_sum = 0.0
 

@@ -1,10 +1,12 @@
-[gd_scene load_steps=9 format=3 uid="uid://bq27mkx44tnpt"]
+[gd_scene load_steps=11 format=3 uid="uid://bq27mkx44tnpt"]
 
 [ext_resource type="Script" path="res://scripts/enemies/pufferfish.gd" id="1_0ip1q"]
 [ext_resource type="Texture2D" uid="uid://v05j76vspjs8" path="res://assets/enemy_sprites/pufferfish/puffer.png" id="2_h0je8"]
 [ext_resource type="Texture2D" uid="uid://bnk5br3bafs0r" path="res://assets/enemy_sprites/pufferfish/puffer2.png" id="3_wvhst"]
+[ext_resource type="Texture2D" uid="uid://dpcrtvfupfkp1" path="res://assets/enemy_sprites/pufferfish/puffer_morphed.png" id="4_l3nsh"]
 [ext_resource type="PackedScene" uid="uid://cx72b5pmyf7wd" path="res://scenes/shadow.tscn" id="4_t0lq7"]
 [ext_resource type="AudioStream" uid="uid://fqsby8888wun" path="res://assets/audio/sfx/doot.wav" id="5_tdbo2"]
+[ext_resource type="Texture2D" uid="uid://dvnxphivs25on" path="res://assets/enemy_sprites/pufferfish/puffer_morphed2.png" id="5_yey6q"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_a4rsm"]
 animations = [{
@@ -19,10 +21,16 @@ animations = [{
 "name": &"default",
 "speed": 2.0
 }, {
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_l3nsh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_yey6q")
+}],
 "loop": true,
 "name": &"morphed",
-"speed": 5.0
+"speed": 4.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8bd8k"]

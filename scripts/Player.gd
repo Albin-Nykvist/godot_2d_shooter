@@ -152,6 +152,7 @@ func _physics_process(delta):
 	move_around_collision(collision, velocity_before_collision, delta)
 
 func _process(delta):
+	
 	if character_sprite.modulate != Color(1, 1, 1, 1):
 		recover_colors()
 	

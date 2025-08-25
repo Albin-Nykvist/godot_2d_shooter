@@ -3,7 +3,7 @@ extends Enemy
 var poof_scene = preload("res://scenes/vfx_scenes/ParticlePoof.tscn")
 
 var has_morphed = false
-var morph_health = 0.2
+var morph_health = 0.5
 
 func _ready():
 	base_speed = 105.0
@@ -17,7 +17,7 @@ func recieve_damage_after():
 		morph()
 
 func morph():
-	base_speed += 80.0
+	start_speed += 40.0
 	speed_recovery *= 0.5
 	max_health *= morph_health
 	
