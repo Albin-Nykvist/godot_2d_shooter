@@ -1,12 +1,12 @@
 # 🩸 Godot 2d shooter
 
-A Vampire Survivors–inspired 2D roguelike shooter made with Godot & GDScript
+A Vampire Survivors–inspired 2D roguelike shooter made with Godot
 
 ## 🎮 Overview
 
 You are a flower who is really good at throwing stuff.  
 
-Survive as long as you can, gather coins, upgrade your abilities, and see how long you can survive. 
+Defeat enemies, gather coins, upgrade your abilities, and see how long you can survive. 
 ## ⚔️ Core Gameplay
 
 Pick up and throw objects at enemies – the central mechanic.
@@ -15,7 +15,7 @@ Endless waves of enemies with varied behaviors and patterns.
 
 Coins & progression: Every defeated enemy drops coins. Collect enough and you can buy upgrades mid-run.
 
-Smart upgrade system:
+Upgrade system:
 
 Spend coins to improve your character.
 
@@ -25,9 +25,7 @@ Leftover coins carry over, so buying cheaper upgrades means faster access to the
 
 Randomized runs for replayability.
 
-Multiple upgrade paths (damage, throw speed, pickup range, survivability, etc.).
-
-Synergize upgrades to build your own playstyle.
+Wide variety of upgrades (damage, fire, snow, poison, speed, etc.).
 
 ## 🛠️ Built With
 
